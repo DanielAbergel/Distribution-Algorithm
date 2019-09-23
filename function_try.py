@@ -3,8 +3,10 @@ import networkx as nx
 import math as math
 import doctest
 
-(failures,tests) = doctest.testmod(report=True)
-print("{} failures, {} tests".format(failures,tests))
+
+if __name__ == '__main__':
+    (failures,tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures,tests))
 
 def has_negative_cyc(digraph):
     """
