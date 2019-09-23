@@ -1,12 +1,8 @@
 
 import networkx as nx
 import math as math
-import doctest
+import doctest as doctest
 
-
-if __name__ == '__main__':
-    (failures,tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures,tests))
 
 def has_negative_cyc(digraph):
     """
@@ -42,20 +38,20 @@ def has_negative_cyc(digraph):
 
 def has_cyc_less_than_one(digraph):
     """
-    Check if the given graph contains a cycle in which the sum of weights is negative.
+    Check if the given graph contains a cycle in which the multiplying of weights is less than one.
     :param digraph: a networkx directed graph object.
-    :return: True of the graph contains a directed cycle with negative sum of weights; False otherwise.
+    :return: True of the graph contains a directed cycle with ess than one multiplying of weights; False otherwise.
 
     >>> q = nx.DiGraph()
-    >>> q.add_edge('a', 'b', weight=0.5)
-    >>> q.add_edge('b', 'c', weight=0.3)
-    >>> q.add_edge('c', 'a', weight=0.4)
-    >>> has_cyc_less_than_one(q)
-    False
-
-    >>> q['c']['a']['weight'] =0.1
+    >>> q.add_edge('a', 'b', weight=0.1)
+    >>> q.add_edge('b', 'c', weight=0.1)
+    >>> q.add_edge('c', 'a', weight=0.1)
     >>> has_cyc_less_than_one(q)
     True
+
+       >>> q['c']['a']['weight'] = 1
+    >>> has_negative_cyc(q)
+    False
     """
     g = nx.DiGraph()
     for (u, v, d) in digraph.edges(data=True):
@@ -66,6 +62,10 @@ def has_cyc_less_than_one(digraph):
     #for (u, v, d) in g.edges(data=True):
      #  print(d)
     #return g
+
+if __name__ == '__main__':
+  (failures,tests) = doctest.testmod(report=True)
+  print("{} failures, {} tests".format(failures,tests))
 
 
 """
