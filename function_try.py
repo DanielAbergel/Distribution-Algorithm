@@ -91,6 +91,12 @@ def mat_to_directed_graph(matz , matv):
 
 
 def print_graph(G):
+    """
+    print the given graph with matplotlib.pyplot
+    :param digraph: a networkx directed graph object.
+    :return: none
+
+    """
     # the printing of the graph
     elarge = [(u, v) for (u, v, d) in G.edges(data=True) if d['weight'] > 100]
     esmall = [(u, v) for (u, v, d) in G.edges(data=True) if d['weight'] <= 100]
