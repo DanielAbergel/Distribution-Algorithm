@@ -6,6 +6,7 @@ function getDetails() {
   var items = document.getElementById("itemsInput").value;
   namesArr=people.split(',');
   itemsArr=items.split(',');
+  document.getElementById("form").style.display="none";
   addFields();
 }
 
@@ -41,6 +42,7 @@ function addFields(){
   btn.setAttribute("id", "btnId");
   document.body.appendChild(btn);
   document.getElementById("btnId").onclick = setMat;
+
 
 }
 
