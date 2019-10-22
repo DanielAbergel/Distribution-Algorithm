@@ -61,5 +61,33 @@ function setMat(){
       console.log(mat[i][j]);
     }
   }
+getMat(mat);
+}
 
+function getMat(mat){
+  var piechart = $("#pie-chartcanvas-1");
+  // var a=["Africa", "Asia", "Europe", "Latin America", "North America","bibibi","aaaaa"];
+  var b=[2478,5267,734,784,433,1000,1000];
+     var data1 = {
+     labels: itemsArr,
+     datasets: [
+     {
+      label: "Population (millions)",
+      backgroundColor:
+      ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3cba9f"],
+      data: mat[0]
+       }
+       ]
+       };
+
+     var chart = new Chart(piechart,{
+     type:"pie",
+     data : data1,
+     options:{
+       title: {
+          display: true,
+          text: namesArr[0]
+     }
+
+   }});
 }
