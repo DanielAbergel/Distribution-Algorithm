@@ -4,6 +4,8 @@ import math as math
 import doctest as doctest
 import matplotlib.pyplot as plt
 import numpy as np
+from networkx import info
+
 
 def has_negative_cyc(digraph):
     """
@@ -128,9 +130,9 @@ def mat_to_directed_graph(matz , matv):
     :param matv:  represent- the Agents value for the objects
     :param matz: represent - given allocation
     :return: directed_graph
-    >>> z = [ [1, 0.8, 0],[0, 0.2, 1]]
-    >>> v = [ [4, 2.5, 1],[1.25, 2, 5]]
-    >>> mat_to_directed_graph(z)
+    #>>> z = [ [1, 0.8, 0],[0, 0.2, 1]]
+    #>>> v = [ [4, 2.5, 1],[1.25, 2, 5]]
+   # >>> mat_to_directed_graph(z)
     2
     """
     n = len(matz)
@@ -156,20 +158,27 @@ def mat_to_undirected_graph(matz, matv):
     convert the z matrix to directed graph
     :param matv:  represent- the Agents value for the objects
     :param matz: represent - given allocation
-    :return: directed_graph
-
+    :return: undirected_graph
+    >>> z = [ [1, 0.8, 0],[0, 0.2, 1]]
+    >>> v = [ [4, 2.5, 1],[1.25, 2, 5]]
+    >>> str(mat_to_undirected_graph(z, v).edges())
+    "[('i0', 'o0'), ('i0', 'o1'), ('o1', 'i1'), ('i1', 'o2')]"
+    >>> a = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
+    >>> b  = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
+    >>> str(mat_to_undirected_graph(a, b).edges())
+    "[('i0', 'o0'), ('i1', 'o1'), ('i2', 'o2')]"
+    >>> c = [ [1, 1, 1],[1, 1, 1],[1, 1, 1]]
+    >>> d  = [ [1, 1, 1],[1, 1, 1],[1, 1, 1]]
+    >>> str(mat_to_undirected_graph(c, d).edges())
+    "[('i0', 'o0'), ('i0', 'o1'), ('i0', 'o2'), ('o0', 'i1'), ('o0', 'i2'), ('o1', 'i1'), ('o1', 'i2'), ('o2', 'i1'), ('o2', 'i2')]"
     """
     n = len(matz)
     m = len(matz[0])
-    g = nx.DiGraph()
-    for i in range(0, len(matz)):
-        for j in range(0, len(matz[0])):
-            if(matz[i][j] < 1):
-                if(matv[i][j] > 0):
-                    g.add_edge("o"+str(i), "i"+str(j), weight=1/(matv[i][j]))
-                else:
-                    g.add_edge("i"+str(j), "o"+str(i), weight=(matv[i][j]*-1))
-
+    g = nx.Graph()
+    for i in range(0, n):
+        for j in range(0, m):
+            if(matz[i][j] > 0):
+                g.add_edge("i"+str(i), "o"+str(j), weight=0)
     return g
 
 def matrix_transpose(mat):
@@ -186,7 +195,7 @@ def printmat(matrix):
     for row in matrix:
         print(row)
 
-def print_graph(G):
+def print_Dgraph(G):
     """
     print the given graph with matplotlib.pyplot
     :param digraph: a networkx directed graph object.
@@ -217,17 +226,41 @@ def print_graph(G):
     plt.show()
 
 
+def is_proportional(matz , matv):
+    pass
+
+def one_proportional(matz , matv,x):
+    sum=0
+    part=0
+    for i in range(0,len(matz[0])):
+        sum+=matv[x][i]
+        part+=matv[x][i]*matz[x][i]
+
+    sum=sum/len(matz[0])
+    return part>=sum
+
+def is_envy_free(matz , matv):
+    pass
+
+
 
 if __name__ == '__main__':
     #v = [[5, 1], [25, 2], [1, 5]]
     #z = [[1, 0], [0.8, 0.2], [0, 1]]
     #G = mat_to_directed_graph(z, v)
    # print_graph(G)
-  #(failures, tests) = doctest.testmod(report=True)
-  #print("{} failures, {} tests".format(failures, tests))
-    z = [ [1, 0.8, 0],[0, 0.2, 1]]
-    v = [ [4, 2.5, 1],[1.25, 2, 5]]
-    print_graph(mat_to_directed_graph2(v,z))
+   (failures, tests) = doctest.testmod(report=True)
+   print("{} failures, {} tests".format(failures, tests))
+    #z = [ [1, 0.8, 0],[0, 0.2, 1]]
+    #v = [ [4, 2.5, 1],[1.25, 2, 5]]
+    #a = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
+    #b  = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
+    #c = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+    #d = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+    #print_Dgraph(mat_to_undirected_graph(z,v))
+    #print_Dgraph(mat_to_undirected_graph(c, d))
+    #print((mat_to_undirected_graph(c, d).edges()))
+
 
 """
 def test1():
