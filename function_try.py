@@ -130,26 +130,34 @@ def mat_to_directed_graph(matz , matv):
     :param matv:  represent- the Agents value for the objects
     :param matz: represent - given allocation
     :return: directed_graph
-    #>>> z = [ [1, 0.8, 0],[0, 0.2, 1]]
-    #>>> v = [ [4, 2.5, 1],[1.25, 2, 5]]
-   # >>> mat_to_directed_graph(z)
-    2
-    """
+    >>> z = [ [1, 0.8, 0],[0, 0.2, 1]]
+    >>> v = [ [4, 2.5, 1],[1.25, 2, 5]]
+    >>> str(mat_to_directed_graph(z,v).edges().data())
+    "[('i0', 'o0', {'weight': 4}), ('i0', 'o1', {'weight': 2.5}), ('o0', 'i1', {'weight': 0.8}), ('o1', 'i0', {'weight': 0.4}), ('o1', 'i1', {'weight': 0.5}), ('o2', 'i0', {'weight': 1.0}), ('i1', 'o1', {'weight': 2}), ('i1', 'o2', {'weight': 5})]"
+    >>> z = [ [1, 0.8, 0],[0, 0.2, 1]]
+    >>> v = [ [4, 25, 1],[1.25, 2, 5]]
+    >>> str(mat_to_directed_graph(z,v).edges().data())
+    "[('i0', 'o0', {'weight': 4}), ('i0', 'o1', {'weight': 25}), ('o0', 'i1', {'weight': 0.8}), ('o1', 'i0', {'weight': 0.04}), ('o1', 'i1', {'weight': 0.5}), ('o2', 'i0', {'weight': 1.0}), ('i1', 'o1', {'weight': 2}), ('i1', 'o2', {'weight': 5})]"
+    >>> z = [ [1, 0.3],[0, 0.7]]
+    >>> v = [ [7, 2],[1, 3]]
+    >>> str(mat_to_directed_graph(z,v).edges().data())
+    "[('i0', 'o0', {'weight': 7}), ('i0', 'o1', {'weight': 2}), ('o0', 'i1', {'weight': 1.0}), ('o1', 'i0', {'weight': 0.5}), ('o1', 'i1', {'weight': 0.3333333333333333}), ('i1', 'o1', {'weight': 3})]"
+   """
     n = len(matz)
     m = len(matz[0])
     g = nx.DiGraph()
     for i in range(0, n):
         for j in range(0, m):
             if(matz[i][j] > 0):
-                if(matv[i][j] <= 0):
+                if(matv[i][j] >= 0):
                     g.add_edge("i"+str(i), "o"+str(j), weight=(matv[i][j]))
                 else:
                     g.add_edge("o"+str(j), "i"+str(i), weight=1/(matv[i][j]))
             if(matz[i][j] < 1):
                 if(matv[i][j] > 0):
-                    g.add_edge("o"+str(i), "i"+str(j), weight=1/(matv[i][j]))
+                    g.add_edge("o"+str(j), "i"+str(i), weight=1/(matv[i][j]))
                 else:
-                    g.add_edge("i"+str(j), "o"+str(i), weight=(matv[i][j]*-1))
+                    g.add_edge("i"+str(i), "o"+str(j), weight=(matv[i][j]*-1))
     return g
 
 
@@ -249,17 +257,18 @@ if __name__ == '__main__':
     #z = [[1, 0], [0.8, 0.2], [0, 1]]
     #G = mat_to_directed_graph(z, v)
    # print_graph(G)
-   (failures, tests) = doctest.testmod(report=True)
-   print("{} failures, {} tests".format(failures, tests))
-    #z = [ [1, 0.8, 0],[0, 0.2, 1]]
-    #v = [ [4, 2.5, 1],[1.25, 2, 5]]
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))
+   # z = [ [1, 0.8, 0],[0, 0.2, 1]]
+    #v = [ [4, 25, 1],[1.25, 2, 5]]
+     #z = [ [1, 0.3],  [0, 0.7]]
+     #v = [ [7, 2], [1,3]]
     #a = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
     #b  = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
     #c = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
     #d = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
-    #print_Dgraph(mat_to_undirected_graph(z,v))
-    #print_Dgraph(mat_to_undirected_graph(c, d))
-    #print((mat_to_undirected_graph(c, d).edges()))
+    # print_Dgraph(mat_to_directed_graph(z,v))
+    # print((mat_to_directed_graph(z,v).edges().data()))
 
 
 """
