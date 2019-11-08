@@ -189,6 +189,46 @@ def mat_to_undirected_graph(matz, matv):
                 g.add_edge("i"+str(i), "o"+str(j), weight=0)
     return g
 
+
+
+
+def find_allocation_for_2(matv):
+    pass
+
+
+def takeSecond(elem):
+    return elem[1]
+
+def build_the_Difference_array(matv):
+    """
+    this function build the array for ratio between i0 to i1
+    and sort it
+    :param matv:  represent- the Agents value for the objects
+    :return: the sorted array
+    
+    >>> a = [[20,30,40,10],[10,60,10,20]]
+    >>> build_the_Difference_array(a)
+    [(1, 0.5), (3, 0.5), (0, 2.0), (2, 4.0)]
+    >>> a = [[1,3,9,2,4,6,5],[2,4,4,3,6,2,1]]
+    >>> build_the_Difference_array(a)
+    [(0, 0.5), (3, 0.6666666666666666), (4, 0.6666666666666666), (1, 0.75), (2, 2.25), (5, 3.0), (6, 5.0)]
+    """
+    n=len(matv[0])
+    l=[]
+    for i in range(0,n):
+        temp = matv[0][i]/matv[1][i]
+        l.append((i,temp))
+    l.sort(key=takeSecond)
+    #print(l)
+    return l
+
+
+
+
+
+
+
+
 def matrix_transpose(mat):
     """
     this function transpose matrix
@@ -233,10 +273,10 @@ def print_Dgraph(G):
     plt.axis('off')
     plt.show()
 
-
+# need to do
 def is_proportional(matz , matv):
     pass
-
+# need to do
 def one_proportional(matz , matv,x):
     sum=0
     part=0
@@ -246,7 +286,7 @@ def one_proportional(matz , matv,x):
 
     sum=sum/len(matz[0])
     return part>=sum
-
+# need to do
 def is_envy_free(matz , matv):
     pass
 
@@ -259,7 +299,7 @@ if __name__ == '__main__':
    # print_graph(G)
     (failures, tests) = doctest.testmod(report=True)
     print("{} failures, {} tests".format(failures, tests))
-   # z = [ [1, 0.8, 0],[0, 0.2, 1]]
+    #z = [ [1, 0.8, 0],[0, 0.2, 1]]
     #v = [ [4, 25, 1],[1.25, 2, 5]]
      #z = [ [1, 0.3],  [0, 0.7]]
      #v = [ [7, 2], [1,3]]
@@ -267,8 +307,9 @@ if __name__ == '__main__':
     #b  = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
     #c = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
     #d = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
-    # print_Dgraph(mat_to_directed_graph(z,v))
+    #print_Dgraph(mat_to_directed_graph(z,v))
     # print((mat_to_directed_graph(z,v).edges().data()))
+
 
 
 """
