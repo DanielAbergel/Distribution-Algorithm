@@ -193,11 +193,58 @@ def mat_to_undirected_graph(matz, matv):
 
 
 def find_allocation_for_2(matv):
-    pass
+   pass
+
+
+
+def find_all_the_non_sherd_alloc(matv):
+    """
+    convert allocation that is represent by one demention array
+    to complete allocation that represent by matrix
+    :param arr:  represent- the allocation that is represent by one demention array
+    :return: complete allocation that represent by matrix (matv)
+    """
+    l = build_the_Difference_array(matv)
+    tempalloc=[0]*len(matv[0])
+    #print("the temp before: {}".format(tempalloc))
+    #print("the l before: {}".format(l))
+    print(tempalloc)
+    for i in range(0,len(matv[0])):
+        for j in range(0,i+1):
+           tempalloc[l[j][0]] = 1
+        print(tempalloc)
+        print(array_to_alloc(tempalloc))
+
+def array_to_alloc(arr):
+    """
+    convert allocation that is represent by one demention array
+    to complete allocation that represent by matrix
+    :param arr:  represent- the allocation that is represent by one demention array
+    :return: complete allocation that represent by matrix (matv)
+    >>> a = [1, 0, 0]
+    >>> array_to_alloc(a)
+    [[1, 0, 0], [0, 1, 1]]
+    >>> a = [1, 0, 1 , 0 , 1 , 1 , 1 , 0]
+    >>> array_to_alloc(a)
+    [[1, 0, 1, 0, 1, 1, 1, 0], [0, 1, 0, 1, 0, 0, 0, 1]]
+    """
+    matv=[]
+    matv.append(arr)
+    arr2=[]
+    for i in range(0,len(arr)):
+       arr2.append((1-arr[i]))
+    matv.append(arr2)
+    return matv
+
+
+
 
 
 def takeSecond(elem):
     return elem[1]
+
+
+
 
 def build_the_Difference_array(matv):
     """
@@ -205,7 +252,7 @@ def build_the_Difference_array(matv):
     and sort it
     :param matv:  represent- the Agents value for the objects
     :return: the sorted array
-    
+
     >>> a = [[20,30,40,10],[10,60,10,20]]
     >>> build_the_Difference_array(a)
     [(1, 0.5), (3, 0.5), (0, 2.0), (2, 4.0)]
@@ -296,9 +343,9 @@ if __name__ == '__main__':
     #v = [[5, 1], [25, 2], [1, 5]]
     #z = [[1, 0], [0.8, 0.2], [0, 1]]
     #G = mat_to_directed_graph(z, v)
-   # print_graph(G)
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
+    # print_graph(G)
+    #(failures, tests) = doctest.testmod(report=True)
+    #print("{} failures, {} tests".format(failures, tests))
     #z = [ [1, 0.8, 0],[0, 0.2, 1]]
     #v = [ [4, 25, 1],[1.25, 2, 5]]
      #z = [ [1, 0.3],  [0, 0.7]]
@@ -309,7 +356,8 @@ if __name__ == '__main__':
     #d = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
     #print_Dgraph(mat_to_directed_graph(z,v))
     # print((mat_to_directed_graph(z,v).edges().data()))
-
+    a=[[1,3,9,2,4,6,5],[2,4,4,3,6,2,1]]
+    find_all_the_non_sherd_alloc(a)
 
 
 """
