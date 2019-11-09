@@ -283,6 +283,9 @@ def matrix_transpose(mat):
     ans = [[row[i] for row in mat]for i in range(len(mat[0]))]
     return ans
 
+
+
+
 def printmat(matrix):
     """
     this function print matrix in her shape
@@ -320,19 +323,76 @@ def print_Dgraph(G):
     plt.axis('off')
     plt.show()
 
-# need to do
-def is_proportional(matz , matv):
-    pass
-# need to do
-def one_proportional(matz , matv,x):
-    sum=0
-    part=0
-    for i in range(0,len(matz[0])):
-        sum+=matv[x][i]
-        part+=matv[x][i]*matz[x][i]
 
-    sum=sum/len(matz[0])
+
+
+
+
+def is_proportional(matz , matv):
+    """
+    this function check if allocation z is proportional
+    according to any agent
+    for any i and j: ui(xi)>=1/n(ui(xj)
+    :param matz represent the allocation
+    :param matv represent the value for the agents
+    :return: bool value if the allocation is proportional
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> z = [[0,0,1,0.5],[1,1,0,0.5]]
+    >>> is_proportional(z,v)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.5,0.2],[0.5,0.8]]
+    >>> is_proportional(z,v)
+    False
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.6,0.2],[0.4,0.8]]
+    >>> is_proportional(z,v)
+    True
+    """
+    flag = True
+    for i in range(0,len(matz)):
+        if not(one_proportional(matz , matv,i)):
+            flag = False
+    return flag
+
+
+def one_proportional(matz , matv,x):
+    """
+    this function check if allocation z is proportional
+    according to single agent
+    for specific i and any j : ui(xi)>=1/n(ui(xj)
+    :param matz represent the allocation
+    :param matv represent the value for the agents
+    :param x the number of agent we check
+    :return: bool value if the allocation is proportional
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> z = [[0,0,1,0.5],[1,1,0,0.5]]
+    >>> one_proportional(z,v,0)
+    True
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> z = [[0,0,1,0],[1,1,0,1]]
+    >>> one_proportional(z,v,0)
+    False
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.5,0.2],[0.5,0.8]]
+    >>> one_proportional(z,v,0)
+    False
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.5,0.2],[0.5,0.8]]
+    >>> one_proportional(z,v,1)
+    True
+    """
+    sum = 0
+    part = 0
+    for i in range(0,len(matz[0])):
+        sum += matv[x][i]
+        part += matv[x][i]*matz[x][i]
+    sum = sum / len(matz)
     return part>=sum
+
+
+
+
 # need to do
 def is_envy_free(matz , matv):
     pass
@@ -344,8 +404,8 @@ if __name__ == '__main__':
     #z = [[1, 0], [0.8, 0.2], [0, 1]]
     #G = mat_to_directed_graph(z, v)
     # print_graph(G)
-    #(failures, tests) = doctest.testmod(report=True)
-    #print("{} failures, {} tests".format(failures, tests))
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))
     #z = [ [1, 0.8, 0],[0, 0.2, 1]]
     #v = [ [4, 25, 1],[1.25, 2, 5]]
      #z = [ [1, 0.3],  [0, 0.7]]
@@ -356,22 +416,8 @@ if __name__ == '__main__':
     #d = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
     #print_Dgraph(mat_to_directed_graph(z,v))
     # print((mat_to_directed_graph(z,v).edges().data()))
-    a=[[1,3,9,2,4,6,5],[2,4,4,3,6,2,1]]
-    find_all_the_non_sherd_alloc(a)
+    #a=[[1,3,9,2,4,6,5],[2,4,4,3,6,2,1]]
+    #find_all_the_non_sherd_alloc(a)
 
 
-"""
-def test1():
-    G = nx.DiGraph()
-    G.add_edge('a', 'b', weight=0.6)
-    G.add_edge('b', 'c', weight=0.2)
-    G.add_edge('c', 'a', weight=0.1)
-    #G.add_edge('c', 'e', weight=0.7)
-    #G.add_edge('c', 'f', weight=-0.9)
-    #G.add_edge('a', 'd', weight=0.3)
-   # G.add_edge('f', 'a', weight=0.3)
-    g1 = has_cyc_less_than_one(G)
-    print(has_negative_cyc(g1,'a'))
 
-#test1()
-"""
