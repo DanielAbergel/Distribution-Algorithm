@@ -351,35 +351,35 @@ def is_proportional(matz , matv):
     """
     flag = True
     for i in range(0,len(matz)):
-        if not(one_proportional(matz , matv,i)):
+        if not(is_single_proportional(matz , matv,i)):
             flag = False
     return flag
 
 
-def one_proportional(matz , matv,x):
+def is_single_proportional(matz , matv,x):
     """
     this function check if allocation z is proportional
     according to single agent
-    for specific i and any j : ui(xi)>=1/n(ui(xj)
+    for specific i and any j : ui(xi)>=1/n(xi)
     :param matz represent the allocation
     :param matv represent the value for the agents
     :param x the number of agent we check
     :return: bool value if the allocation is proportional
     >>> v = [[1,3,5,2],[4,3,2,4]]
     >>> z = [[0,0,1,0.5],[1,1,0,0.5]]
-    >>> one_proportional(z,v,0)
+    >>> is_single_proportional(z,v,0)
     True
     >>> v = [[1,3,5,2],[4,3,2,4]]
     >>> z = [[0,0,1,0],[1,1,0,1]]
-    >>> one_proportional(z,v,0)
+    >>> is_single_proportional(z,v,0)
     False
     >>> v = [[11,3],[7,7]]
     >>> z = [[0.5,0.2],[0.5,0.8]]
-    >>> one_proportional(z,v,0)
+    >>> is_single_proportional(z,v,0)
     False
     >>> v = [[11,3],[7,7]]
     >>> z = [[0.5,0.2],[0.5,0.8]]
-    >>> one_proportional(z,v,1)
+    >>> is_single_proportional(z,v,1)
     True
     """
     sum = 0
@@ -388,36 +388,89 @@ def one_proportional(matz , matv,x):
         sum += matv[x][i]
         part += matv[x][i]*matz[x][i]
     sum = sum / len(matz)
-    return part>=sum
+    return part >= sum
 
 
 
 
-# need to do
+
 def is_envy_free(matz , matv):
-    pass
+    """
+    this function check if allocation z is envy_free
+    according to single agent
+    for specific i and any j : ui(xi)>=ui(xj)
+    :param matz represent the allocation
+    :param matv represent the value for the agents
+    :param x the number of agent we check
+    :return: bool value if the allocation is envy_free
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> z = [[0,0,1,0.5],[1,1,0,0.5]]
+    >>> is_envy_free(z,v)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.6,0.2],[0.4,0.8]]
+    >>> is_envy_free(z,v)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.5,0.2],[0.5,0.8]]
+    >>> is_envy_free(z,v)
+    False
+    """
+    flag = True
+    for i in range(0, len(matz)):
+        if not (is_single_envy_free(matz, matv, i)):
+            flag = False
+    return flag
 
 
+def is_single_envy_free(matz , matv,x):
+    """
+    this function check if allocation z is envy_free
+    according to single agent
+    for specific i and any j : ui(xi)>=ui(xj)
+    :param matz represent the allocation
+    :param matv represent the value for the agents
+    :param x the number of agent we check
+    :return: bool value if the allocation is envy_free
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> z = [[0,0,1,0.5],[1,1,0,0.5]]
+    >>> is_single_envy_free(z,v,0)
+    True
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> z = [[0,0,1,0.5],[1,1,0,0.5]]
+    >>> is_single_envy_free(z,v,1)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.6,0.2],[0.4,0.8]]
+    >>> is_single_envy_free(z,v,0)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.6,0.2],[0.4,0.8]]
+    >>> is_single_envy_free(z,v,1)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.5,0.2],[0.5,0.8]]
+    >>> is_single_envy_free(z,v,0)
+    False
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.5,0.2],[0.5,0.8]]
+    >>> is_single_envy_free(z,v,1)
+    True
+    """
+    sums =[0]*len(matz)
+    flag = True
+    for i in range(0,len(matz)):
+        for j in range(0,len(matz[0])):
+            sums[i] += matz[i][j]*matv[x][j]
+    for i in range(0,len(sums)):
+        if not(sums[x] >= sums[i]):
+            flag =False
+    return flag
 
 if __name__ == '__main__':
-    #v = [[5, 1], [25, 2], [1, 5]]
-    #z = [[1, 0], [0.8, 0.2], [0, 1]]
-    #G = mat_to_directed_graph(z, v)
-    # print_graph(G)
     (failures, tests) = doctest.testmod(report=True)
     print("{} failures, {} tests".format(failures, tests))
-    #z = [ [1, 0.8, 0],[0, 0.2, 1]]
-    #v = [ [4, 25, 1],[1.25, 2, 5]]
-     #z = [ [1, 0.3],  [0, 0.7]]
-     #v = [ [7, 2], [1,3]]
-    #a = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
-    #b  = [ [1, 0, 0],[0, 1, 0],[0, 0, 1]]
-    #c = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
-    #d = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
-    #print_Dgraph(mat_to_directed_graph(z,v))
-    # print((mat_to_directed_graph(z,v).edges().data()))
-    #a=[[1,3,9,2,4,6,5],[2,4,4,3,6,2,1]]
-    #find_all_the_non_sherd_alloc(a)
+
 
 
 
