@@ -193,7 +193,77 @@ def mat_to_undirected_graph(matz, matv):
 
 
 def find_allocation_for_2(matv):
-   pass
+   z = find_all_the_non_sherd_alloc(matv)
+   if (z == None):
+       z = find_all_the_sherd_alloc(matv)
+   return z
+
+def find_all_the_sherd_alloc(matv):
+    """
+    convert allocation that is represent by one demention array
+    to complete allocation that represent by matrix
+    :param arr:  represent- the allocation that is represent by one demention array
+    :return: complete allocation that represent by matrix (matv)
+    """
+    l = build_the_Difference_array(matv)
+    tempalloc=[0]*len(matv[0])
+    for i in range(0,len(matv[0])):
+        for j in range(0,i+1):
+           tempalloc[l[j][0]] = 1
+        z = array_to_alloc(tempalloc)
+        x = find_x(z,matv,i)
+        if not(x == None):
+           z[0][i]=x
+           z[1][i] = 1- x
+           return z
+    return None
+
+
+def find_x(matz,matv,index):
+  v0_base = find_v0_base(matz,matv,index)
+  v0_all = find_v0_all(matz,matv,index)
+  u0 = matv[0][index]
+  v1_base = find_v1_base(matz,matv,index)
+  v1_all = find_v1_all(matz,matv,index)
+  u1 = matv[1][index]
+  sum0 = (0.5*v0_all - v0_base)/u0
+  sum1 = -(0.5*v1_all -v1_base)/u1 + 1
+  if(sum0>sum1):
+      return None
+  if(sum0>1)or(sum1<0):
+      return None
+  if(sum0>=0):
+      return sum0
+  if (sum1 <= 1):
+      return sum1
+  return 0.5
+
+def find_v0_base(matz,matv,index):
+    sum = 0
+    for i in range(0,matz[0]):
+        if not(i==index):
+           sum += matz[0][i]*matv[0][i]
+    return sum
+
+def find_v0_all(matz,matv,index):
+    sum=0
+    for i in range(0,matv[0]):
+        sum += matv[0][i]
+    return sum
+
+def find_v1_base(matz,matv,index):
+    sum = 0
+    for i in range(0, matz[1]):
+        if not (i == index):
+            sum += matz[1][i] * matv[1][i]
+    return sum
+
+
+def find_v1_all(matz,matv,index):
+    sum = 0
+    for i in range(0, matv[0]):
+        sum += matv[1][i]
+    return sum
 
 
 
@@ -208,12 +278,17 @@ def find_all_the_non_sherd_alloc(matv):
     tempalloc=[0]*len(matv[0])
     #print("the temp before: {}".format(tempalloc))
     #print("the l before: {}".format(l))
-    print(tempalloc)
+    #print(tempalloc)
+    if(is_proportional(array_to_alloc(tempalloc),matv))and(is_envy_free(array_to_alloc(tempalloc),matv)):
+        return array_to_alloc(tempalloc)
     for i in range(0,len(matv[0])):
         for j in range(0,i+1):
            tempalloc[l[j][0]] = 1
-        print(tempalloc)
-        print(array_to_alloc(tempalloc))
+        if (is_proportional(array_to_alloc(tempalloc), matv)) and (is_envy_free(array_to_alloc(tempalloc), matv)):
+            return array_to_alloc(tempalloc)
+        #print(tempalloc)
+        #print(array_to_alloc(tempalloc))
+    return None
 
 def array_to_alloc(arr):
     """
@@ -248,7 +323,7 @@ def takeSecond(elem):
 
 def build_the_Difference_array(matv):
     """
-    this function build the array for ratio between i0 to i1
+    this function build the array for  Distribution ratio between i0 to i1
     and sort it
     :param matv:  represent- the Agents value for the objects
     :return: the sorted array
