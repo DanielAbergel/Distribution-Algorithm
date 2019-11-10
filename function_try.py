@@ -192,30 +192,48 @@ def mat_to_undirected_graph(matz, matv):
 
 
 
+
+
+
+
+
+
+
 def find_allocation_for_2(matv):
    z = find_all_the_non_sherd_alloc(matv)
    if (z == None):
        z = find_all_the_sherd_alloc(matv)
+   #print(z)
    return z
+
+
+
+
+
 
 def find_all_the_sherd_alloc(matv):
     """
-    convert allocation that is represent by one demention array
-    to complete allocation that represent by matrix
-    :param arr:  represent- the allocation that is represent by one demention array
-    :return: complete allocation that represent by matrix (matv)
+
+    :param
+    :return:
     """
     l = build_the_Difference_array(matv)
-    tempalloc=[0]*len(matv[0])
+    tempalloc = [0]*len(matv[0])
+    index = 0
     for i in range(0,len(matv[0])):
         for j in range(0,i+1):
            tempalloc[l[j][0]] = 1
+           index = l[j][0]
+        #print(tempalloc)
+        #print("x:{} ".format(index))
         z = array_to_alloc(tempalloc)
-        x = find_x(z,matv,i)
-        if not(x == None):
-           z[0][i]=x
-           z[1][i] = 1- x
+        x = find_x(z,matv,index)
+        if not(x == -1):
+           z[0][index] = x
+           z[1][index] = 1- x
+           #print("find_all_the_sherd_alloc return: {}".format(z))
            return z
+    #print("find_all_the_sherd_alloc return: {}".format(None))
     return None
 
 
@@ -226,42 +244,113 @@ def find_x(matz,matv,index):
   v1_base = find_v1_base(matz,matv,index)
   v1_all = find_v1_all(matz,matv,index)
   u1 = matv[1][index]
+
   sum0 = (0.5*v0_all - v0_base)/u0
-  sum1 = -(0.5*v1_all -v1_base)/u1 + 1
-  if(sum0>sum1):
-      return None
-  if(sum0>1)or(sum1<0):
-      return None
-  if(sum0>=0):
+  sum1 = (0.5*v1_all -v1_base)/(-u1) + 1
+  if(sum0 > sum1):
+      return -1
+  if (sum0 > 1)or(sum1 < 0):
+      return -1
+  if(sum0 >= 0):
       return sum0
   if (sum1 <= 1):
       return sum1
   return 0.5
 
-def find_v0_base(matz,matv,index):
+
+
+def find_v0_base(matz ,matv , index):
+    """
+    :param
+    :return:
+    >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v0_base(z,v,0)
+    7
+    >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v0_base(z,v,2)
+    3
+    >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v0_base(z,v,3)
+    6
+    """
     sum = 0
-    for i in range(0,matz[0]):
-        if not(i==index):
+    for i in range(0,len(matz[0])):
+        if not(i == index):
            sum += matz[0][i]*matv[0][i]
     return sum
 
+
 def find_v0_all(matz,matv,index):
+    """
+    :param
+    :return:
+    >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v0_all(z,v,0)
+    15
+    >>> v = [[1,1,2,2,4],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v0_all(z,v,2)
+    10
+    >>> v = [[2,3,3,2,6],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v0_all(z,v,3)
+    16
+    """
     sum=0
-    for i in range(0,matv[0]):
+    for i in range(0,len(matv[0])):
         sum += matv[0][i]
     return sum
 
+
+
+
 def find_v1_base(matz,matv,index):
+    """
+    :param
+    :return:
+    >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v1_base(z,v,0)
+    5
+    >>> v = [[1,3,5,2,4],[4,7,2,4,3]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v1_base(z,v,2)
+    10
+    >>> v = [[1,3,5,2,4],[4,1,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v1_base(z,v,3)
+    3
+    """
     sum = 0
-    for i in range(0, matz[1]):
+    for i in range(0, len(matz[1])):
         if not (i == index):
             sum += matz[1][i] * matv[1][i]
     return sum
 
 
 def find_v1_all(matz,matv,index):
+    """
+    :param
+    :return:
+    >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v1_all(z,v,0)
+    15
+    >>> v = [[1,3,5,2,4],[1,3,2,4,2]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v1_all(z,v,2)
+    12
+    >>> v = [[1,3,5,2,4],[5,3,3,4,4]]
+    >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
+    >>> find_v1_all(z,v,3)
+    19
+    """
     sum = 0
-    for i in range(0, matv[0]):
+    for i in range(0, len(matv[0])):
         sum += matv[1][i]
     return sum
 
@@ -269,10 +358,9 @@ def find_v1_all(matz,matv,index):
 
 def find_all_the_non_sherd_alloc(matv):
     """
-    convert allocation that is represent by one demention array
-    to complete allocation that represent by matrix
-    :param arr:  represent- the allocation that is represent by one demention array
-    :return: complete allocation that represent by matrix (matv)
+    working but not complte !!!! if there is zero in i1 vlaue divide in zero bug!!!
+    :param matv:  represent- the value of the agent
+    :return:
     """
     l = build_the_Difference_array(matv)
     tempalloc=[0]*len(matv[0])
@@ -284,11 +372,17 @@ def find_all_the_non_sherd_alloc(matv):
     for i in range(0,len(matv[0])):
         for j in range(0,i+1):
            tempalloc[l[j][0]] = 1
+        #print(tempalloc)
         if (is_proportional(array_to_alloc(tempalloc), matv)) and (is_envy_free(array_to_alloc(tempalloc), matv)):
+            #print("find_all_the_non_sherd_alloc return: {}".format(array_to_alloc(tempalloc)))
             return array_to_alloc(tempalloc)
         #print(tempalloc)
         #print(array_to_alloc(tempalloc))
-    return None
+    #print("find_all_the_non_sherd_alloc return: {}".format(None))
+    #return None
+
+
+
 
 def array_to_alloc(arr):
     """
@@ -338,9 +432,12 @@ def build_the_Difference_array(matv):
     n=len(matv[0])
     l=[]
     for i in range(0,n):
-        temp = matv[0][i]/matv[1][i]
+        try:
+            temp = matv[0][i]/matv[1][i]
+        except ZeroDivisionError:
+            temp = float('Inf')
         l.append((i,temp))
-    l.sort(key=takeSecond)
+    l.sort(key=takeSecond , reverse=True)
     #print(l)
     return l
 
@@ -543,8 +640,20 @@ def is_single_envy_free(matz , matv,x):
     return flag
 
 if __name__ == '__main__':
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
+    #(failures, tests) = doctest.testmod(report=True)
+    #print("{} failures, {} tests".format(failures, tests))
+    v = [[1,3,5,2],[4,3,2,4]]
+    a = [[10,20,30,40],[40,30,20,10]]
+    b =[[20,10,100],[10,20,90]]
+    c = [[5,3,2,6,10],[6,5,3,4,11]]
+    d = [[5, 3, 2, 6, 10], [6, 5, 3, 4, 0]]
+    #find_all_the_non_sherd_alloc(v)
+    #find_all_the_sherd_alloc(v)
+    print("[[1,3,5,2],[4,3,2,4]]   -->    {}".format(find_allocation_for_2(v)))
+    print("[[10,20,30,40],[40,30,20,10]]  -->   {}".format(find_allocation_for_2(a)))
+    print("[[20,10,100],[10,20,90]]  -->   {}".format(find_allocation_for_2(b)))
+    print("[[5,3,2,6,10],[6,5,3,4,11]]   -->   {}".format(find_allocation_for_2(c)))
+    print("[[5, 3, 2, 6, 10], [6, 5, 3, 4, 0]]  -->   {}".format(find_allocation_for_2(d)))
 
 
 
