@@ -653,7 +653,8 @@ if __name__ == '__main__':
     print("[[5,3,2,6,10],[6,5,3,4,11]]   -->   {}".format(find_allocation_for_2(c)))
     print("[[5, 3, 2, 6, 10], [6, 5, 3, 4, 0]]  -->   {}".format(find_allocation_for_2(d)))
 
-
+def func():
+    print("hello")
 
 
 
