@@ -103,7 +103,6 @@ def num_of_sharing(mat):
     return the number of sharing in given allocation
     :param mat matrix that represent - given allocation
     :return:  number of sharing
-
     >>> z = [ [1, 0, 0],[0.8, 0.1, 0.1],[0, 1, 0]]
     >>> num_of_sharing(z)
     2
@@ -199,11 +198,47 @@ def mat_to_undirected_graph(matz, matv):
 
 
 
-def find_allocation_for_2(matv):
-   z = find_all_the_non_sherd_alloc(matv)
+def find_allocation_for_2_agents(matv):
+   """
+    this is the main function - first check if thre is
+    allocation with no sharing and if there isent find the allocation
+    wuth one sharing
+   :param matv: matrix that represent the value of the agents
+   :return: z - the allocation
+
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> a = [[10,20,30,40],[40,30,20,10]]
+    >>> b =[[20,10,100],[10,20,90]]
+    >>> c = [[5,3,2,6,10],[6,5,3,4,11]]
+    >>> d = [[5, 3, 2, 6, 10], [6, 5, 3, 4, 0]]
+    >>> e = [[50, 70, 80, 30, 100, 20, 90, 100], [100, 20, 50, 100, 90, 30, 70, 80]]
+    >>> f = [[200, -100, 20, -300, 100], [100, -300, -100, 20, 200]]
+    >>> g = [[50, 0, 70, 0, 30], [0, 100, 0, 0, 50]]
+    >>> h = [[-50, 0, 70, 0, -30], [0, 20, 50, -10, -40]]
+    >>> find_allocation_for_2_agents(v)
+    [[0, 1, 1, 0], [1, 0, 0, 1]]
+    >>> find_allocation_for_2_agents(a)
+    [[0, 0, 1, 1], [1, 1, 0, 0]]
+    >>> find_allocation_for_2_agents(b)
+    [[1, 0, 0.45], [0, 1, 0.55]]
+    >>> find_allocation_for_2_agents(c)
+    [[0, 0, 0, 1, 0.7], [1, 1, 1, 0, 0.30000000000000004]]
+    >>> find_allocation_for_2_agents(d)
+    [[0, 0, 0, 1, 1], [1, 1, 1, 0, 0]]
+    >>> find_allocation_for_2_agents(e)
+    [[0, 1, 1, 0, 0, 0, 1, 1], [1, 0, 0, 1, 1, 1, 0, 0]]
+    >>> find_allocation_for_2_agents(f)
+    [[1, 1, 1, 0, 1], [0, 0, 0, 1, 0]]
+    >>> find_allocation_for_2_agents(g)
+    [[1, 0, 1, 0, 0], [0, 1, 0, 1, 1]]
+    >>> find_allocation_for_2_agents(h)
+    [[0, 0, 0, 0, 0], [1, 1, 1, 1, 1]]
+   """
+
+   z = find_the_non_sherd_alloc(matv)
    if (z == None):
-       z = find_all_the_sherd_alloc(matv)
-   #print(z)
+      z = find_the_sherd_alloc(matv)
+    #print(z)
    return z
 
 
@@ -211,13 +246,14 @@ def find_allocation_for_2(matv):
 
 
 
-def find_all_the_sherd_alloc(matv):
+def find_the_sherd_alloc(matv):
     """
-
-    :param
-    :return:
+    this function find (if there is one) allocation 
+    with one sharing objects
+    :param matv:  represent- the value of the agent
+    :return: z - the allocation 
     """
-    l = build_the_Difference_array(matv)
+    l = build_the_Distribution_ratio_array(matv)
     tempalloc = [0]*len(matv[0])
     index = 0
     for i in range(0,len(matv[0])):
@@ -231,9 +267,9 @@ def find_all_the_sherd_alloc(matv):
         if not(x == -1):
            z[0][index] = x
            z[1][index] = 1- x
-           #print("find_all_the_sherd_alloc return: {}".format(z))
+           #print("find_the_sherd_alloc return: {}".format(z))
            return z
-    #print("find_all_the_sherd_alloc return: {}".format(None))
+    #print("find_the_sherd_alloc return: {}".format(None))
     return None
 
 
@@ -356,13 +392,14 @@ def find_v1_all(matz,matv,index):
 
 
 
-def find_all_the_non_sherd_alloc(matv):
+def find_the_non_sherd_alloc(matv):
     """
-    working but not complte !!!! if there is zero in i1 vlaue divide in zero bug!!!
+    this function find (if there is one) allocation 
+    with no sharing objects
     :param matv:  represent- the value of the agent
-    :return:
+    :return: z - the allocation 
     """
-    l = build_the_Difference_array(matv)
+    l = build_the_Distribution_ratio_array(matv)
     tempalloc=[0]*len(matv[0])
     #print("the temp before: {}".format(tempalloc))
     #print("the l before: {}".format(l))
@@ -374,11 +411,11 @@ def find_all_the_non_sherd_alloc(matv):
            tempalloc[l[j][0]] = 1
         #print(tempalloc)
         if (is_proportional(array_to_alloc(tempalloc), matv)) and (is_envy_free(array_to_alloc(tempalloc), matv)):
-            #print("find_all_the_non_sherd_alloc return: {}".format(array_to_alloc(tempalloc)))
+            #print("find_the_non_sherd_alloc return: {}".format(array_to_alloc(tempalloc)))
             return array_to_alloc(tempalloc)
         #print(tempalloc)
         #print(array_to_alloc(tempalloc))
-    #print("find_all_the_non_sherd_alloc return: {}".format(None))
+    #print("find_the_non_sherd_alloc return: {}".format(None))
     #return None
 
 
@@ -415,7 +452,7 @@ def takeSecond(elem):
 
 
 
-def build_the_Difference_array(matv):
+def build_the_Distribution_ratio_array(matv):
     """
     this function build the array for  Distribution ratio between i0 to i1
     and sort it
@@ -423,11 +460,11 @@ def build_the_Difference_array(matv):
     :return: the sorted array
 
     >>> a = [[20,30,40,10],[10,60,10,20]]
-    >>> build_the_Difference_array(a)
-    [(1, 0.5), (3, 0.5), (0, 2.0), (2, 4.0)]
+    >>> build_the_Distribution_ratio_array(a)
+    [(2, 4.0), (0, 2.0), (1, 0.5), (3, 0.5)]
     >>> a = [[1,3,9,2,4,6,5],[2,4,4,3,6,2,1]]
-    >>> build_the_Difference_array(a)
-    [(0, 0.5), (3, 0.6666666666666666), (4, 0.6666666666666666), (1, 0.75), (2, 2.25), (5, 3.0), (6, 5.0)]
+    >>> build_the_Distribution_ratio_array(a)
+    [(6, 5.0), (5, 3.0), (2, 2.25), (1, 0.75), (3, 0.6666666666666666), (4, 0.6666666666666666), (0, 0.5)]
     """
     n=len(matv[0])
     l=[]
@@ -640,8 +677,9 @@ def is_single_envy_free(matz , matv,x):
     return flag
 
 if __name__ == '__main__':
-    #(failures, tests) = doctest.testmod(report=True)
-    #print("{} failures, {} tests".format(failures, tests))
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))
+    """
     v = [[1,3,5,2],[4,3,2,4]]
     a = [[10,20,30,40],[40,30,20,10]]
     b =[[20,10,100],[10,20,90]]
@@ -651,15 +689,17 @@ if __name__ == '__main__':
     f = [[200, -100, 20, -300, 100], [100, -300, -100, 20, 200]]
     g = [[50, 0, 70, 0, 30], [0, 100, 0, 0, 50]]
     h = [[-50, 0, 70, 0, -30], [0, 20, 50, -10, -40]]
-    print("[[1,3,5,2],[4,3,2,4]]   -->    {}".format(find_allocation_for_2(v)))
-    print("[[10,20,30,40],[40,30,20,10]]  -->   {}".format(find_allocation_for_2(a)))
-    print("[[20,10,100],[10,20,90]]  -->   {}".format(find_allocation_for_2(b)))
-    print("[[5,3,2,6,10],[6,5,3,4,11]]   -->   {}".format(find_allocation_for_2(c)))
-    print("[[5, 3, 2, 6, 10], [6, 5, 3, 4, 0]]  -->   {}".format(find_allocation_for_2(d)))
-    print("[[50,70,80,30,100,20,90,100],[100,20,50,100,90,30,70,80]]  -->   {}".format(find_allocation_for_2(e)))
-    print("[[200,-100,20,-300,100],[100,-300,-100,20,200]]  -->    {}".format(find_allocation_for_2(f)))
-    print("[[50,0,70,0,30],[0,100,0,0,50]]   -->    {}".format(find_allocation_for_2(g)))
-    print("[[-50,0,70,0,-30],[0,20,50,-10,-40]]  -->    {}".format(find_allocation_for_2(h)))
+    print("[[1,3,5,2],[4,3,2,4]]   -->    {}".format(find_allocation_for_2_agents(v)))
+    print("[[10,20,30,40],[40,30,20,10]]  -->   {}".format(find_allocation_for_2_agents(a)))
+    print("[[20,10,100],[10,20,90]]  -->   {}".format(find_allocation_for_2_agents(b)))
+    print("[[5,3,2,6,10],[6,5,3,4,11]]   -->   {}".format(find_allocation_for_2_agents(c)))
+    print("[[5, 3, 2, 6, 10], [6, 5, 3, 4, 0]]  -->   {}".format(find_allocation_for_2_agents(d)))
+    print("[[50,70,80,30,100,20,90,100],[100,20,50,100,90,30,70,80]]  -->   {}".format(find_allocation_for_2_agents(e)))
+    print("[[200,-100,20,-300,100],[100,-300,-100,20,200]]  -->    {}".format(find_allocation_for_2_agents(f)))
+    print("[[50,0,70,0,30],[0,100,0,0,50]]   -->    {}".format(find_allocation_for_2_agents(g)))
+    print("[[-50,0,70,0,-30],[0,20,50,-10,-40]]  -->    {}".format(find_allocation_for_2_agents(h)))
+    """
+
 
 
 
