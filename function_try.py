@@ -251,7 +251,13 @@ def find_the_sherd_alloc(matv):
     this function find (if there is one) allocation 
     with one sharing objects
     :param matv:  represent- the value of the agent
-    :return: z - the allocation 
+    :return: z - the allocation
+    >>> b =[[20,10,100],[10,20,90]]
+    >>> c = [[5,3,2,6,10],[6,5,3,4,11]]
+    >>> find_the_sherd_alloc(b)
+    [[1, 0, 0.45], [0, 1, 0.55]]
+    >>> find_the_sherd_alloc(c)
+    [[0, 0, 0, 1, 0.7], [1, 1, 1, 0, 0.30000000000000004]]
     """
     l = build_the_Distribution_ratio_array(matv)
     tempalloc = [0]*len(matv[0])
@@ -274,31 +280,52 @@ def find_the_sherd_alloc(matv):
 
 
 def find_x(matz,matv,index):
-  v0_base = find_v0_base(matz,matv,index)
-  v0_all = find_v0_all(matz,matv,index)
-  u0 = matv[0][index]
-  v1_base = find_v1_base(matz,matv,index)
-  v1_all = find_v1_all(matz,matv,index)
-  u1 = matv[1][index]
+    """
+    this function find the x = how mach agent1 get from the shared obgect
+    (1-x) = how mach agent2 get from the shared obgect
+     0 >= x >= 1
+    this base on the propotion Equations:
+    v1 base + x*u1 >= v1 all
+    v2 base + (1-x)*u2 >= v2 all
+    :param matz: represent- the value of the agent
+    :param matv: the allocation
+    :param index: the index of the shared object
+    :return: x the number that represent how mach agent1 get from the shared obgect
+    >>> b =[[20,10,100],[10,20,90]]
+    >>> c = [[5,3,2,6,10],[6,5,3,4,11]]
+    >>> find_x([[1, 0, 0.45], [0, 1, 0.55]],b,2)
+    0.45
+    >>> find_x( [[0, 0, 0, 1, 0.7], [1, 1, 1, 0, 0.30000000000000004]],c,4)
+    0.7
+    """
+    v0_base = find_v0_base(matz,matv,index)
+    v0_all = find_v0_all(matz,matv,index)
+    u0 = matv[0][index]
+    v1_base = find_v1_base(matz,matv,index)
+    v1_all = find_v1_all(matz,matv,index)
+    u1 = matv[1][index]
 
-  sum0 = (0.5*v0_all - v0_base)/u0
-  sum1 = (0.5*v1_all -v1_base)/(-u1) + 1
-  if(sum0 > sum1):
-      return -1
-  if (sum0 > 1)or(sum1 < 0):
-      return -1
-  if(sum0 >= 0):
-      return sum0
-  if (sum1 <= 1):
-      return sum1
-  return 0.5
+    sum0 = (0.5*v0_all - v0_base)/u0
+    sum1 = (0.5*v1_all -v1_base)/(-u1) + 1
+    if(sum0 > sum1):
+       return -1
+    if (sum0 > 1)or(sum1 < 0):
+       return -1
+    if(sum0 >= 0):
+       return sum0
+    if (sum1 <= 1):
+       return sum1
+    return 0.5
 
 
 
 def find_v0_base(matz ,matv , index):
     """
-    :param
-    :return:
+     this a help function for find_x
+    :param matz: represent- the value of the agent
+    :param matv: the allocation
+    :param index: the index of the shared object
+    :return: v0_base
     >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
     >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
     >>> find_v0_base(z,v,0)
@@ -321,8 +348,11 @@ def find_v0_base(matz ,matv , index):
 
 def find_v0_all(matz,matv,index):
     """
-    :param
-    :return:
+    this a help function for find_x
+    :param matz: represent- the value of the agent
+    :param matv: the allocation
+    :param index: the index of the shared object
+    :return: v0_all
     >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
     >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
     >>> find_v0_all(z,v,0)
@@ -346,8 +376,11 @@ def find_v0_all(matz,matv,index):
 
 def find_v1_base(matz,matv,index):
     """
-    :param
-    :return:
+    this a help function for find_x
+    :param matz: represent- the value of the agent
+    :param matv: the allocation
+    :param index: the index of the shared object
+    :return: v1_base
     >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
     >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
     >>> find_v1_base(z,v,0)
@@ -370,8 +403,11 @@ def find_v1_base(matz,matv,index):
 
 def find_v1_all(matz,matv,index):
     """
-    :param
-    :return:
+    this a help function for find_x
+    :param matz: represent- the value of the agent
+    :param matv: the allocation
+    :param index: the index of the shared object
+    :return: v1_all
     >>> v = [[1,3,5,2,4],[4,3,2,4,2]]
     >>> z = [[1,0,1,1,0],[0,1,0,0,1]]
     >>> find_v1_all(z,v,0)
@@ -397,7 +433,29 @@ def find_the_non_sherd_alloc(matv):
     this function find (if there is one) allocation 
     with no sharing objects
     :param matv:  represent- the value of the agent
-    :return: z - the allocation 
+    :return: z - the allocation
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> a = [[10,20,30,40],[40,30,20,10]]
+    >>> d = [[5, 3, 2, 6, 10], [6, 5, 3, 4, 0]]
+    >>> e = [[50, 70, 80, 30, 100, 20, 90, 100], [100, 20, 50, 100, 90, 30, 70, 80]]
+    >>> f = [[200, -100, 20, -300, 100], [100, -300, -100, 20, 200]]
+    >>> g = [[50, 0, 70, 0, 30], [0, 100, 0, 0, 50]]
+    >>> h = [[-50, 0, 70, 0, -30], [0, 20, 50, -10, -40]]
+    >>> find_allocation_for_2_agents(v)
+    [[0, 1, 1, 0], [1, 0, 0, 1]]
+    >>> find_allocation_for_2_agents(a)
+    [[0, 0, 1, 1], [1, 1, 0, 0]]
+    >>> find_allocation_for_2_agents(d)
+    [[0, 0, 0, 1, 1], [1, 1, 1, 0, 0]]
+    >>> find_allocation_for_2_agents(e)
+    [[0, 1, 1, 0, 0, 0, 1, 1], [1, 0, 0, 1, 1, 1, 0, 0]]
+    >>> find_allocation_for_2_agents(f)
+    [[1, 1, 1, 0, 1], [0, 0, 0, 1, 0]]
+    >>> find_allocation_for_2_agents(g)
+    [[1, 0, 1, 0, 0], [0, 1, 0, 1, 1]]
+    >>> find_allocation_for_2_agents(h)
+    [[0, 0, 0, 0, 0], [1, 1, 1, 1, 1]]
+
     """
     l = build_the_Distribution_ratio_array(matv)
     tempalloc=[0]*len(matv[0])
