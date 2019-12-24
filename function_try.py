@@ -103,7 +103,9 @@ def num_of_sharing(mat):
     return the number of sharing in given allocation
     :param mat matrix that represent - given allocation
     :return:  number of sharing
-    >>> z = [ [1, 0, 0],[0.8, 0.1, 0.1],[0, 1, 0]]
+    >>> z = [ [1, 0, 0]
+    ,[0.8, 0.1, 0.1],
+    [0, 1, 0]]
     >>> num_of_sharing(z)
     2
     >>> z1 = [[1, 0, 0],[0.8, 0.1, 0.1],[0.2, 0.6, 0.2]]
