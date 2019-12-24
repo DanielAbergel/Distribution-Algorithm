@@ -89,7 +89,7 @@ def product_to_matrix(p,arr):
     # the properties of b
     prop_b = math.ceil(p[0]/2)
 
-    mat = np.zeros((2, 3)).tolist()
+    mat = np.zeros((2, n)).tolist()
     for j in range(prop_a):
          mat[0][arr[j][0]] = 1
     for j in range(n-prop_b, n):
@@ -111,9 +111,9 @@ def func_for_2(matv):
 
 
 if __name__ == '__main__':
-    mat = [[20,30,10],[10,60,40]]
+    mat = [[20,30,10],[10,10,40]]
+    mat1 = [[40, 30, 20,10], [10, 10, 10,10]]
     a = build_the_Distribution_ratio_array(mat,0,1)
-
     for x in func_for_2(mat):
         print(x)
     #(failures, tests) = doctest.testmod(report=True)
