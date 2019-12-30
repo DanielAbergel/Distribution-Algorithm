@@ -387,6 +387,13 @@ def f(i):
 
 
 def all_graph(matv):
+    """
+    this is the main function in that part of the algorithm
+    she get valuation  and generate all the possibilities graph for it
+    represent in matrix
+    :param matv: the valuation of the agents
+    :return: generator of all possibilities graph
+    """
     gen = add_agent(matv,0)
     for i in range(1,len(matv)-1):
         tempgen= add_agent(matv,gen,i)
@@ -398,6 +405,14 @@ def all_graph(matv):
 
 
 def add_agent(matv,gen,i):
+    """
+    this function get generator for all the the graph for i-1 agent
+    and generate all the graph for adding agent i
+    :param matv: the valuation of the agents
+    :param gen: generator for the all the  graph for i-1 agents
+    :param i: the index for the new agent
+    :return: generator for the all the  graph for i agents
+    """
     if(i==0):
         yield [1]*len(matv[0])
     else:
@@ -408,6 +423,42 @@ def add_agent(matv,gen,i):
 
 
 def add_agent_to_graph(matv, graph,i):
+    """
+
+    :param matv: the valuation of the agents
+    :param graph: some given graph that represent agent and there properties
+    :param i: the index for the new agent
+    :return: generator for the all the  graphs from adding agent i to the given graph
+    >>> matv = [[40,30,20],[40,30,20],[10,10,10]]
+    >>> graph = [[1,1,0],[0,1,1]]
+    >>> for x in add_agent_to_graph(matv, graph,2):
+    ...     print(x)
+    [[1, 1, 0.0], [0.0, 1, 1], [0.0, 0.0, 0.0]]
+    [[1, 1, 0.0], [0.0, 1, 1], [0.0, 0.0, 1]]
+    [[1, 1, 0.0], [0.0, 1, 0.0], [0.0, 0.0, 1]]
+    [[1, 1, 0.0], [0.0, 1, 0.0], [0.0, 1, 1]]
+    [[1, 1, 0.0], [0.0, 0.0, 0.0], [0.0, 1, 1]]
+    [[1, 1, 0.0], [0.0, 1, 1], [0.0, 1, 0.0]]
+    [[1, 1, 0.0], [0.0, 1, 1], [0.0, 1, 1]]
+    [[1, 1, 0.0], [0.0, 1, 0.0], [0.0, 1, 1]]
+    [[1, 1, 0.0], [0.0, 1, 0.0], [0.0, 1, 1]]
+    [[1, 1, 0.0], [0.0, 0.0, 0.0], [0.0, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 1, 1], [0.0, 1, 0.0]]
+    [[1, 0.0, 0.0], [0.0, 1, 1], [0.0, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 1, 0.0], [0.0, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 1, 0.0], [0.0, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 1, 1], [1, 1, 0.0]]
+    [[1, 0.0, 0.0], [0.0, 1, 1], [1, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 1, 0.0], [1, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 1, 0.0], [1, 1, 1]]
+    [[1, 0.0, 0.0], [0.0, 0.0, 0.0], [1, 1, 1]]
+    [[0.0, 0.0, 0.0], [0.0, 1, 1], [1, 1, 0.0]]
+    [[0.0, 0.0, 0.0], [0.0, 1, 1], [1, 1, 1]]
+    [[0.0, 0.0, 0.0], [0.0, 1, 0.0], [1, 1, 1]]
+    [[0.0, 0.0, 0.0], [0.0, 1, 0.0], [1, 1, 1]]
+    [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [1, 1, 1]]
+    """
     for code in graph_code(graph):
         yield code_to_matrix(matv,graph,code)
 
@@ -476,14 +527,16 @@ def build_the_value_ratio_array(matv,graph,x, y):
 
 
 if __name__ == '__main__':
+    """
     a = [[40,30,20],[40,30,20],[10,10,10]]
     b = [[1,1,0],[0,1,1]]
     for c in graph_code(b):
         print(code_to_matrix(a,b,c))
         print(c)
         print()
-    #(failures, tests) = doctest.testmod(report=True)
-    #print("{} failures, {} tests".format(failures, tests))
+    """
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))
 
 
 
