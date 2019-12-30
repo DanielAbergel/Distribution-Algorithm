@@ -51,16 +51,16 @@ def sum_of_agent_prop(graph):
     :return:  the number of properties of each agent in array
     >>> a =[[1,0,0],[1,1,1],[1,1,0]]
     >>> sum_of_agent_prop(a)
-    [1, 3, 2]
+    [2, 6, 4]
     >>> a =[[1,1,0],[1,1,1]]
     >>> sum_of_agent_prop(a)
-    [2, 3]
+    [4, 6]
     >>> a =[[1,0,0],[1,1,1],[1,1,0]]
     >>> sum_of_agent_prop(a)
-    [1, 3, 2]
+    [2, 6, 4]
     >>> a =[[1,0,0],[0,0,1],[0,0,0]]
     >>> sum_of_agent_prop(a)
-    [1, 1, 0]
+    [2, 2, 0]
     """
     num_of_agent = len(graph)
     agent_prop_counter =[0]*num_of_agent
@@ -68,7 +68,12 @@ def sum_of_agent_prop(graph):
         for j in range(len(graph[0])):
             if(graph[i][j] == 1):
                 agent_prop_counter[i] += 1
+    agent_prop_counter= [i * 2 for i in agent_prop_counter]
     return agent_prop_counter
+
+
+
+
 
 def all_graph(matv):
     pass
@@ -76,8 +81,33 @@ def add_agent(matv,gen,i):
     pass
 def add_agent_to_graph(matv, graph,i):
     pass
+
+
+
 def code_to_matrix(matv,graph,code):
-    pass
+    """
+    this function take code and that represent new graph and convert
+    it to that graph (represent in matrix)
+    the calculation of the properties of each agent is p[i]/2 from the end of arr belongs to the new agent
+    and len(arr)-p[i]/2 from the start of arr belongs to agent i
+    :param matv: the values of the agent to the objects
+    :param graph: the original graph (represent in matrix)
+    :param code: the code in form (x1,x2...xi) i = the number of agent in graph, xi in range(number of properties of
+    agent i in graph
+    :return: matrix that represent the new graph
+
+    """
+    mat = np.zeros((len(graph)+1,len(graph[0]))).tolist()
+    for i in range(len(graph)):
+        arr = build_the_value_ratio_array(matv,graph,i,len(graph))
+        num_of_prop = len(arr)
+        current_agent_properties = math.ceil(num_of_prop - code[i]/2)
+        new_agenrt_properties =  math.ceil(code[i]/2)
+        for j in range(current_agent_properties):
+            mat[i][arr[j][0]] = 1
+        for j in range(num_of_prop - new_agenrt_properties, num_of_prop):
+            mat[len(graph)][int(arr[j][0])] = 1
+    return mat
 
 
 def takeSecond(elem):
@@ -116,8 +146,14 @@ def build_the_value_ratio_array(matv,graph,x, y):
     return l
 
 
-
 if __name__ == '__main__':
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
+    a = [[40,30,20],[40,30,20],[10,10,10]]
+    b = [[1,1,0],[0,1,1]]
+    c =(2,4)
+    #print(build_the_value_ratio_array(a,b,1,2))
+    print(code_to_matrix(a,b,c))
+    #(failures, tests) = doctest.testmod(report=True)
+    #print("{} failures, {} tests".format(failures, tests))
+
+
 
