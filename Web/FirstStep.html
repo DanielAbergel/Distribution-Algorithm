@@ -19,6 +19,7 @@
               <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
               <link rel="stylesheet" type="text/css" href="css/myBackground.css">
               <link rel="stylesheet" type="text/css" href="css/navbar.css">
+              <link rel="stylesheet" type="text/css" href="css/FirstStep.css">
 
               <div class="topnav" style="
                 margin-bottom: 10px;
@@ -34,12 +35,18 @@
                 <a class="active" href="About.html">About</a>
                 <a class="active" href="ContactUs.html">Contact Us</a>
               </div>
-              <p>insert your data with "," separator </p>
+              <div class="inputStyle"><b><h3>insert your data with "," separator </h3></b></div>
               <!-- <form onsubmit="document.getElementById('first').style.display = 'none';document.getElementById('second').style.display = '';"> -->
               <form id="form" onsubmit="return false;">
-                people: <input type="text" id="peopleInput">
-                items: <input type="text" id="itemsInput">
-                <button type="button" class="btn btn-primary" onclick="getDetails()">Primary </button>
+                  <div class="inputStyle md-form">
+                      <input type="text" id="peopleInput" class="form-control mb-4" placeholder="people">
+                  </div>
+                  <div class="inputStyle md-form">
+                      <input type="text" id="itemsInput" class="form-control mb-4" placeholder="items">
+                  </div>
+                  <div class="inputStyle md-form">
+                      <button type="button" class="btn btn-primary" onclick="getDetails()">Primary </button>
+                  </div>
                 </form>
                 <div id="container">
 
