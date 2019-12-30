@@ -387,11 +387,29 @@ def f(i):
 
 
 def all_graph(matv):
-    pass
+    gen = add_agent(matv,0)
+    for i in range(1,len(matv)-1):
+        tempgen= add_agent(matv,gen,i)
+        gen = tempgen
+    for i in gen:
+        for j in add_agent_to_graph(matv,i,len(matv)):
+            yield j
+
+
+
 def add_agent(matv,gen,i):
-    pass
+    if(i==0):
+        yield [1]*len(matv[0])
+    else:
+        for x in gen:
+            for y in add_agent_to_graph(matv,x,i):
+                yield y
+
+
+
 def add_agent_to_graph(matv, graph,i):
-    pass
+    for code in graph_code(graph):
+        yield code_to_matrix(matv,graph,code)
 
 
 
