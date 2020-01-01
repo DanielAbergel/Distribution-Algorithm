@@ -2,13 +2,21 @@ import doctest as doctest
 import itertools
 import numpy as np
 import math
-
+import datetime
 
 def graph_code(graph):
     """
     this function generate all the graph_code
     :param graph: graph that represent all agent and there properties
     :return: generator to all the cartesian product that represent all the graph code
+    >>> a =[[1,0,1]]
+    >>> for x in graph_code(a):
+    ...     print(x)
+    (0,)
+    (1,)
+    (2,)
+    (3,)
+    (4,)
     >>> a =[[1,0,0],[1,1,1],[1,1,0]]
     >>> for x in graph_code(a):
     ...     print(x)
@@ -354,7 +362,7 @@ def graph_code(graph):
 def sum_of_agent_prop(graph):
     """
     this function return array that each arr[i] = the number
-    of properties of agent i in graph
+    of properties of agent i in graph multiple by 2 plus 1
     :param graph:  given graph
     :return:  the number of properties of each agent in array
     >>> a =[[1,0,0],[1,1,1],[1,1,0]]
@@ -376,19 +384,21 @@ def sum_of_agent_prop(graph):
     num_of_agent = len(graph)
     agent_prop_counter =[0]*num_of_agent
     for i in range(len(graph)):
+        #agent_prop_counter[i] = f(sum(graph[i]))
         for j in range(len(graph[0])):
-            if(graph[i][j] == 1):
-                agent_prop_counter[i] += 1
+           if(graph[i][j] == 1):
+                 agent_prop_counter[i] += 1
     agent_prop_counter = [f(i) for i in agent_prop_counter]
     return agent_prop_counter
-
+"""
 def f(i):
     if not(i==0):
        return i * 2 + 1
     else:
         return 0
-
-
+"""
+def f(i):
+       return i * 2 + 1
 def all_graph(matv):
     """
     this is the main function in that part of the algorithm
@@ -415,7 +425,9 @@ def all_graph(matv):
     [[1, 0.0, 0.0], [1, 1, 1]]
     [[0.0, 0.0, 0.0], [1, 1, 1]]
     >>> v = [[20,10],[10,5],[5,5]]
+    >>> count = 0
     >>> for g in all_graph(v):
+    ...      print(count);count+=1
     ...      print(g)
     [[1, 1], [0.0, 1], [0.0, 0.0]]
     [[1, 1], [0.0, 1], [0.0, 1]]
@@ -460,7 +472,7 @@ def all_graph(matv):
     a = (0)
     gen = add_agent(matv,a,0)
     for i in range(1,len(matv)-1):
-        tempgen= add_agent(matv,gen,i)
+        tempgen = add_agent(matv,gen,i)
         gen = tempgen
     for i in gen:
         for j in add_agent_to_graph(matv,i,len(matv)):
@@ -479,6 +491,7 @@ def add_agent(matv,gen,i):
     """
     if(i==0):
         arr =[]
+        # the first agent gets all the objects
         arr.append([1]*len(matv[0]))
         yield arr
     else:
@@ -546,6 +559,15 @@ def code_to_matrix(matv,graph,code):
     :param code: the code in form (x1,x2...xi) i = the number of agent in graph, xi in range(number of properties of
     agent i in graph
     :return: matrix that represent the new graph
+    >>> # A value matrix with 4 agents and 4 goods:
+    >>> v = [[40,30,20,10],[40,30,20,10],[40,30,20,10],[10,10,10,10]]
+    >>> # An unweighted graph where only the first 3 agents have some goods:
+    >>> g = [[0,1,1,0],[1,0,0,0],[0,1,0,1]]
+    >>> # A code that determines how to share the goods with the 4th agent:
+    >>> print(code_to_matrix(v,g,(0,0,0)))
+    [[0.0, 1, 1, 0.0], [1, 0.0, 0.0, 0.0], [0.0, 1, 0.0, 1], [0.0, 0.0, 0.0, 0.0]]
+    >>> print(code_to_matrix(v,g,(4,1,3)))
+    [[0.0, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0], [0.0, 1, 0.0, 0.0], [1, 1, 1, 1]]
     >>> v = [[40,30,20],[40,30,20],[10,10,10]]
     >>> g = [[1,1,0],[0,1,1]]
     >>> for c in graph_code(g):
@@ -627,11 +649,6 @@ def code_to_matrix(matv,graph,code):
     [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [1, 1, 1]]
     (4, 4)
     <BLANKLINE>
-    >>> v = [[40,30,20,10],[40,30,20,10],[40,30,20,10],[10,10,10,10]]
-    >>> g = [[0,1,1,0],[1,0,0,0],[0,1,0,1]]
-    >>> c = (4,1,3)
-    >>> print(code_to_matrix(v,g,c))
-    [[0.0, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0], [0.0, 1, 0.0, 0.0], [1, 1, 1, 1]]
     """
     mat = np.zeros((len(graph)+1,len(graph[0]))).tolist()
     for i in range(len(graph)):
@@ -645,11 +662,7 @@ def code_to_matrix(matv,graph,code):
             mat[len(graph)][int(arr[j][0])] = 1
     return mat
 
-
-def takeSecond(elem):
-    return elem[1]
-
-def build_the_value_ratio_array(matv,graph,x, y):
+def build_the_value_ratio_array(matv,graph,x,y):
     """
     this function build the array for value ratio between agent x to agent y
     according to the given graph and the properties of agent x in this graph
@@ -664,9 +677,9 @@ def build_the_value_ratio_array(matv,graph,x, y):
     >>> build_the_value_ratio_array(a,g,0,1)
     [(2, 4.0), (0, 2.0), (1, 0.5), (3, 0.5)]
     >>> g = [[0.0,1,0.0,1]]
-    >>> a = [[20,30,40,10],[10,60,10,20]]
+    >>> a = [[20,30,40,20],[10,60,10,20]]
     >>> build_the_value_ratio_array(a,g,0,1)
-    [(1, 0.5), (3, 0.5)]
+    [(3, 1.0), (1, 0.5)]
 
     """
     n = len(matv[0])
@@ -678,14 +691,24 @@ def build_the_value_ratio_array(matv,graph,x, y):
             except ZeroDivisionError:
                 temp = float('Inf')
             l.append((i,temp))
-    l.sort(key=takeSecond , reverse=True)
+    l.sort(key=lambda pair: pair[1], reverse=True)
     return l
 
 
 if __name__ == '__main__':
-
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
+    num_of_agents = 3
+    num_of_items =  30
+    max_item_value = 100
+    v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
+    start = datetime.datetime.now()
+    print("start time: {}".format(start))
+    for i in all_graph(v):
+        pass
+    end = datetime.datetime.now()
+    print("end time: {}".format(end))
+    print("its took :{}".format(end-start))
+    #(failures, tests) = doctest.testmod(report=True)
+    #print("{} failures, {} tests".format(failures, tests))
 
 
 
