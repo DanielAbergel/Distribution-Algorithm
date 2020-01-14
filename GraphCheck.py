@@ -2,7 +2,7 @@ import doctest as doctest
 import cvxpy
 import numpy as np
 from GraphGenerator import all_graph as all_graph
-
+import colorama
 
 
 def sum_of_x_according_to_y(graph, matv,x,y):
@@ -104,6 +104,7 @@ def graph_convex(graph, matv):
 
 
 def check_result(prob,g,graph,matv):
+    colorama.init()
 
 
    # chacking for the result
@@ -116,10 +117,10 @@ def check_result(prob,g,graph,matv):
         for i in range(len(g)):
             for j in range(len(g[0])):
                 if(g[i][j] > 1.000001):
-                    print("bug 1!!!")
+                    print(colorama.Fore.RED +"bug 1!!!"+ colorama.Fore.RESET)
                 if(graph[i][j] == 0):
                     if(g[i][j] > 0.001):
-                        print("bug 2!!!")
+                        print(colorama.Fore.RED +"bug 2!!!"+ colorama.Fore.RESET)
 
 
         for i in range(len(graph)):
@@ -128,7 +129,8 @@ def check_result(prob,g,graph,matv):
                 agent_sum += g[i][j] * matv[i][j]
             n = sum(matv[i]) / len(matv[i])
             if(agent_sum - n < -0.0001):
-                print("bug 3!!! in agent {} the difference is : {}".format(i,agent_sum - n))
+
+                print(colorama.Fore.RED +"bug 3!!! in agent {} the difference is : {}".format(i,agent_sum - n)+ colorama.Fore.RESET)
 
 
 
@@ -138,6 +140,8 @@ if __name__ == '__main__':
     #g = [[1, 0, 0], [0, 1, 0], [1, 1, 1]]
     v = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     #ver2(g, v)
+
+
     for i in all_graph(v):
         print()
         print()
