@@ -66,7 +66,7 @@ def number_of_sharing(graph):
 
 
 def graph_convex(graph, matv):
-    mat = cvxpy.Variable((3, 3))
+    mat = cvxpy.Variable((len(graph), len(graph[0])))
     constraints = []
 
     # every var >=0 and if there is no edge the var is zero
@@ -103,14 +103,28 @@ def graph_convex(graph, matv):
 
 
 
-def check_result(prob,g,graph,matv):
+def check_result(prob, g, graph, matv):
+    """
+    this function check the result of the function graph_convex
+    bug 0 = if the sum of column isnt == 1
+    bug 1 = if one of the alloction is greater than one
+    bug 2 = if there is no edge in the original graph and the alloc is not zero
+    bug 3 = if the alloc for agent i is < 1/n (proportional)
+    :param prob:
+    :param g:
+    :param graph:
+    :param matv:
+    :return:
+    """
     colorama.init()
 
 
-   # chacking for the result
+   # chacking if the sum of column isnt == 1
     if not(prob.status == 'infeasible'):
         # check if the column sum is 1
         for i in range(len(g)):
+            if(sum(g[:, i])>1.00001)and(sum(g[:, i])<0.9999999999999998):
+                print(colorama.Fore.RED + "bug 0!!!" + colorama.Fore.RESET)
             print("the colum sum number {} is :{}".format(i,sum(g[:, i])))
 
         # check if there is no edge in the graph if he is get anything
@@ -122,7 +136,7 @@ def check_result(prob,g,graph,matv):
                     if(g[i][j] > 0.001):
                         print(colorama.Fore.RED +"bug 2!!!"+ colorama.Fore.RESET)
 
-
+        # check proportional
         for i in range(len(graph)):
             agent_sum = 0
             for j in range(len(graph[i])):
@@ -137,11 +151,7 @@ def check_result(prob,g,graph,matv):
 if __name__ == '__main__':
     #(failures, tests) = doctest.testmod(report=True)
     #print("{} failures, {} tests".format(failures, tests))
-    #g = [[1, 0, 0], [0, 1, 0], [1, 1, 1]]
-    v = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    #ver2(g, v)
-
-
+    v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
     for i in all_graph(v):
         print()
         print()
