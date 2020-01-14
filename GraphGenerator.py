@@ -387,7 +387,7 @@ def sum_of_agent_prop(graph):
         for j in range(len(graph[0])):
            if(graph[i][j] == 1):
                  agent_prop_counter[i] += 1
-    agent_prop_counter = [f(i) for i in agent_prop_counter]
+    agent_prop_counter = [i * 2 + 1 for i in agent_prop_counter]
     return agent_prop_counter
 """
 def f(i):
@@ -982,6 +982,9 @@ def code_to_matrix(matv,graph,code):
             mat[len(graph)][int(arr[j][0])] = 1
     return mat
 
+def second(pair):
+    return pair[1]
+
 def build_the_value_ratio_array(matv,graph,x,y):
     """
     this function build the array for value ratio between agent x to agent y
@@ -1025,14 +1028,18 @@ def build_the_value_ratio_array(matv,graph,x,y):
     l = []
     for i in range(0,n):
         if(graph[x][i]==1):
+            if(matv[y][i]==0):
+                temp = np.inf
+            else:
+                temp = matv[x][i] / matv[y][i]
+            l.append((i,temp))
+    l.sort(key=second, reverse=True)
+    return l
+"""
             try:
                 temp = matv[x][i]/matv[y][i]
             except ZeroDivisionError:
-                temp = float('Inf')
-            l.append((i,temp))
-    l.sort(key=lambda pair: pair[1], reverse=True)
-    return l
-
+"""
 
 if __name__ == '__main__':
     (failures, tests) = doctest.testmod(report=True)
