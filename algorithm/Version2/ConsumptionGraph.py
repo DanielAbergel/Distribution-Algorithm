@@ -13,7 +13,7 @@ class ConsumptionGraph():
         """this function return the number of shering in the ConsumptionGraph"""
         pass
 
-    def generat_all_code(self):
+    def generate_all_code(self):
         """
         this function
         :return:
