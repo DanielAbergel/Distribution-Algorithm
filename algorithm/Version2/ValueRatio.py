@@ -12,7 +12,7 @@ class ValueRatio():
         self.all_ratio = buile_all_the_ratio(valuation_matrix)
 
 
-    def create_the_value_ratio_for_2(self , graph , x, y):
+    def create_the_value_ratio_for_2(self , consumption_graph , x, y):
         """
         this function build the array for value ratio between agent x to agent y
         according to the given graph and the properties of agent x in this graph
@@ -23,6 +23,7 @@ class ValueRatio():
         :param y: the index of the second agent
         :return: the sorted array of tuples (index of location in v, the ratio)
         """
+        graph = consumption_graph.get_graph()
         ans = []
         for i in range(len(graph[0])):
             if(graph[x][i]==1):

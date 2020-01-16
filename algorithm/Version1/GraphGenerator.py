@@ -853,8 +853,8 @@ def add_agent_to_graph(matv, graph,i):
     for code in graph_code(graph):
         g = code_to_matrix(matv,graph,code)
         n = len(g)
-        if(number_of_sharing(g) <= n-2):
-             yield g
+        #if(number_of_sharing(g) <= n-2):
+        yield g
 
 def number_of_sharing(graph)->int:
     num_of_edge = 0
