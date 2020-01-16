@@ -1,9 +1,8 @@
 import doctest as doctest
 import cvxpy
-import numpy as np
-from GraphGenerator import generate_all_consumption_graphs
+from algorithm.Version1.GraphGenerator import generate_all_consumption_graphs
 import colorama
-
+import math
 
 def sum_of_x_according_to_y(graph, matv,x,y):
     """
@@ -62,7 +61,7 @@ def number_of_sharing(graph)->int:
     return num_of_edge - num_of_obj
 
 
-def find_envy_free_alloction(consumption_graph, matv):
+def find_envy_free_alloction_for_graph(consumption_graph, matv):
     """
 
     :param consumption_graph:
@@ -97,17 +96,21 @@ def find_envy_free_alloction(consumption_graph, matv):
     objective = cvxpy.Maximize(1)
     prob = cvxpy.Problem(objective, constraints)
     prob.solve()  # Returns the optimal value.
-    if not (prob.status == 'infeasible'):
-        print("status:", prob.status)
-        print("optimal value", prob.value)
+        #print("status:", prob.status)
+        #print("optimal value", prob.value)
         #print("optimal var", mat.value)
     g = mat.value
+    if not (prob.status == 'infeasible'):
+       for i in range(len(g)):
+           for j in range(len(g[i])):
+               g[i][j] = (int)(g[i][j] * 1000)
+               g[i][j] = g[i][j] / 1000
     #check_result_find_proprtional_alloction(prob, g, consumption_graph, matv)
-    check_result_find_envy_free_alloction(prob, g, consumption_graph, matv)
+    #check_result_find_envy_free_alloction_for_graph(prob, g, consumption_graph, matv)
     return g
 
 
-def find_proprtional_alloction(consumption_graph, matv):
+def find_proprtional_alloction_for_graph(consumption_graph, matv):
     """
 
     :param consumption_graph:
@@ -141,17 +144,18 @@ def find_proprtional_alloction(consumption_graph, matv):
     prob = cvxpy.Problem(objective, constraints)
     prob.solve()  # Returns the optimal value.
     if not (prob.status == 'infeasible'):
-        print("status:", prob.status)
-        print("optimal value", prob.value)
+        pass
+        #print("status:", prob.status)
+        #print("optimal value", prob.value)
         #print("optimal var", mat.value)
     g = mat.value
-    check_result_find_proprtional_alloction(prob, g, consumption_graph, matv)
+    #check_result_find_proprtional_alloction_for_graph(prob, g, consumption_graph, matv)
     return g
 
 
 
 
-def check_result_find_proprtional_alloction(prob, g, graph, matv):
+def check_result_find_proprtional_alloction_for_graph(prob, g, graph, matv):
     """
     this function check the result of the function graph_convex
     bug 0 = if the sum of column isnt == 1
@@ -176,7 +180,7 @@ def check_result_find_proprtional_alloction(prob, g, graph, matv):
         for i in range(len(g)):
             if(sum(g[:, i])>1.00001)and(sum(g[:, i])<0.9999999999999998):
                 print(colorama.Fore.RED + "bug 0!!!" + colorama.Fore.RESET)
-            print("the colum sum number {} is :{}".format(i,sum(g[:, i])))
+            #print("the colum sum number {} is :{}".format(i,sum(g[:, i])))
 
         # check if there is no edge in the graph if he is get anything
         for i in range(len(g)):
@@ -199,7 +203,7 @@ def check_result_find_proprtional_alloction(prob, g, graph, matv):
 
 
 
-def check_result_find_envy_free_alloction(prob, g, graph, matv):
+def check_result_find_envy_free_alloction_for_graph(prob, g, graph, matv):
     """
     this function check the result of the function graph_convex
     bug 0 = if the sum of column isnt == 1
@@ -220,7 +224,7 @@ def check_result_find_envy_free_alloction(prob, g, graph, matv):
         for i in range(len(g)):
             if(sum(g[:, i])>1.00001)and(sum(g[:, i])<0.9999999999999998):
                 print(colorama.Fore.RED + "bug 0!!!" + colorama.Fore.RESET)
-            print("the colum sum number {} is :{}".format(i,sum(g[:, i])))
+            #print("the colum sum number {} is :{}".format(i,sum(g[:, i])))
 
         # check if there is no edge in the graph if he is get anything
         for i in range(len(g)):
@@ -246,7 +250,7 @@ def check_result_find_envy_free_alloction(prob, g, graph, matv):
             for j in range(len(temp[i])):
                 temp[i][j] = (int)(temp[i][j] * 1000)
                 temp[i][j] = temp[i][j] / 1000
-        print(temp)
+        #print(temp)
         for i in range(len(graph)):
             agent_sum = 0
             for j in range(len(graph[i])):
@@ -259,18 +263,58 @@ def check_result_find_envy_free_alloction(prob, g, graph, matv):
                     print(colorama.Fore.RED +"bug 4 !!! in agent {} , his sum is {} ,and agent {} sum is {} the difference is : {}".format(i,agent_sum,j, anther_agent_sum, agent_sum - anther_agent_sum)+ colorama.Fore.RESET)
 
 
+
+
+def num_of_shering2(graph):
+    """
+
+    :param graph:
+    :return:
+    >>> g = [[0.    ,0.    ,0.    ,1.   ],[0.    ,0.329 ,1.    ,0.   ],[1.    ,0.67  ,0.    ,0.   ]]
+    >>> num_of_shering2(g)
+    1
+    >>> g = [[0.   , 0.    ,0.    ,0.977],[0.    ,0.305 ,1.    ,0.022],[1.    ,0.694 ,0.    ,0.   ]]
+    >>> num_of_shering2(g)
+    2
+    """
+    num_of_edge = 0
+    for i in range(len(graph)):
+        for j in range(len(graph[0])):
+            num_of_edge += math.ceil(graph[i][j])
+    num_of_obj = len(graph[0])
+    return num_of_edge - num_of_obj
+
+
+def find_alloction(matv):
+    n = len(matv)+1
+    ans = matv
+    for i in generate_all_consumption_graphs(matv):
+        temp = find_envy_free_alloction_for_graph(i, matv)
+        if (temp is not None):
+            tempn = num_of_shering2(temp)
+            if(tempn < n):
+                n = tempn
+                ans = temp
+    return ans
+
 if __name__ == '__main__':
     (failures, tests) = doctest.testmod(report=True)
     print("{} failures, {} tests".format(failures, tests))
+
     v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
+    g = find_alloction(v)
+    print("the ans is: ")
+    print(g)
+    """
+    
     for i in generate_all_consumption_graphs(v):
         print()
         print()
         print(i)
-        g = find_envy_free_alloction(i, v)
+        g = find_envy_free_alloction_for_graph(i, v)
         #g = find_proprtional_alloction(i, v)
         print(g)
         print()
         print()
         print()
-
+    """

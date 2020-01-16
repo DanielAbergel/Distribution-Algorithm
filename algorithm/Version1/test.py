@@ -1,25 +1,33 @@
 import numpy as np
 import datetime
-from GraphGenerator import generate_all_consumption_graphs
-
+from algorithm.Version1 import GraphCheck
 
 if __name__ == '__main__':
-    num_of_agents = 4
-    num_of_items =  13
+    num_of_agents = 3
+    num_of_items =  10
     max_item_value = 100
     v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
     start = datetime.datetime.now()
     print("start time: {}".format(start))
-    count=0
-    for i in generate_all_consumption_graphs(v):
-        count+=1
+    print(v)
+    g = GraphCheck.find_alloction(v)
+    print("the ans is: ")
+    print(g)
     end = datetime.datetime.now()
     print("end time: {}".format(end))
     print("Total time for {} agents and {} items  :{}".format(num_of_agents,num_of_items,end-start))
-    print(count)
-
 
     """
+    find_alloction(v):
+    Total time for 3 agents and 10 items  :0:03:50.778506
+    
+    """
+
+    """
+        count=0
+    for i in generate_all_consumption_graphs(v):
+        count+=1
+        print(count)
      num_of_agents = 4
      num_of_items =  13
      before cutting: 
