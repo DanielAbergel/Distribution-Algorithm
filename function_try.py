@@ -661,6 +661,40 @@ def is_single_proportional(matz , matv,x):
 
 
 
+def is_envy_free2(matz, matv):
+    """
+    this function check if allocation z is envy_free
+    according to single agent
+    for specific i and any j : ui(xi)>=ui(xj)
+    :param matz represent the allocation
+    :param matv represent the value for the agents
+    :return: if the allocation matz is envy free
+    >>> v = [[1,3,5,2],[4,3,2,4]]
+    >>> z = [[0,0,1,0.5],[1,1,0,0.5]]
+    >>> is_envy_free2(z,v)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.6,0.2],[0.4,0.8]]
+    >>> is_envy_free2(z,v)
+    True
+    >>> v = [[11,3],[7,7]]
+    >>> z = [[0.5,0.2],[0.5,0.8]]
+    >>> is_envy_free2(z,v)
+    False
+    """
+    for i in range(len(matz)):
+        agent_sum = 0
+        for j in range(len(matz[i])):
+            agent_sum += matz[i][j] * matv[i][j]
+        anther_agent_sum = 0
+        for j in range(len(matz)):
+            anther_agent_sum = 0
+            for k in range(len(matz[i])):
+                anther_agent_sum += matz[j][k] * matv[i][k]
+            if not (agent_sum >= anther_agent_sum):
+                return False
+    return True
+
 
 
 def is_envy_free(matz , matv):

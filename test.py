@@ -1,6 +1,6 @@
 import numpy as np
 import datetime
-from GraphGenerator import all_graph
+from GraphGenerator import generate_all_consumption_graphs
 
 
 if __name__ == '__main__':
@@ -11,7 +11,7 @@ if __name__ == '__main__':
     start = datetime.datetime.now()
     print("start time: {}".format(start))
     count=0
-    for i in all_graph(v):
+    for i in generate_all_consumption_graphs(v):
         count+=1
     end = datetime.datetime.now()
     print("end time: {}".format(end))
@@ -20,14 +20,17 @@ if __name__ == '__main__':
 
 
     """
-    without f:
-    start time: 2020-01-08 08:58:21.718164
-    end time: 2020-01-08 08:58:58.811193
-    Total time for 4 agents and 13 items  :0:00:37.093029
-    2520543
-    wuth f
-    start time: 2020-01-08 08:56:43.910163
-    end time: 2020-01-08 08:57:22.513882
-    Total time for 4 agents and 13 items  :0:00:38.603719
-    2508991
+     num_of_agents = 4
+     num_of_items =  13
+     before cutting: 
+     Total time for 4 agents and 13 items  :0:00:41.599632
+     2523039
+     
+     after cutting n-1 :
+     Total time for 4 agents and 13 items  :0:00:41.537103
+     2139015
+     
+     after cutting n-2 :
+     Total time for 4 agents and 13 items  :0:00:14.655985
+     607568
     """

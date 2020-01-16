@@ -398,7 +398,7 @@ def f(i):
 """
 def f(i):
        return i * 2 + 1
-def all_graph(matv):
+def generate_all_consumption_graphs(matv):
     """
     this is the main function in that part of the algorithm
     she get valuation  and generate all the possibilities graph for it
@@ -407,7 +407,7 @@ def all_graph(matv):
     :return: generator of all possibilities graph
     >>> v = [[20,10],[5,4]]
     >>> # this is the correct graphs
-    >>> for g in all_graph(v):
+    >>> for g in generate_all_consumption_graphs(v):
     ...      print(g)
     [[1, 1], [0.0, 0.0]]
     [[1, 1], [0.0, 1]]
@@ -416,7 +416,7 @@ def all_graph(matv):
     [[0.0, 0.0], [1, 1]]
     >>> v = [[30,20,10],[5,5,5]]
     >>> # this is the correct graphs
-    >>> for g in all_graph(v):
+    >>> for g in generate_all_consumption_graphs(v):
     ...      print(g)
     [[1, 1, 1], [0.0, 0.0, 0.0]]
     [[1, 1, 1], [0.0, 0.0, 1]]
@@ -428,7 +428,7 @@ def all_graph(matv):
     >>> v = [[20,10],[10,5],[5,5]]
     >>> count = 1
     >>> # it spouse to be 49 graphs i didnt check the correctness of the graphs
-    >>> for g in all_graph(v):
+    >>> for g in generate_all_consumption_graphs(v):
     ...      print(count);count+=1
     ...      print(g)
     1
@@ -532,7 +532,7 @@ def all_graph(matv):
     >>> v = [[30,20,10],[20,15,10],[5,5,5]]
     >>> count =1
     >>> # it spouse to be 101 graphs i didnt check the correctness of the graphs
-    >>> for g in all_graph(v):
+    >>> for g in generate_all_consumption_graphs(v):
     ...      print(count); count+=1
     ...      print(g)
     1
@@ -851,9 +851,17 @@ def add_agent_to_graph(matv, graph,i):
     [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [1, 1, 1]]
     """
     for code in graph_code(graph):
-        yield code_to_matrix(matv,graph,code)
+        g = code_to_matrix(matv,graph,code)
+        n = len(g)
+        if(number_of_sharing(g) <= n-2):
+             yield g
 
-
+def number_of_sharing(graph)->int:
+    num_of_edge = 0
+    for i in range(len(graph)):
+        num_of_edge += sum(graph[i])
+    num_of_obj = len(graph[0])
+    return num_of_edge - num_of_obj
 
 def code_to_matrix(matv,graph,code):
     """

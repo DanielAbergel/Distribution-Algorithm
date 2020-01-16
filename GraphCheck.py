@@ -1,7 +1,7 @@
 import doctest as doctest
 import cvxpy
 import numpy as np
-from GraphGenerator import all_graph as all_graph
+from GraphGenerator import generate_all_consumption_graphs
 import colorama
 
 
@@ -46,7 +46,7 @@ def sum_of_x_according_to_y(graph, matv,x,y):
 
 
 
-def number_of_sharing(graph):
+def number_of_sharing(graph)->int:
     """
     this function
     :param graph: a graph represent by matrix
@@ -62,30 +62,78 @@ def number_of_sharing(graph):
     return num_of_edge - num_of_obj
 
 
+def find_envy_free_alloction(consumption_graph, matv):
+    """
+
+    :param consumption_graph:
+    :param matv:
+    :return:
+    """
+    mat = cvxpy.Variable((len(consumption_graph), len(consumption_graph[0])))
+    constraints = []
+    # every var >=0 and if there is no edge the var is zero
+    for i in range(len(consumption_graph)):
+        for j in range(len(consumption_graph[0])):
+            if (consumption_graph[i][j] == 0):
+                constraints.append(mat[i][j] == 0)
+            else:
+                constraints.append(mat[i][j] >= 0)
+    # the sum of each column is 1 (the property on each object is 100%)
+    for i in range(len(consumption_graph[0])):
+        constraints.append(sum(mat[:, i]) == 1)
+
+    # the envy_free condition
+    for i in range(len(consumption_graph)):
+        agent_sum = 0
+        for j in range(len(consumption_graph[i])):
+            agent_sum += mat[i][j] * matv[i][j]
+        anther_agent_sum = 0
+        for j in range(len(consumption_graph)):
+            anther_agent_sum = 0
+            for k in range(len(consumption_graph[i])):
+                anther_agent_sum += mat[j][k] * matv[i][k]
+            constraints.append(agent_sum >= anther_agent_sum)
+
+    objective = cvxpy.Maximize(1)
+    prob = cvxpy.Problem(objective, constraints)
+    prob.solve()  # Returns the optimal value.
+    if not (prob.status == 'infeasible'):
+        print("status:", prob.status)
+        print("optimal value", prob.value)
+        #print("optimal var", mat.value)
+    g = mat.value
+    #check_result_find_proprtional_alloction(prob, g, consumption_graph, matv)
+    check_result_find_envy_free_alloction(prob, g, consumption_graph, matv)
+    return g
 
 
+def find_proprtional_alloction(consumption_graph, matv):
+    """
 
-def graph_convex(graph, matv):
-    mat = cvxpy.Variable((len(graph), len(graph[0])))
+    :param consumption_graph:
+    :param matv:
+    :return:
+    """
+    mat = cvxpy.Variable((len(consumption_graph), len(consumption_graph[0])))
     constraints = []
 
     # every var >=0 and if there is no edge the var is zero
-    for i in range(len(graph)):
-        for j in range(len(graph[0])):
-            if (graph[i][j] == 0):
+    for i in range(len(consumption_graph)):
+        for j in range(len(consumption_graph[0])):
+            if (consumption_graph[i][j] == 0):
                 constraints.append(mat[i][j] == 0)
             else:
                 constraints.append(mat[i][j] >= 0)
 
     # the sum of each column is 1 (the property on each object is 100%)
-    for i in range(len(graph[0])):
+    for i in range(len(consumption_graph[0])):
         constraints.append(sum(mat[:, i]) == 1)
 
     # the proportional condition
     count = 0
-    for i in range(len(graph)):
+    for i in range(len(consumption_graph)):
         count = 0
-        for j in range(len(graph[i])):
+        for j in range(len(consumption_graph[i])):
             count += mat[i][j] * matv[i][j]
         constraints.append(count >= sum(matv[i]) / len(matv[i]))
 
@@ -97,13 +145,13 @@ def graph_convex(graph, matv):
         print("optimal value", prob.value)
         #print("optimal var", mat.value)
     g = mat.value
-    check_result(prob,g,graph,matv)
+    check_result_find_proprtional_alloction(prob, g, consumption_graph, matv)
     return g
 
 
 
 
-def check_result(prob, g, graph, matv):
+def check_result_find_proprtional_alloction(prob, g, graph, matv):
     """
     this function check the result of the function graph_convex
     bug 0 = if the sum of column isnt == 1
@@ -118,7 +166,54 @@ def check_result(prob, g, graph, matv):
     """
     colorama.init()
 
+   # chacking if the sum of column isnt == 1
+    if not(prob.status == 'infeasible'):
+        for i in range(len(g)):
+            for j in range(len(g[i])):
+                g[i][j] = (int)(g[i][j] * 1000)
+                g[i][j] = g[i][j] / 1000
+        # check if the column sum is 1
+        for i in range(len(g)):
+            if(sum(g[:, i])>1.00001)and(sum(g[:, i])<0.9999999999999998):
+                print(colorama.Fore.RED + "bug 0!!!" + colorama.Fore.RESET)
+            print("the colum sum number {} is :{}".format(i,sum(g[:, i])))
 
+        # check if there is no edge in the graph if he is get anything
+        for i in range(len(g)):
+            for j in range(len(g[0])):
+                if(g[i][j] > 1.000001):
+                    print(colorama.Fore.RED +"bug 1!!!"+ colorama.Fore.RESET)
+                if(graph[i][j] == 0):
+                    if(g[i][j] > 0.001):
+                        print(colorama.Fore.RED +"bug 2!!!"+ colorama.Fore.RESET)
+
+        # check proportional
+        for i in range(len(graph)):
+            agent_sum = 0
+            for j in range(len(graph[i])):
+                agent_sum += g[i][j] * matv[i][j]
+            n = sum(matv[i]) / len(matv[i])
+            if(agent_sum - n < -0.01):
+
+                print(colorama.Fore.RED +"bug 3!!! in agent {} the difference is : {}".format(i,agent_sum - n)+ colorama.Fore.RESET)
+
+
+
+def check_result_find_envy_free_alloction(prob, g, graph, matv):
+    """
+    this function check the result of the function graph_convex
+    bug 0 = if the sum of column isnt == 1
+    bug 1 = if one of the alloction is greater than one
+    bug 2 = if there is no edge in the original graph and the alloc is not zero
+    bug 3 = if the alloc for agent i is < 1/n (proportional)
+    bug 4 = if the alloc for agent i is < anther agent according to i valuation (envy free)
+    :param prob:
+    :param g:
+    :param graph:
+    :param matv:
+    :return:
+    """
+    colorama.init()
    # chacking if the sum of column isnt == 1
     if not(prob.status == 'infeasible'):
         # check if the column sum is 1
@@ -142,21 +237,38 @@ def check_result(prob, g, graph, matv):
             for j in range(len(graph[i])):
                 agent_sum += g[i][j] * matv[i][j]
             n = sum(matv[i]) / len(matv[i])
-            if(agent_sum - n < -0.0001):
-
+            #if(agent_sum - n < -0.0001):
+            if (agent_sum - n < 0):
                 print(colorama.Fore.RED +"bug 3!!! in agent {} the difference is : {}".format(i,agent_sum - n)+ colorama.Fore.RESET)
-
+        temp = g
+        # check envy-free
+        for i in range(len(temp)):
+            for j in range(len(temp[i])):
+                temp[i][j] = (int)(temp[i][j] * 1000)
+                temp[i][j] = temp[i][j] / 1000
+        print(temp)
+        for i in range(len(graph)):
+            agent_sum = 0
+            for j in range(len(graph[i])):
+                agent_sum += g[i][j] * matv[i][j]
+            for j in range(len(graph)):
+                anther_agent_sum = 0
+                for k in range(len(graph[i])):
+                    anther_agent_sum += g[j][k] * matv[i][k]
+                if not (agent_sum - anther_agent_sum > -0.0001):
+                    print(colorama.Fore.RED +"bug 4 !!! in agent {} , his sum is {} ,and agent {} sum is {} the difference is : {}".format(i,agent_sum,j, anther_agent_sum, agent_sum - anther_agent_sum)+ colorama.Fore.RESET)
 
 
 if __name__ == '__main__':
-    #(failures, tests) = doctest.testmod(report=True)
-    #print("{} failures, {} tests".format(failures, tests))
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))
     v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
-    for i in all_graph(v):
+    for i in generate_all_consumption_graphs(v):
         print()
         print()
         print(i)
-        g = graph_convex(i,v)
+        g = find_envy_free_alloction(i, v)
+        #g = find_proprtional_alloction(i, v)
         print(g)
         print()
         print()
