@@ -12,18 +12,13 @@ class FairAllocationProblem():
         self.min_sharing_allocation = valuation
         self.graph_generator = GraphGenerator(valuation)
 
-
-    def find_proportional_allocation_with_min_shering(self):
+    def find_allocation_with_min_shering(self):
         pass
 
-    def find_envy_free_allocation_with_min_shering(self):
+    def __find_allocation_for_graph(self):
         pass
 
-    def __find_proportional_allocation_for_graph(self):
-        pass
 
-    def __find_envy_free_allocation_for_graph(self):
-        pass
 
 
 
