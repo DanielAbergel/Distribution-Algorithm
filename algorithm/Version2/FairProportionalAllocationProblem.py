@@ -31,7 +31,6 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
         [[0.    1.    0.486 0.   ]
          [0.    0.    0.513 1.   ]
          [1.    0.    0.    0.   ]]
-
         """
         for consumption_graph in self.graph_generator.generate_all_consumption_graph():
             self.find_allocation_for_graph(consumption_graph)

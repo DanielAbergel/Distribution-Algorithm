@@ -305,8 +305,8 @@ def find_alloction(matv):
     n = len(matv)+1
     ans = matv
     for i in generate_all_consumption_graphs(matv):
-        temp = find_proprtional_alloction_for_graph(i, matv)
-        #temp = find_envy_free_alloction_for_graph(i, matv)
+        #temp = find_proprtional_alloction_for_graph(i, matv)
+        temp = find_envy_free_alloction_for_graph(i, matv)
         if (temp is not None):
             tempn = num_of_shering2(temp)
             if(tempn < n):
@@ -318,10 +318,10 @@ if __name__ == '__main__':
     #(failures, tests) = doctest.testmod(report=True)
     #print("{} failures, {} tests".format(failures, tests))
 
-    #v1 = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
-    v2 = [[5, 2, 1.5,1], [9, 1, 3,2.5], [10, 3, 2,4]]
+    v1 = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
+    #v2 = [[5, 2, 1.5,1], [9, 1, 3,2.5], [10, 3, 2,4]]
     start = datetime.datetime.now()
-    g = find_alloction(v2)
+    g = find_alloction(v1)
     print("the ans is: ")
     print(g)
     end = datetime.datetime.now()
