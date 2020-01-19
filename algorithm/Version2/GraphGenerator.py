@@ -6,6 +6,10 @@ import math
 
 
 class GraphGenerator():
+    """
+    this class functionality is to generate all the possibilities graph
+    (represent as ConsumptionGraph) for some valuation_matrix
+    """
 
     def __init__(self, valuation_matrix):
         self.valuation_matrix = valuation_matrix

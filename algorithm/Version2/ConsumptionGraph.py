@@ -67,9 +67,7 @@ class ConsumptionGraph():
         """
         this function return array that each arr[i] = the number
         of properties of agent i in graph multiple by 2 plus 1
-        :param graph:  given graph
         :return:  the number of properties of each agent in array
-
         >>> a =[[1,0,0],[1,1,1],[1,1,0]]
         >>> g = ConsumptionGraph(a)
         >>> g.sum_of_agent_properties()

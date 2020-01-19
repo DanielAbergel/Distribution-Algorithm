@@ -15,11 +15,11 @@ class Allocation():
     def __repr__(self):
         pass
 
-    def num_of_shering(self):
+    def num_of_shering(self)-> int :
         """
-
-        :param graph:
-        :return:
+        this function calculate the number of sharing in
+        the allocation
+        :return: the number of sharing
         >>> g = [[0.    ,0.    ,0.    ,1.   ],[0.    ,0.329 ,1.    ,0.   ],[1.    ,0.67  ,0.    ,0.   ]]
         >>> a = Allocation(g)
         >>> a.num_of_shering()

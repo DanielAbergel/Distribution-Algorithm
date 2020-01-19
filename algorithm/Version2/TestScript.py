@@ -18,6 +18,9 @@ if __name__ == '__main__':
     print("Total time for {} agents and {} items  :{}".format(num_of_agents,num_of_items,end-start))
 
     """
+    
+    
+    execution test for graphgenerator:
     num_of_agents = 4
     num_of_items =  11
     

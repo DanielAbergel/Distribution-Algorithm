@@ -5,6 +5,9 @@ from algorithm.Version2.ConsumptionGraph import ConsumptionGraph
 
 
 class ValueRatio():
+    """
+    this class represent all the ratio between the agents
+    """
 
 
     def __init__(self,valuation_matrix):

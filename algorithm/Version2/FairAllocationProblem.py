@@ -3,6 +3,10 @@ from algorithm.Version2.GraphGenerator import GraphGenerator
 
 
 class FairAllocationProblem():
+    """
+    this class is abstract class for solve Fair Allocation Problem
+    meaning - get agents valuation and a Fair Allocation
+    """
 
 
     def __init__(self ,valuation):
