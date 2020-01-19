@@ -1,4 +1,5 @@
 import doctest
+import math
 
 
 class Allocation():
@@ -15,7 +16,25 @@ class Allocation():
         pass
 
     def num_of_shering(self):
-        pass
+        """
+
+        :param graph:
+        :return:
+        >>> g = [[0.    ,0.    ,0.    ,1.   ],[0.    ,0.329 ,1.    ,0.   ],[1.    ,0.67  ,0.    ,0.   ]]
+        >>> a = Allocation(g)
+        >>> a.num_of_shering()
+        1
+        >>> g = [[0.   , 0.    ,0.    ,0.977],[0.    ,0.305 ,1.    ,0.022],[1.    ,0.694 ,0.    ,0.   ]]
+        >>> a = Allocation(g)
+        >>> a.num_of_shering()
+        2
+        """
+        num_of_edge = 0
+        for i in range(len(self.__alloction_matrix)):
+            for j in range(len(self.__alloction_matrix[0])):
+                num_of_edge += math.ceil(self.__alloction_matrix[i][j])
+        num_of_obj = len(self.__alloction_matrix[0])
+        return num_of_edge - num_of_obj
 
     def round(self):
         """
@@ -24,6 +43,10 @@ class Allocation():
         >>> a.round()
         >>> print(a.get_allocation())
         [[0.123, 0.999, 0.111], [0.222, 0.234, 0.987], [0.444, 0.123, 0.003]]
+        >>> a= Allocation([[1.95517154e-08 ,1.10159480e-08 ,1.03259828e-08 ,7.43142069e-01],[5.52419621e-02 ,1.00000000e+00 ,1.00000000e+00 ,3.13131120e-02],[9.44758043e-01 ,6.16284544e-09 ,9.16259668e-09 ,2.25544833e-01]])
+        >>> a.round()
+        >>> print(a.get_allocation())
+        [[0.0, 0.0, 0.0, 0.743], [0.055, 1.0, 1.0, 0.031], [0.944, 0.0, 0.0, 0.225]]
         """
         for i in range(len(self.__alloction_matrix)):
             for j in range(len(self.__alloction_matrix[i])):

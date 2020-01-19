@@ -3,6 +3,7 @@ import cvxpy
 from algorithm.Version1.GraphGenerator import generate_all_consumption_graphs
 import colorama
 import math
+import datetime
 
 def sum_of_x_according_to_y(graph, matv,x,y):
     """
@@ -71,12 +72,15 @@ def find_envy_free_alloction_for_graph(consumption_graph, matv):
     mat = cvxpy.Variable((len(consumption_graph), len(consumption_graph[0])))
     constraints = []
     # every var >=0 and if there is no edge the var is zero
+    """
     for i in range(len(consumption_graph)):
         for j in range(len(consumption_graph[0])):
             if (consumption_graph[i][j] == 0):
                 constraints.append(mat[i][j] == 0)
             else:
                 constraints.append(mat[i][j] >= 0)
+    """
+
     # the sum of each column is 1 (the property on each object is 100%)
     for i in range(len(consumption_graph[0])):
         constraints.append(sum(mat[:, i]) == 1)
@@ -86,6 +90,10 @@ def find_envy_free_alloction_for_graph(consumption_graph, matv):
         agent_sum = 0
         for j in range(len(consumption_graph[i])):
             agent_sum += mat[i][j] * matv[i][j]
+            if (consumption_graph[i][j] == 0):
+                constraints.append(mat[i][j] == 0)
+            else:
+                constraints.append(mat[i][j] >= 0)
         anther_agent_sum = 0
         for j in range(len(consumption_graph)):
             anther_agent_sum = 0
@@ -122,16 +130,18 @@ def find_proprtional_alloction_for_graph(consumption_graph, matv):
 
     # every var >=0 and if there is no edge the var is zero
     for i in range(len(consumption_graph)):
+        count = 0
         for j in range(len(consumption_graph[0])):
             if (consumption_graph[i][j] == 0):
                 constraints.append(mat[i][j] == 0)
             else:
                 constraints.append(mat[i][j] >= 0)
-
+            count += mat[i][j] * matv[i][j]
+        constraints.append(count >= sum(matv[i]) / len(matv[i]))
     # the sum of each column is 1 (the property on each object is 100%)
     for i in range(len(consumption_graph[0])):
         constraints.append(sum(mat[:, i]) == 1)
-
+    """
     # the proportional condition
     count = 0
     for i in range(len(consumption_graph)):
@@ -139,7 +149,7 @@ def find_proprtional_alloction_for_graph(consumption_graph, matv):
         for j in range(len(consumption_graph[i])):
             count += mat[i][j] * matv[i][j]
         constraints.append(count >= sum(matv[i]) / len(matv[i]))
-
+    """
     objective = cvxpy.Maximize(1)
     prob = cvxpy.Problem(objective, constraints)
     prob.solve()  # Returns the optimal value.
@@ -149,7 +159,13 @@ def find_proprtional_alloction_for_graph(consumption_graph, matv):
         #print("optimal value", prob.value)
         #print("optimal var", mat.value)
     g = mat.value
-    #check_result_find_proprtional_alloction_for_graph(prob, g, consumption_graph, matv)
+    if not (prob.status == 'infeasible'):
+       for i in range(len(g)):
+           for j in range(len(g[i])):
+               g[i][j] = (int)(g[i][j] * 1000)
+               g[i][j] = g[i][j] / 1000
+    #check_result_find_proprtional_alloction(prob, g, consumption_graph, matv)
+    #check_result_find_envy_free_alloction_for_graph(prob, g, consumption_graph, matv)
     return g
 
 
@@ -289,7 +305,8 @@ def find_alloction(matv):
     n = len(matv)+1
     ans = matv
     for i in generate_all_consumption_graphs(matv):
-        temp = find_envy_free_alloction_for_graph(i, matv)
+        temp = find_proprtional_alloction_for_graph(i, matv)
+        #temp = find_envy_free_alloction_for_graph(i, matv)
         if (temp is not None):
             tempn = num_of_shering2(temp)
             if(tempn < n):
@@ -298,14 +315,64 @@ def find_alloction(matv):
     return ans
 
 if __name__ == '__main__':
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
+    #(failures, tests) = doctest.testmod(report=True)
+    #print("{} failures, {} tests".format(failures, tests))
 
-    v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
-    g = find_alloction(v)
+    #v1 = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
+    v2 = [[5, 2, 1.5,1], [9, 1, 3,2.5], [10, 3, 2,4]]
+    start = datetime.datetime.now()
+    g = find_alloction(v2)
     print("the ans is: ")
     print(g)
+    end = datetime.datetime.now()
+    print("Total time {}".format(end-start))
     """
+    start = datetime.datetime.now()
+    g = find_alloction(v1)
+    print("the ans is: ")
+    print(g)
+    end = datetime.datetime.now()
+    print("Total time {}".format(end-start))
+    
+    
+        for i in generate_all_consumption_graphs(v1):
+        print()
+        print()
+        print(i)
+        g = find_proprtional_alloction_for_graph(i, v1)
+        #g = find_proprtional_alloction(i, v)
+        print(g)
+        print()
+        print()
+        print()
+    with:
+    v2:
+    Total time 0:00:05.641914
+    ans:
+    [[0.    1.    0.486 0.   ]
+    [0.    0.    0.513 1.   ]
+    [1.    0.    0.    0.   ]]
+    v1:
+    the ans is: 
+    [[0.    0.    0.    1.   ]
+    [0.    0.999 0.    0.   ]
+    [1.    0.    0.999 0.   ]]
+    Total time 0:00:06.195931
+    
+    without:
+    v2:
+    Total time 0:00:05.778729
+    ans:
+    [[0.    1.    0.486 0.   ]
+    [0.    0.    0.513 1.   ]
+    [1.    0.    0.    0.   ]]
+ 
+    v1:
+    the ans is: 
+    [[0.    0.    0.    1.   ]
+    [0.    0.999 0.    0.   ]
+    [1.    0.    0.999 0.   ]]
+    Total time 0:00:05.718696
     
     for i in generate_all_consumption_graphs(v):
         print()
@@ -317,4 +384,21 @@ if __name__ == '__main__':
         print()
         print()
         print()
+       
+    input: 
+    v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
+    g = find_alloction(v)
+    print("the ans is: ")
+    print(g)  
+     
+    output:
+    0 failures, 19 tests
+    the ans is: 
+    [[0.    0.    0.    1.   ]
+    [0.    1.    0.437 0.   ]
+    [1.    0.    0.562 0.   ]]
+    
+    [[0.    0.    0.    1.   ]
+    [0.    1.    0.437 0.   ]
+    [1.    0.    0.562 0.   ]]
     """

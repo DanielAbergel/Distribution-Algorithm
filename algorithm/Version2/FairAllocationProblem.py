@@ -1,3 +1,4 @@
+from algorithm.Version2.ConsumptionGraph import ConsumptionGraph
 from algorithm.Version2.GraphGenerator import GraphGenerator
 
 
@@ -15,7 +16,7 @@ class FairAllocationProblem():
     def find_allocation_with_min_shering(self):
         pass
 
-    def __find_allocation_for_graph(self):
+    def find_allocation_for_graph(self,consumption_graph : ConsumptionGraph):
         pass
 
 
