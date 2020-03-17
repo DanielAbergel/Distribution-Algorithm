@@ -4,7 +4,7 @@ import numpy as np
 from flask import Flask, request, render_template, jsonify
 from flask_restful import Resource, Api, reqparse
 from algorithm.Version2.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
-import json
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -23,7 +23,8 @@ class Algorithm(Resource):
     def post(self):
 
         data = request.get_json()
-        matrix = np.array([0, 0, 0, 0])
+
+        matrix = np.array([0] * data['num_of_items'])
         arr = data['{}'.format(0)]
 
         for i in range(0, data['num_of_items']):
