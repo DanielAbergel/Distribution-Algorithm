@@ -5,7 +5,6 @@ from flask import Flask, request, render_template, jsonify
 from flask_restful import Resource, Api, reqparse
 from algorithm.Version2.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
 
-
 app = Flask(__name__)
 api = Api(app)
 
@@ -21,17 +20,8 @@ class Algorithm(Resource):
         return {'algorithm': 'available'}
 
     def post(self):
-
         data = request.get_json()
-
-        matrix = np.array([0] * data['num_of_items'])
-        arr = data['{}'.format(0)]
-
-        for i in range(0, data['num_of_items']):
-            matrix[i] = arr[i]
-        for i in range(1, data['num_of_agents']):
-            arr = data['{}'.format(i)]
-            matrix = np.vstack((matrix, arr))
+        matrix = np.array(data['values'])
 
         x = FairEnvyFreeAllocationProblem(matrix)
         g = x.find_allocation_with_min_shering()
@@ -39,10 +29,9 @@ class Algorithm(Resource):
         json_request = {
             'num_of_agents': data['num_of_agents'],
             'num_of_items': data['num_of_items'],
+            'values': g.tolist()
         }
 
-        for i in range(0, data['num_of_agents']):
-            json_request["{}".format(i)] = list(g[i])
         print(json_request)
         req = jsonify(json_request)
         req.status_code = 200
