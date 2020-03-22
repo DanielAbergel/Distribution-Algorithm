@@ -1,7 +1,6 @@
 import datetime
-
 import numpy as np
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, send_from_directory
 from flask_restful import Resource, Api, reqparse
 from algorithm.Version2.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
 
@@ -11,7 +10,27 @@ api = Api(app)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('Home.html')
+
+
+@app.route('/<string:html>')
+def send_html(html):
+    return send_from_directory('templates/', html)
+
+
+@app.route('/DOM/<string:dom>')
+def send_dom(dom):
+    return send_from_directory('templates/DOM', dom)
+
+
+@app.route('/css/<string:path>')
+def send_css(path):
+    return send_from_directory('templates/css', path)
+
+
+@app.route('/images/<string:path>')
+def send_images(path):
+    return send_from_directory('templates/images', path)
 
 
 class Algorithm(Resource):
@@ -41,4 +60,4 @@ class Algorithm(Resource):
 api.add_resource(Algorithm, '/calculator')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
