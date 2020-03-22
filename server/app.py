@@ -1,5 +1,8 @@
 import datetime
 import numpy as np
+import sys
+
+sys.path.append('../')
 from flask import Flask, request, render_template, jsonify, send_from_directory
 from flask_restful import Resource, Api, reqparse
 from algorithm.Version2.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
@@ -13,24 +16,26 @@ def home():
     return render_template('Home.html')
 
 
+
+
 @app.route('/<string:html>')
 def send_html(html):
-    return send_from_directory('templates/', html)
+    return send_from_directory('../web/', html)
 
 
 @app.route('/DOM/<string:dom>')
 def send_dom(dom):
-    return send_from_directory('templates/DOM', dom)
+    return send_from_directory('../web/DOM', dom)
 
 
-@app.route('/css/<string:path>')
-def send_css(path):
-    return send_from_directory('templates/css', path)
+@app.route('/css/<string:css>')
+def send_css(css):
+    return send_from_directory('../web/css', css)
 
 
-@app.route('/images/<string:path>')
-def send_images(path):
-    return send_from_directory('templates/images', path)
+@app.route('/images/<string:image>')
+def send_images(image):
+    return send_from_directory('../web/images', image)
 
 
 class Algorithm(Resource):
