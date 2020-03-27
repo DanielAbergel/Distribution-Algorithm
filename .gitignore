@@ -1,5 +1,6 @@
 # Distribution_Algorithm 
 venv/
 .idea/
-algorithm/Version2/__pycache__/
- algorithm/__pycache__/
+server/algorithm/Version2/__pycache__/
+server/algorithm/Version1/__pycache__/
+server/algorithm/__pycache__/
