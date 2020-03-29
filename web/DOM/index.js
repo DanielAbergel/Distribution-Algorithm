@@ -60,7 +60,23 @@ function setMat(){
       console.log(mat[i][j]);
     }
   }
+  json=convertTOjson(mat);
+  console.log(json);
+
 showChart(mat);
+}
+
+function convertTOjson(mat){
+  var json="{";
+  for(i=0;i<mat.length;++i){
+    json+="\n"+i+": [";
+    for(j=0;j<mat[0].length;++j){
+      json+="\n"+mat[i][j]+",";
+    }
+    json+="\n],";
+  }
+  json+="\n"+"num_of_agents: "+mat.length+",\nnum_of_items: "+mat[0].length+"\n}";
+  return json;
 }
 /////////////////////////////////////////////////////////////////////////////
 
