@@ -1,5 +1,27 @@
+body {
+background-color: #E4EACB;
+}
+
 .logo img{
   float:left;
   width:48px;
   height:48px;
+}
+
+.topnav {
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  color: #aaa;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: underline;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
 }
