@@ -18,7 +18,7 @@ passwd fairness-algorithm
 
 ## Providing user with additional privilege
 
-Since we will be logging in as `johndoe` for most of the time in the future, we will want it to have some "extra power", that is, temporarily acting as a super user. To do this, we need to run the command:
+Since we will be logging in as `fairness-algorithm` for most of the time in the future, we will want it to have some "extra power", that is, temporarily acting as a super user. To do this, we need to run the command:
 
 ```
 visudo
