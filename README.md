@@ -1,15 +1,8 @@
 # Distribution_Algorithm 
 
 
-# Connecting to our server
-
-In order to connect to our server, we need to use a tool called `SSH` (Secure Shell). We can SSH our server using the command:
-
-```
-ssh root@<your server ip>
-```
-After connecting to our server and logging in as the `root` user, it is recommended to run the below command first to get all the available updates:
-
+# Server 
+ it is recommended to run the below command first to get all the available updates:
 ```
 apt-get update
 ```
