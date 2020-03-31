@@ -52,16 +52,32 @@ function setMat(){
   }
   for (i=0;i<namesArr.length;i++){
     for (j=0;j<itemsArr.length;j++){
-      mat[i][j]=document.getElementById('rate'+i+j).value;
+      mat[i][j]=parseInt(document.getElementById('rate'+i+j).value);
     }
   }
   for (i=0;i<namesArr.length;i++){
     for (j=0;j<itemsArr.length;j++){
-      console.log(mat[i][j]);
+      // console.log(mat[i][j]);
     }
   }
-  json=convertTOjson(mat);
-  console.log(json);
+
+json=JSON.stringify({"values":mat,"num_of_agents":mat.length,"num_of_items":mat[0].length});
+
+console.log(json);
+var xhr = new XMLHttpRequest();
+var url = "http://127.0.0.1:5000/calculator";
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4 && xhr.status === 200) {
+       var jsona = JSON.parse(xhr.responseText);
+       console.log(jsona);
+   }
+};
+  var data = json;
+  xhr.send(data);
+
+
 
 showChart(mat);
 }
@@ -69,13 +85,13 @@ showChart(mat);
 function convertTOjson(mat){
   var json="{";
   for(i=0;i<mat.length;++i){
-    json+="\n"+i+": [";
+    json+=i+": [";
     for(j=0;j<mat[0].length;++j){
-      json+="\n"+mat[i][j]+",";
+      json+=mat[i][j]+",";
     }
-    json+="\n],";
+    json+="],";
   }
-  json+="\n"+"num_of_agents: "+mat.length+",\nnum_of_items: "+mat[0].length+"\n}";
+  json+="num_of_agents: "+mat.length+",num_of_items: "+mat[0].length+"}";
   return json;
 }
 /////////////////////////////////////////////////////////////////////////////
