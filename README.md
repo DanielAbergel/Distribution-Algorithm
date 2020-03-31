@@ -1,4 +1,4 @@
-# Distribution_Algorithm 
+![logo](https://user-images.githubusercontent.com/44754325/78068225-b2cd9300-73a0-11ea-92be-7fd6a4cc06be.png | width=100)
 
 
 # Server 
