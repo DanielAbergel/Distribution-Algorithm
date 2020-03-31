@@ -6,7 +6,7 @@
 ```
 apt-get update
 ```
-** Very Important: in our development process we using python 3.6.9 **
+* Very Important: in our development process we using python 3.6.9 *
 Since the root user is the most powerful, essentially a root user can do everything on the server, so we may want to limit access to it to improve security.you can create a new user and configure it to "act like" a root user but with certain limitations, and we will log in as this user from then on. It is highly recommended to do so, but if you choose not to follow this practice and simply want to login as the root user anyway, continue the guide otherwise see the CreateUser.md guide.
 
 ## Setting up our app folder
