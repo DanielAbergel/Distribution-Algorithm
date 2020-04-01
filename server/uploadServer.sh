@@ -11,6 +11,7 @@ echo $password | sudo chown $user:$user /var/www/html/$folder
 cd /var/www/html/$folder/
 git clone https://github.com/DanielAbergel/Distribution-Algorithm.git .
 cd /server
+mkdir log
 
 echo 'Installing Environment dependencies and python Virtual Environment'
 echo $password | sudo apt-get install python3-pip python3-dev libpq-dev

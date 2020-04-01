@@ -1,0 +1,12 @@
+[Unit]
+Description=uWSGI fairness algorithm
+
+[Service]
+ExecStart=/var/www/html/fairness-algorithm-rest/server/venv/bin/uwsgi --master --emperor /var/www/html/fairness-algorithm-rest/server/uwsgi.ini --die-on-term --uid fairness-server --gid fairness-algorithm --logto /var/www/html/fairness-algorithm-rest/server/log/emperor.log
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
