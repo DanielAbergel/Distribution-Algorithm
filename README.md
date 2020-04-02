@@ -9,8 +9,6 @@ Since the root user is the most powerful, essentially a root user can do everyth
 
 ## Debug Server  
 
-please make sure that your python3 version is set to 3.6.9. 
-
 First, we need to set a virtual environment and install the server dependencies                            
 go into **server/** folder in our project.  
 Run the following command and replace the parameter `` <password> ``  with your user password.
