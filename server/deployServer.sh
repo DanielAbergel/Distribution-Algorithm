@@ -30,7 +30,7 @@ echo $password | sudo -S mv /var/www/html/$folder/server/devTools/uwsgi_fairness
 echo $password | sudo -S systemctl start uwsgi_fairness_algorithm_rest
 uwsgiExitCode=$?
 if [[ "$secssesfullMake" -gt 0 ]]; then
-echo "uWSGI problem has occured please check '/etc/systemd/system/uwsgi_fairness_algorithm_rest.service' and uwsgi.ini files"
+echo "ERROR : uWSGI problem has occured please check '/etc/systemd/system/uwsgi_fairness_algorithm_rest.service' and uwsgi.ini files"
 exit 1
 fi
 
@@ -49,9 +49,10 @@ echo $password | sudo -S rm /etc/nginx/sites-enabled/default
 echo $password | sudo -S ln -s /etc/nginx/sites-available/fairness-algorithm-rest.conf /etc/nginx/sites-enabled/
 echo $password | sudo -S systemctl start nginx
 if [[ "$secssesfullMake" -gt 0 ]]; then
-echo "NGINX problem has occured please check '/etc/nginx/sites-available/fairness-algorithm-rest.conf' "
+echo "ERROR : NGINX problem has occured please check '/etc/nginx/sites-available/fairness-algorithm-rest.conf' "
 exit 1
 fi
 
 echo $password | sudo -S systemctl reload nginx
+echo $password | sudo -S systemctl restart nginx
 echo $password | sudo -S systemctl restart nginx
