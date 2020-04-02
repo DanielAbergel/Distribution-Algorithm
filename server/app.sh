@@ -8,8 +8,8 @@ if [ "$isBuild" == "$build" ]; then
     echo "Building server for DEBUG purposes"
     
     pip3 install virtualenv
-    echo $password | sudo -S apt-get install virtualenv
-    echo Y | virtualenv venv --python=python3
+    echo Y | apt-get install virtualenv
+    virtualenv venv --python=python3
     source venv/bin/activate
     echo "-- Install server dependencies --"
     pip install -r requirements.txt
