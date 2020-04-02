@@ -4,13 +4,15 @@ password=$1
 user=$2
 
 folder='fairness-algorithm-rest'
+# -- Update packages --
+echo $password | sudo -S apt-get update
 
 echo "Creating App folder"
 echo $password | sudo -S mkdir -p /var/www/html/$folder
 echo $password | sudo -S chown $user:$user /var/www/html/$folder
 cd /var/www/html/$folder/
 git clone https://github.com/DanielAbergel/Distribution-Algorithm.git .
-cd /server
+cd server/
 mkdir log
 
 echo 'Installing Environment dependencies and python Virtual Environment'
@@ -39,7 +41,7 @@ echo $password | sudo -S apt-get install nginx
 echo 'Enable UFW (ubuntu firewall)'
 echo $password | sudo -S ufw allow 'Nginx HTTP'
 echo $password | sudo -S ufw allow ssh
-echo $password | sudo -S ufw enable
+echo yes | sudo -S ufw enable
 
 echo 'setting NGINX configurtion'
 echo $password | sudo -S mv /var/www/html/$folder/server/devTools/fairness-algorithm-rest.conf /etc/nginx/sites-available/fairness-algorithm-rest.conf
