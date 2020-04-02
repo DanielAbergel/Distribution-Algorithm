@@ -13,7 +13,7 @@ api = Api(app)
 
 @app.route('/')
 def home():
-    return render_template('Home.html')
+    return send_from_directory('../web/','Home.html')
 
 
 
