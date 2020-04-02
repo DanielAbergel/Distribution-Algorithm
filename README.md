@@ -9,7 +9,7 @@ Since the root user is the most powerful, essentially a root user can do everyth
 
 ## Debug Server  
 
-First, we need to set a virtual environment and install the server dependencies                            
+First, we need to set a virtual environment and install the server dependencies.                            
 go into **server/** folder in our project.  
 Run the following command and replace the parameter `` <password> ``  with your user password.
 
@@ -39,10 +39,9 @@ Run the following command and replace the `` <password> `` parameter with your u
 ```
 ./deployServer <password> <user>
 ```
-Now the server deployed using Nginx and uWSGI  , 
+Now the server deployed using Nginx and uWSGI,  
 Access the default Server landing page to confirm that the software is running properly through your IP address:
 
 ```
   http://your_ip
 ```
-.
