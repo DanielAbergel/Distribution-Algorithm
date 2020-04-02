@@ -45,6 +45,7 @@ Run the following command and replace the `` <password> `` parameter with your u
 ```
 Now that the server deployed using Nginx and uWSGI,  
 access the default Server landing page to confirm that the software is running properly through your IP address:
+(TIP: to find your ubuntu user name run the command  ``whoami``  )
 
 ```
   http://your_ip
