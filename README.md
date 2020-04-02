@@ -1,4 +1,7 @@
-![free_horizontal_on_white_by_logaster](https://user-images.githubusercontent.com/44754325/78273213-36a98b80-7517-11ea-8f8e-fb9b8e569988.png)
+
+<p align="center">
+  <img src=![free_horizontal_on_white_by_logaster](https://user-images.githubusercontent.com/44754325/78273213-36a98b80-7517-11ea-8f8e-fb9b8e569988.png)/>
+</p>
 
 
 # Server 
