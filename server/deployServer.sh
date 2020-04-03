@@ -18,7 +18,7 @@ mkdir log
 echo 'Installing Environment dependencies and python Virtual Environment'
 echo $password | sudo -S apt-get install python3-pip python3-dev libpq-dev
 echo $password | pip3 install virtualenv
-echo $password | sudo -S apt-get install virtualenv
+echo Y | sudo -S apt-get install virtualenv
 echo $password | virtualenv venv --python=python3
 source venv/bin/activate
 pip install -r requirements.txt
