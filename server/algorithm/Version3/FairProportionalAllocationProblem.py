@@ -43,8 +43,13 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
          [0.    0.    0.513 1.   ]
          [1.    0.    0.    0.   ]]
         """
+        #i = 0
+        #n = len(self.valuation) - 1
+        #while(i <= n)and(not self.find):
+        #    self.graph_generator.set_num_of_sharing_is_allowed(i)
         for consumption_graph in self.graph_generator.generate_all_consumption_graph():
             self.find_allocation_for_graph(consumption_graph)
+        #   i+=1
         return self.min_sharing_allocation
 
 
@@ -145,9 +150,9 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
         if not (prob.status == 'infeasible'):
             alloc = Allocation(mat.value)
             alloc.round()
-            if(alloc.num_of_shering() < self.min_sharing_number):
-                self.min_sharing_number = alloc.num_of_shering()
-                self.min_sharing_allocation = alloc.get_allocation()
+            self.min_sharing_number = alloc.num_of_shering()
+            self.min_sharing_allocation = alloc.get_allocation()
+            self.find = True
         # only for doctet:
         return (mat.value)
 

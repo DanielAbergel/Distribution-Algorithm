@@ -16,6 +16,7 @@ class FairAllocationProblem():
         self.min_sharing_number = len(valuation)
         self.min_sharing_allocation = valuation
         self.graph_generator = GraphGenerator(valuation)
+        self.find = False
 
     def find_allocation_with_min_shering(self):
         pass
