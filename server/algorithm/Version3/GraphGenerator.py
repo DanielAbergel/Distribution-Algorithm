@@ -250,6 +250,7 @@ class GraphGenerator():
         """
         for code in consumption_graph.generate_all_code():
             g = self.code_to_consumption_graph(consumption_graph, code)
+
             #n = len(g)
             # if(number_of_sharing(g) <= n-2):
             yield g
