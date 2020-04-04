@@ -1,6 +1,6 @@
 import doctest
-from algorithm.Version2.ConsumptionGraph import ConsumptionGraph
-from algorithm.Version2.ValueRatio import ValueRatio
+from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
+from algorithm.Version3.ValueRatio import ValueRatio
 import numpy as np
 import math
 

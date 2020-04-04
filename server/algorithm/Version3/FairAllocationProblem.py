@@ -1,5 +1,5 @@
-from algorithm.Version2.ConsumptionGraph import ConsumptionGraph
-from algorithm.Version2.GraphGenerator import GraphGenerator
+from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
+from algorithm.Version3.GraphGenerator import GraphGenerator
 
 
 class FairAllocationProblem():

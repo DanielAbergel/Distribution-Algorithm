@@ -1,8 +1,8 @@
 import doctest
 import cvxpy
-from algorithm.Version2.Allocation import Allocation
-from algorithm.Version2.ConsumptionGraph import ConsumptionGraph
-from algorithm.Version2.FairAllocationProblem import FairAllocationProblem
+from algorithm.Version3.Allocation import Allocation
+from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
+from algorithm.Version3.FairAllocationProblem import FairAllocationProblem
 
 
 class FairEnvyFreeAllocationProblem(FairAllocationProblem):

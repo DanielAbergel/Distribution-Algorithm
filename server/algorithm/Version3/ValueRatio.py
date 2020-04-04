@@ -1,6 +1,6 @@
 import numpy as np
 import doctest as doctest
-from algorithm.Version2.ConsumptionGraph import ConsumptionGraph
+from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
 
 
 
