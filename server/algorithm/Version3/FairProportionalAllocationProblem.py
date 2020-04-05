@@ -44,7 +44,7 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
          [1.    0.    0.    0.   ]]
         """
         #i = 0
-        #n = len(self.valuation) - 1
+        #n = len(self.valuation)
         #while(i <= n)and(not self.find):
         #    self.graph_generator.set_num_of_sharing_is_allowed(i)
         for consumption_graph in self.graph_generator.generate_all_consumption_graph():

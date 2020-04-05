@@ -15,6 +15,7 @@ if __name__ == '__main__':
     for i in g.generate_all_consumption_graph():
         count += 1
     end = datetime.datetime.now()
+    print("the number of graph: {}".format(count))
     print("Total time for {} agents and {} items  :{}".format(num_of_agents,num_of_items,end-start))
 
     """
