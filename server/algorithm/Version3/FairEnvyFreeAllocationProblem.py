@@ -3,7 +3,7 @@ import cvxpy
 from algorithm.Version3.Allocation import Allocation
 from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
 from algorithm.Version3.FairAllocationProblem import FairAllocationProblem
-
+from termcolor import colored
 
 class FairEnvyFreeAllocationProblem(FairAllocationProblem):
     """
@@ -132,6 +132,11 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
         prob.solve()  # Returns the optimal value.
         if not (prob.status == 'infeasible'):
             alloc = Allocation(mat.value)
+            if(alloc.is_envy_free(self.valuation)):
+                print (colored("is envy_free!" , 'green'))
+                   #print("is envy_free!")
+            else:
+                print (colored("not envy_free!!!!!!" , 'red'))
             alloc.round()
             if (alloc.num_of_shering() < self.min_sharing_number):
                 self.min_sharing_number = alloc.num_of_shering()

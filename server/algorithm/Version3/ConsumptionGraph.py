@@ -194,7 +194,107 @@ class ConsumptionGraph():
 
 
 if __name__ == '__main__':
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
-    #g = ConsumptionGraph([[1, 1, 1], [0.0, 1, 1], [1, 0.0, 0.0]])
-    #print(g.get_num_of_sharing())
+   # (failures, tests) = doctest.testmod(report=True)
+   # print("{} failures, {} tests".format(failures, tests))
+    g = ConsumptionGraph(    [[0.  ,  0.   , 0.  , 0.764],
+     [0.  ,  0.549 ,1.   , 0.101],
+     [1.   , 0.45 , 0.  ,  0.133]])
+    v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
+    print(g.is_prop(v))
+
+"""
+Failed example:
+    print(fpap.find_allocation_for_graph(g))
+Expected:
+    [[0.    0.    0.    0.743]
+     [0.055 1.    1.    0.031]
+     [0.944 0.    0.    0.225]]
+Got:
+    [[0.    0.    0.    0.683]
+     [0.069 1.    1.    0.066]
+     [0.93  0.    0.    0.249]]
+**********************************************************************
+File "C:/Users/אליהו סתת/Desktop/project/Distribution-Algorithm/server/algorithm/Version3/FairProportionalAllocationProblem.py", line 89, in __main__.FairProportionalAllocationProblem.find_allocation_for_graph
+Failed example:
+    print(fpap.find_allocation_for_graph(g))
+Expected:
+    [[0.    0.    0.    0.801]
+     [0.    1.    1.    0.083]
+     [0.999 0.    0.    0.115]]
+Got:
+    [[0.    0.    0.    0.7  ]
+     [0.    1.    1.    0.079]
+     [0.999 0.    0.    0.22 ]]
+**********************************************************************
+File "C:/Users/אליהו סתת/Desktop/project/Distribution-Algorithm/server/algorithm/Version3/FairProportionalAllocationProblem.py", line 95, in __main__.FairProportionalAllocationProblem.find_allocation_for_graph
+Failed example:
+    print(fpap.find_allocation_for_graph(g))
+Expected:
+    [[0.    0.    0.    0.908]
+     [0.    0.518 1.    0.032]
+     [0.999 0.481 0.    0.058]]
+Got:
+    [[0.    0.    0.    0.764]
+     [0.    0.549 1.    0.101]
+     [1.    0.45  0.    0.133]]
+**********************************************************************
+File "C:/Users/אליהו סתת/Desktop/project/Distribution-Algorithm/server/algorithm/Version3/FairProportionalAllocationProblem.py", line 101, in __main__.FairProportionalAllocationProblem.find_allocation_for_graph
+Failed example:
+    print(fpap.find_allocation_for_graph(g))
+Expected:
+    [[0.    0.    0.    0.687]
+     [0.    0.    1.    0.103]
+     [1.    1.    0.    0.208]]
+Got:
+    [[0.    0.    0.    0.74 ]
+     [0.    0.    1.    0.16 ]
+     [1.    1.    0.    0.098]]
+**********************************************************************
+File "C:/Users/אליהו סתת/Desktop/project/Distribution-Algorithm/server/algorithm/Version3/FairProportionalAllocationProblem.py", line 107, in __main__.FairProportionalAllocationProblem.find_allocation_for_graph
+Failed example:
+    print(fpap.find_allocation_for_graph(g))
+Expected:
+    [[0.    0.    0.    0.665]
+     [0.    0.    0.866 0.205]
+     [0.999 1.    0.133 0.129]]
+Got:
+    [[0.    0.    0.    0.725]
+     [0.    0.    0.891 0.178]
+     [1.    1.    0.108 0.095]]
+**********************************************************************
+File "C:/Users/אליהו סתת/Desktop/project/Distribution-Algorithm/server/algorithm/Version3/FairProportionalAllocationProblem.py", line 117, in __main__.FairProportionalAllocationProblem.find_allocation_for_graph
+Failed example:
+    print(fpap.find_allocation_for_graph(g))
+Expected:
+    [[0.    0.    0.    0.939]
+     [0.    0.462 1.    0.06 ]
+     [0.999 0.537 0.    0.   ]]
+Got:
+    [[0.    0.    0.    0.906]
+     [0.    0.526 1.    0.093]
+     [1.    0.473 0.    0.   ]]
+**********************************************************************
+File "C:/Users/אליהו סתת/Desktop/project/Distribution-Algorithm/server/algorithm/Version3/FairProportionalAllocationProblem.py", line 35, in __main__.FairProportionalAllocationProblem.find_allocation_with_min_shering
+Failed example:
+    print(fpap.find_allocation_with_min_shering())
+Expected:
+    [[0.    0.    0.    1.   ]
+     [0.    0.999 0.    0.   ]
+     [1.    0.    0.999 0.   ]]
+Got:
+    [[0.    0.    0.    0.873]
+     [0.    0.767 0.726 0.   ]
+     [1.    0.232 0.273 0.126]]
+**********************************************************************
+File "C:/Users/אליהו סתת/Desktop/project/Distribution-Algorithm/server/algorithm/Version3/FairProportionalAllocationProblem.py", line 41, in __main__.FairProportionalAllocationProblem.find_allocation_with_min_shering
+Failed example:
+    print(fpap.find_allocation_with_min_shering())
+Expected:
+    [[0.    1.    0.486 0.   ]
+     [0.    0.    0.513 1.   ]
+     [1.    0.    0.    0.   ]]
+Got:
+    [[0.442 1.    0.    0.   ]
+     [0.296 0.    1.    0.   ]
+     [0.261 0.    0.    1.   ]]
+"""
