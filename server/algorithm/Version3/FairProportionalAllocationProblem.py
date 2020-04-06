@@ -117,6 +117,44 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
         """
         mat = cvxpy.Variable((self.num_of_agents, self.num_of_items))
         constraints = []
+        # every var >=0 and if there is no edge the var is zero
+        # and proportional condition
+        for i in range(self.num_of_agents):
+            count = 0
+            for j in range(self.num_of_items):
+                if (consumption_graph.get_graph()[i][j] == 0):
+                    constraints.append(mat[i][j] == 0)
+                else:
+                    constraints.append(mat[i][j] >= 0)
+                count += mat[i][j] * self.valuation[i][j]
+            constraints.append(count >= sum(self.valuation[i]) / len(self.valuation))
+        # the sum of each column is 1 (the property on each object is 100%)
+        for i in range(self.num_of_items):
+            constraints.append(sum(mat[:, i]) == 1)
+        """
+        # the proportional condition
+        count = 0
+        for i in range(len(consumption_graph)):
+            count = 0
+            for j in range(len(consumption_graph[i])):
+                count += mat[i][j] * matv[i][j]
+            constraints.append(count >= sum(matv[i]) / len(matv[i]))
+        """
+        objective = cvxpy.Maximize(1)
+        prob = cvxpy.Problem(objective, constraints)
+        prob.solve()  # Returns the optimal value.
+        if not (prob.status == 'infeasible'):
+            alloc = Allocation(mat.value)
+            alloc.round()
+            if(alloc.num_of_shering() < self.min_sharing_number):
+                self.min_sharing_number = alloc.num_of_shering()
+                self.min_sharing_allocation = alloc.get_allocation()
+        # only for doctet:
+        return (mat.value)
+        """
+        
+        mat = cvxpy.Variable((self.num_of_agents, self.num_of_items))
+        constraints = []
 
         # every var >=0 and if there is no edge the var is zero
         # and proportional condition
@@ -136,7 +174,8 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
 
 
 
-        """"
+        """
+        """
         mat = cvxpy.Variable((self.num_of_agents, self.num_of_items))
         constraints = []
         # every var >=0 and if there is no edge the var is zero
@@ -167,6 +206,7 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
                 count += mat[i][j] * matv[i][j]
             constraints.append(count >= sum(matv[i]) / len(matv[i]))
         """
+        """
         objective = cvxpy.Maximize(1)
         prob = cvxpy.Problem(objective, constraints)
         prob.solve()  # Returns the optimal value.
@@ -180,17 +220,19 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
 
                 #print(colored("not proprtional!!!!!!", 'red'))
                 """
+        """
                 temp = Allocation(mat.value)
                 temp.round()
                 print(temp.get_allocation())
                 """
-
+        """
             alloc.round()
             self.min_sharing_number = alloc.num_of_shering()
             self.min_sharing_allocation = alloc.get_allocation()
             self.find = True
-        # only for doctet:
-        return (mat.value)
+         # only for doctet:
+          return (mat.value)
+       """
 
 if __name__ == '__main__':
     (failures, tests) = doctest.testmod(report=True)
