@@ -19,46 +19,6 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
     def __init__(self, valuation):
         super().__init__(valuation)
 
-    def find_allocation_with_min_shering(self):
-        """
-        this function find the envy free allocation for the valuation
-        :return: the envy free allocation
-
-        # the test are according to the result of ver 1 in GraphCheck
-        >>> v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
-        >>> fefap =FairEnvyFreeAllocationProblem(v)
-        >>> print(fefap.find_allocation_with_min_shering())
-        [[0.    0.    0.    0.999]
-         [0.    1.    0.429 0.   ]
-         [0.999 0.    0.57  0.   ]]
-        >>> v = [[5, 2, 1.5,1], [9, 1, 3,2.5], [10, 3, 2,4]]
-        >>> fefap =FairEnvyFreeAllocationProblem(v)
-        >>> print(fefap.find_allocation_with_min_shering())
-        [[0.337 1.    0.    0.   ]
-         [0.342 0.    1.    0.   ]
-         [0.32  0.    0.    0.999]]
-        """
-        """
-        i =0
-        print("satrt")
-        for consumption_graph in self.graph_generator.generate_all_consumption_graph():
-            print(i)
-            print(consumption_graph.get_graph())
-            i+=1
-            self.find_allocation_for_graph(consumption_graph)
-        return self.min_sharing_allocation
-        """
-
-        i = 0
-        n = len(self.valuation)
-        while (i <= n) and (not self.find):
-            self.graph_generator.set_num_of_sharing_is_allowed(i)
-            for consumption_graph in self.graph_generator.generate_all_consumption_graph():
-                #print(consumption_graph.get_graph())
-                self.find_allocation_for_graph(consumption_graph)
-            i += 1
-        return self.min_sharing_allocation
-
 
     def find_allocation_for_graph(self,consumption_graph : ConsumptionGraph):
         """
@@ -146,25 +106,7 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
         prob.solve(solver="SCS")  # Returns the optimal value.
         if not (prob.status == 'infeasible'):
             alloc = Allocation(mat.value)
-            """
-        problem.solve(solver="ECOS")
-        problem.solve(solver="SCS")
-        problem.solve(solver="OSQP")
-        
-        anther solotion:
-        try:
-        result = p.solve()
-        except SolverError:
-        result = p.solve(solver=SCS)
-            if(alloc.is_envy_free(self.valuation)):
-                pass
-            #    print (colored("is envy_free!" , 'green'))
-                   #print("is envy_free!")
-            else:
-                print (colored("not envy_free!!!!!!" , 'red'))
-            """
             alloc.round()
-            #if (alloc.num_of_shering() < self.min_sharing_number):
             self.min_sharing_number = alloc.num_of_shering()
             self.min_sharing_allocation = alloc.get_allocation()
             self.find = True
@@ -172,12 +114,8 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
         return (mat.value)
 
 if __name__ == '__main__':
-    #(failures, tests) = doctest.testmod(report=True)
-    #print("{} failures, {} tests".format(failures, tests))
-    valuation = [[61, 85, 11, 38], [14, 50, 79, 12], [65, 48, 72, 86]]
-    fefap = FairEnvyFreeAllocationProblem(valuation)
-    g1 = [[1, 1, 0.0, 1], [0.0, 0.0, 1, 0.0], [0.0, 0.0, 1, 1]]
-    g = ConsumptionGraph(g1)
-    print(fefap.find_allocation_for_graph(g))
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))
+
 
 

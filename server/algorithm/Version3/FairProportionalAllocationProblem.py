@@ -24,34 +24,6 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
         super().__init__(valuation)
 
 
-    def find_allocation_with_min_shering(self):
-        """
-        this function find the proportional allocation for the valuation
-        :return: the envy free allocation
-
-        # the test are according to the result of ver 1 in GraphCheck
-        >>> v = [[1, 2, 3,4], [4, 5, 6,5], [7, 8, 9,6]]
-        >>> fpap =FairProportionalAllocationProblem(v)
-        >>> print(fpap.find_allocation_with_min_shering())
-        [[0.    0.    0.    0.906]
-         [0.    0.714 0.718 0.   ]
-         [1.    0.285 0.281 0.093]]
-        >>> v = [[5, 2, 1.5,1], [9, 1, 3,2.5], [10, 3, 2,4]]
-        >>> fpap =FairProportionalAllocationProblem(v)
-        >>> print(fpap.find_allocation_with_min_shering())
-        [[0.4   0.999 0.    0.   ]
-         [0.308 0.    0.999 0.   ]
-         [0.291 0.    0.    0.999]]
-        """
-        i = 0
-        n = len(self.valuation)
-        while(i <= n)and(not self.find):
-            self.graph_generator.set_num_of_sharing_is_allowed(i)
-            for consumption_graph in self.graph_generator.generate_all_consumption_graph():
-                 self.find_allocation_for_graph(consumption_graph)
-            i+=1
-        return self.min_sharing_allocation
-
 
     def find_allocation_for_graph(self,consumption_graph : ConsumptionGraph):
         """
@@ -132,118 +104,19 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
             # the sum of each column is 1 (the property on each object is 100%)
             for i in range(self.num_of_items):
                 constraints.append(sum(mat[:, i]) == 1)
-            """
-            # the proportional condition
-            count = 0
-            for i in range(len(consumption_graph)):
-                count = 0
-                for j in range(len(consumption_graph[i])):
-                    count += mat[i][j] * matv[i][j]
-                constraints.append(count >= sum(matv[i]) / len(matv[i]))
-            """
             objective = cvxpy.Maximize(1)
             prob = cvxpy.Problem(objective, constraints)
             prob.solve()  # Returns the optimal value.
             if not (prob.status == 'infeasible'):
                 alloc = Allocation(mat.value)
                 alloc.round()
-                # if(alloc.num_of_shering() < self.min_sharing_number):
                 self.min_sharing_number = alloc.num_of_shering()
                 self.min_sharing_allocation = alloc.get_allocation()
                 self.find = True
             # only for doctet:
             return (mat.value)
 
-        """
-
-        mat = cvxpy.Variable((self.num_of_agents, self.num_of_items))
-        constraints = []
-
-        # every var >=0 and if there is no edge the var is zero
-        # and proportional condition
-        for i in range(self.num_of_agents):
-            agent_sum = 0
-            for j in range(self.num_of_items):
-                agent_sum += mat[i][j] * self.valuation[i][j]
-                if (consumption_graph.get_graph()[i][j] == 0):
-                    constraints.append(mat[i][j] == 0)
-                else:
-                    constraints.append(mat[i][j] >= 0)
-            constraints.append(agent_sum >= sum(self.valuation[i])/len(self.valuation))
-
-        # the sum of each column is 1 (the property on each object is 100%)
-        for i in range(self.num_of_items):
-            constraints.append(sum(mat[:, i]) == 1)
-
-
-
-        """
-        """
-        mat = cvxpy.Variable((self.num_of_agents, self.num_of_items))
-        constraints = []
-        # every var >=0 and if there is no edge the var is zero
-        # and proportional condition
-        for i in range(self.num_of_agents):
-            for j in range(self.num_of_items):
-                if (consumption_graph.get_graph()[i][j] == 0):
-                    constraints.append(mat[i][j] == 0)
-                else:
-                    constraints.append(mat[i][j] >= 0)
-
-        for i in range(self.num_of_agents):
-            count = 0
-            for j in range(self.num_of_items):
-                count += mat[i][j] * self.valuation[i][j]
-            constraints.append(count >= sum(self.valuation[i]) / len(self.valuation[i]))
-
-        # the sum of each column is 1 (the property on each object is 100%)
-        for i in range(self.num_of_items):
-            constraints.append(sum(mat[:, i]) == 1)
-         """""
-        """
-        # the proportional condition
-        count = 0
-        for i in range(len(consumption_graph)):
-            count = 0
-            for j in range(len(consumption_graph[i])):
-                count += mat[i][j] * matv[i][j]
-            constraints.append(count >= sum(matv[i]) / len(matv[i]))
-        """
-        """
-        objective = cvxpy.Maximize(1)
-        prob = cvxpy.Problem(objective, constraints)
-        prob.solve()  # Returns the optimal value.
-        if not (prob.status == 'infeasible'):
-            alloc = Allocation(mat.value)
-            if(alloc.is_prop(self.valuation)):
-                pass
-                #print(colored("proprtional!", 'green'))
-            else:
-                pass
-
-                #print(colored("not proprtional!!!!!!", 'red'))
-                """
-        """
-                temp = Allocation(mat.value)
-                temp.round()
-                print(temp.get_allocation())
-                """
-        """
-            alloc.round()
-            self.min_sharing_number = alloc.num_of_shering()
-            self.min_sharing_allocation = alloc.get_allocation()
-            self.find = True
-         # only for doctet:
-          return (mat.value)
-       """
 
 if __name__ == '__main__':
-    #(failures, tests) = doctest.testmod(report=True)
-    #print("{} failures, {} tests".format(failures, tests))
-    valuation =  [[0, 1, 6, 7], [5, 9, 9, 6], [6, 3, 4, 9]]
-    fefap = FairProportionalAllocationProblem(valuation)
-    g1 =  [[0.0, 0.0, 1, 0.0], [1, 1, 1, 0.0], [0.0, 0.0, 0.0, 1]]
-    g = ConsumptionGraph(g1)
-    print(fefap.find_allocation_for_graph(g))
-[[0, 1, 6, 7], [5, 9, 9, 6], [6, 3, 4, 9]]
-[[0.0, 0.0, 1, 0.0], [1, 1, 1, 0.0], [0.0, 0.0, 0.0, 1]]
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))

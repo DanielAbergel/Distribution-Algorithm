@@ -19,7 +19,16 @@ class FairAllocationProblem():
         self.find = False
 
     def find_allocation_with_min_shering(self):
-        pass
+        i = 0
+        n = len(self.valuation)
+        while (i <= n) and (not self.find):
+            self.graph_generator.set_num_of_sharing_is_allowed(i)
+            for consumption_graph in self.graph_generator.generate_all_consumption_graph():
+                self.find_allocation_for_graph(consumption_graph)
+            i += 1
+        return self.min_sharing_allocation
+
+
 
     def find_allocation_for_graph(self,consumption_graph : ConsumptionGraph):
         pass
