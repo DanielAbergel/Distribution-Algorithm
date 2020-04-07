@@ -9,12 +9,12 @@ from algorithm.Version2.GraphGenerator import GraphGenerator
 if __name__ == '__main__':
 
 
-    num_of_agents = 3
-    num_of_items = 4
-    max_item_value = 10
+    num_of_agents = 4
+    num_of_items = 20
+    max_item_value = 100
     v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
     fpap = FairEnvyFreeAllocationProblem(v)
-    print(v)
+    #print(v)
     start = datetime.datetime.now()
     # THE TEST EXECUTION
     print(fpap.find_allocation_with_min_shering())
@@ -59,5 +59,33 @@ Total time for 4 agents and 10 items  :0:21:33.373481
  [0.    0.    0.999 0.    0.    0.    0.999 0.    1.    1.    1.    0.999
   1.    0.    1.    0.    0.    0.    1.    1.   ]]
 Total time for 4 agents and 20 items  :0:08:13.528924
+
+
+
+
+
+
+envy-free 
+
+[[0.    0.    0.    1.    0.    0.    0.    0.    0.    0.    0.    1.
+  1.    0.    0.   ]
+ [0.    0.    0.    0.    0.    1.    0.    0.    0.    0.999 0.    0.
+  0.    0.999 0.   ]
+ [0.999 0.    0.    0.    0.999 0.    0.999 0.    0.    0.    0.999 0.
+  0.    0.    0.   ]
+ [0.    0.999 0.999 0.    0.    0.    0.    0.999 0.999 0.    0.    0.
+  0.    0.    0.999]]
+Total time for 4 agents and 15 items  :0:04:42.596165
+
+
+[[0.    0.    0.    0.999 0.    0.    0.    0.    0.    0.    0.999 0.
+  0.999 0.    0.    0.    0.    0.    0.999 0.   ]
+ [0.    0.    0.    0.    0.    0.    0.    0.    0.    0.999 0.    0.
+  0.    0.    0.    0.    0.999 0.999 0.    0.999]
+ [1.    1.    1.    0.    0.    0.    1.    0.    1.    0.    0.    0.
+  0.    0.    0.    0.    0.    0.    0.    0.   ]
+ [0.    0.    0.    0.    1.    1.    0.    1.    0.    0.    0.    1.
+  0.    1.    1.    1.    0.    0.    0.    0.   ]]
+Total time for 4 agents and 20 items  :0:40:02.282783
     
     """

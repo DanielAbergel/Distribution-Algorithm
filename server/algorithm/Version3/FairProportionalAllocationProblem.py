@@ -155,7 +155,7 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
             return (mat.value)
 
         """
-        
+
         mat = cvxpy.Variable((self.num_of_agents, self.num_of_items))
         constraints = []
 
@@ -240,8 +240,10 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
 if __name__ == '__main__':
     #(failures, tests) = doctest.testmod(report=True)
     #print("{} failures, {} tests".format(failures, tests))
-    valuation =  [[0, 1, 5, 0], [3, 1, 9, 9], [2, 6, 7, 3]]
+    valuation =  [[0, 1, 6, 7], [5, 9, 9, 6], [6, 3, 4, 9]]
     fefap = FairProportionalAllocationProblem(valuation)
-    g1 =  [[0.0, 0.0, 1, 0.0], [1, 0.0, 0.0, 1], [0.0, 1, 0.0, 0.0]]
+    g1 =  [[0.0, 0.0, 1, 0.0], [1, 1, 1, 0.0], [0.0, 0.0, 0.0, 1]]
     g = ConsumptionGraph(g1)
     print(fefap.find_allocation_for_graph(g))
+[[0, 1, 6, 7], [5, 9, 9, 6], [6, 3, 4, 9]]
+[[0.0, 0.0, 1, 0.0], [1, 1, 1, 0.0], [0.0, 0.0, 0.0, 1]]

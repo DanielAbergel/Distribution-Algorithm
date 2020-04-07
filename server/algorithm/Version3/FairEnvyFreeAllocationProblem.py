@@ -38,6 +38,7 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
          [0.342 0.    1.    0.   ]
          [0.32  0.    0.    0.999]]
         """
+        """
         i =0
         print("satrt")
         for consumption_graph in self.graph_generator.generate_all_consumption_graph():
@@ -45,6 +46,17 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
             print(consumption_graph.get_graph())
             i+=1
             self.find_allocation_for_graph(consumption_graph)
+        return self.min_sharing_allocation
+        """
+
+        i = 0
+        n = len(self.valuation)
+        while (i <= n) and (not self.find):
+            self.graph_generator.set_num_of_sharing_is_allowed(i)
+            for consumption_graph in self.graph_generator.generate_all_consumption_graph():
+                #print(consumption_graph.get_graph())
+                self.find_allocation_for_graph(consumption_graph)
+            i += 1
         return self.min_sharing_allocation
 
 
@@ -131,10 +143,19 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
             constraints.append(sum(mat[:, i]) == 1)
         objective = cvxpy.Maximize(1)
         prob = cvxpy.Problem(objective, constraints)
-        prob.solve()  # Returns the optimal value.
+        prob.solve(solver="SCS")  # Returns the optimal value.
         if not (prob.status == 'infeasible'):
             alloc = Allocation(mat.value)
             """
+        problem.solve(solver="ECOS")
+        problem.solve(solver="SCS")
+        problem.solve(solver="OSQP")
+        
+        anther solotion:
+        try:
+        result = p.solve()
+        except SolverError:
+        result = p.solve(solver=SCS)
             if(alloc.is_envy_free(self.valuation)):
                 pass
             #    print (colored("is envy_free!" , 'green'))
@@ -143,9 +164,10 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
                 print (colored("not envy_free!!!!!!" , 'red'))
             """
             alloc.round()
-            if (alloc.num_of_shering() < self.min_sharing_number):
-                self.min_sharing_number = alloc.num_of_shering()
-                self.min_sharing_allocation = alloc.get_allocation()
+            #if (alloc.num_of_shering() < self.min_sharing_number):
+            self.min_sharing_number = alloc.num_of_shering()
+            self.min_sharing_allocation = alloc.get_allocation()
+            self.find = True
         # only for doctet:
         return (mat.value)
 
