@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 isBuild=$1
 password=$2
@@ -7,8 +7,8 @@ build='build'
 if [ "$isBuild" == "$build" ]; then
     echo "Building server for DEBUG purposes"
     
-    pip3 install virtualenv
-    #echo Y | apt-get install virtualenv
+    echo $password | sudo -S pip3 install virtualenv
+    echo Y | sudo -S apt-get install virtualenv
     virtualenv venv --python=python3
     source venv/bin/activate
     echo "-- Install server dependencies --"

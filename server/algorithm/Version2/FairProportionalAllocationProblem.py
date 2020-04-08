@@ -126,7 +126,7 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
                 else:
                     constraints.append(mat[i][j] >= 0)
                 count += mat[i][j] * self.valuation[i][j]
-            constraints.append(count >= sum(self.valuation[i]) / len(self.valuation[i]))
+            constraints.append(count >= sum(self.valuation[i]) / len(self.valuation))
         # the sum of each column is 1 (the property on each object is 100%)
         for i in range(self.num_of_items):
             constraints.append(sum(mat[:, i]) == 1)
