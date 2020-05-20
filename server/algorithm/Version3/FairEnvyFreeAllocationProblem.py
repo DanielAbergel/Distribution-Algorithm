@@ -3,7 +3,7 @@ import cvxpy
 from algorithm.Version3.Allocation import Allocation
 from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
 from algorithm.Version3.FairAllocationProblem import FairAllocationProblem
-from termcolor import colored
+
 
 class FairEnvyFreeAllocationProblem(FairAllocationProblem):
     """
