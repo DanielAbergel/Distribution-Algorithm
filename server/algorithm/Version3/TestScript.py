@@ -7,7 +7,7 @@ from algorithm.Version3.FairProportionalAllocationProblem import FairProportiona
 from algorithm.Version2.GraphGenerator import GraphGenerator
 
 if __name__ == '__main__':
-    num_of_agents = 3
+    num_of_agents = 4
     num_of_items = 4
     max_item_value = 100
     v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
