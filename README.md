@@ -1,10 +1,26 @@
-
 <p align="center">
   <img src="https://user-images.githubusercontent.com/44754325/78273213-36a98b80-7517-11ea-8f8e-fb9b8e569988.png">
 </p>
 
+# Distribution Algorithm
 
-# Server 
+A web application for fairly dividing goods among people with different valuations.
+
+The [front-end](demoWeb/) allows each person to specify how much he/she values each of the goods.
+The data is then sent to the [server](server/).
+It runs an [algorithm](server/algorithm) that computes an allocation of the goods among the people.
+The algorithm guarantees the following properties:
+
+1. **Fairness**: each agent receives goods with a value of at least 1/n of his/her valuation of all goods.
+
+2. **Pareto Efficiency**: there is no other allocation that is at least as good for all agents and better for at least one agent.
+
+3. **Minimal sharing**: subject to fairness and efficiency, the allocation minimizes the number of sharings of goods between two or more people.
+I.e., if there is a fair and efficient allocation with no sharing at all - it will be returned.
+Otherwise, if there is a fair and efficient allocation with only one sharing (one good is shared between two people) - it will be returned. And so on.
+
+
+# Server Installation
 
 **NOTE: in our development process we are using python 3.6.9**
 
@@ -50,3 +66,17 @@ access the default Server landing page to confirm that the software is running p
 ```
   http://your_ip
 ```
+
+# Running the Algorithm Directly
+
+The algorithm can be run without the server, e.g. for experiments.
+To do this, download the repository, and 
+add the [Distribution-Algorithm/server/](Distribution-Algorithm/server/) path to your Python include path.
+An example of a Python code for running the algorithm can be found 
+[here](server/algorithm/Version3/TestScript.py).
+
+# Contributors
+
+* [Algorithm Programming](server/algorithm/): Eliyahu Satat and Nachshon Satat.
+* [Server Programming](server/): Daniel Abergel and Elyashiv Deri.
+* [Front-End Programming](demoWeb/): Netanel Ben Issahar.
