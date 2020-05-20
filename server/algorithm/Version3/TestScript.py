@@ -4,7 +4,7 @@ import datetime
 from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
 from algorithm.Version3.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
 from algorithm.Version3.FairProportionalAllocationProblem import FairProportionalAllocationProblem
-from algorithm.Version2.GraphGenerator import GraphGenerator
+from algorithm.Version3.GraphGenerator import GraphGenerator
 
 if __name__ == '__main__':
     num_of_agents = 4

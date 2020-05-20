@@ -1,8 +1,5 @@
 import doctest
-
 import cvxpy
-from termcolor import colored
-
 from algorithm.Version3.Allocation import Allocation
 from algorithm.Version3.ConsumptionGraph import ConsumptionGraph
 from algorithm.Version3.FairAllocationProblem import FairAllocationProblem
