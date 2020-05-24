@@ -103,7 +103,7 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
                 constraints.append(sum(mat[:, i]) == 1)
             objective = cvxpy.Maximize(1)
             prob = cvxpy.Problem(objective, constraints)
-            prob.solve()  # Returns the optimal value.
+            prob.solve(solver="SCS")  # Returns the optimal value. prob.solve(solver="SCS")
             if not (prob.status == 'infeasible'):
                 alloc = Allocation(mat.value)
                 alloc.round()

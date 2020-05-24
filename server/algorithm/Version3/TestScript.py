@@ -13,7 +13,8 @@ if __name__ == '__main__':
     #v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
     v = [[333. ,333. ,334.],
          [333. ,334. ,333.]]
-    fpap = FairEnvyFreeAllocationProblem(v)
+    #fpap = FairEnvyFreeAllocationProblem(v)
+    fpap =  FairProportionalAllocationProblem(v)
     # print(v)
     start = datetime.datetime.now()
     # THE TEST EXECUTION
