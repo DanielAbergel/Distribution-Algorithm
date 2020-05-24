@@ -5,7 +5,7 @@ import sys
 sys.path.append('../')
 from flask import Flask, request, render_template, jsonify, send_from_directory
 from flask_restful import Resource, Api, reqparse
-from algorithm.Version2.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
+from algorithm.Version3.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
 
 app = Flask(__name__)
 api = Api(app)

@@ -10,7 +10,9 @@ if __name__ == '__main__':
     num_of_agents = 4
     num_of_items = 4
     max_item_value = 100
-    v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
+    #v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
+    v = [[333. ,333. ,334.],
+         [333. ,334. ,333.]]
     fpap = FairEnvyFreeAllocationProblem(v)
     # print(v)
     start = datetime.datetime.now()
