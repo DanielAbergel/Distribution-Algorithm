@@ -63,7 +63,7 @@ function setMat(){
 
 json=JSON.stringify({"values":mat,"num_of_agents":mat.length,"num_of_items":mat[0].length});
 
-console.log(json);
+// console.log(json);
 var xhr = new XMLHttpRequest();
 var url = "http://127.0.0.1:5000/calculator";
 xhr.open("POST", url, true);
@@ -71,7 +71,7 @@ xhr.setRequestHeader("Content-Type", "application/json");
 xhr.onreadystatechange = function () {
    if (xhr.readyState === 4 && xhr.status === 200) {
        var jsona = JSON.parse(xhr.responseText);
-       console.log(jsona);
+       // console.log(jsona);
    }
 };
   var data = json;
@@ -97,7 +97,19 @@ function convertTOjson(mat){
 /////////////////////////////////////////////////////////////////////////////
 
 function showChart(mat){
-  for(var i=0;i<namesArr.length;++i){
+  for (i=0;i<mat.length;i++){
+    for (j=0;j<mat[0].length;j++){
+      console.log(mat[i][j]);
+    }
+  }
+  console.log("-----------------------------------------------------------------------------");
+  mat=transpose(mat);
+  for (i=0;i<mat.length;i++){
+    for (j=0;j<mat[0].length;j++){
+      console.log(mat[i][j]);
+    }
+  }
+  for(var i=0;i<itemsArr.length;++i){
   createChart(mat[i],"pie-chartcanvas-"+i,i);
 }
 }
@@ -117,7 +129,7 @@ function addCanvas(id) { // create the new canvas
 function generateChart(data, id,i) { // initialize the new chart
   let piechart = $("#" + id);
   let data1 = {
-     labels: itemsArr,
+     labels: namesArr,
      datasets: [
      {
       label: "Population (millions)",
@@ -133,8 +145,41 @@ function generateChart(data, id,i) { // initialize the new chart
     options: {
       title: {
         display: true,
-        text: namesArr[i]
+        text: itemsArr[i]
       }
     }
   });
+}
+
+function transpose(a) {
+
+  // Calculate the width and height of the Array
+  var w = a.length || 0;
+  var h = a[0] instanceof Array ? a[0].length : 0;
+
+  // In case it is a zero matrix, no transpose routine needed.
+  if(h === 0 || w === 0) { return []; }
+
+  /**
+   * @var {Number} i Counter
+   * @var {Number} j Counter
+   * @var {Array} t Transposed data is stored in this array.
+   */
+  var i, j, t = [];
+
+  // Loop through every item in the outer array (height)
+  for(i=0; i<h; i++) {
+
+    // Insert a new row (array)
+    t[i] = [];
+
+    // Loop through every item per item in outer array (width)
+    for(j=0; j<w; j++) {
+
+      // Save transposed data.
+      t[i][j] = a[j][i];
+    }
+  }
+
+  return t;
 }
