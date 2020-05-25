@@ -2,3 +2,9 @@
     margin: 5ex 5ex 5ex 5ex;
     size: 20px !important;
 }
+
+.divs{
+   display: inline-block;
+   border: 1px;
+  margin:10px;
+}
