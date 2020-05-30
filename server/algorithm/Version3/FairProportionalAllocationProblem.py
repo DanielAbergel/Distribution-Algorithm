@@ -103,8 +103,15 @@ class FairProportionalAllocationProblem(FairAllocationProblem):
                 constraints.append(sum(mat[:, i]) == 1)
             objective = cvxpy.Maximize(1)
             prob = cvxpy.Problem(objective, constraints)
-            prob.solve(solver="SCS")  # Returns the optimal value. prob.solve(solver="SCS")
-            if not (prob.status == 'infeasible'):
+
+            try:
+                prob.solve(solver="OSQP")
+            except cvxpy.SolverError:
+                prob.solve(solver="SCS")
+            if prob.status == 'optimal':
+
+           # prob.solve(solver="SCS")  # Returns the optimal value. prob.solve(solver="SCS")
+           # if not (prob.status == 'infeasible'):
                 alloc = Allocation(mat.value)
                 alloc.round()
                 self.min_sharing_number = alloc.num_of_shering()
