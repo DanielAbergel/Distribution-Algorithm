@@ -20,22 +20,22 @@ function addFields(){
     container.removeChild(container.lastChild);
   }
   for (i=0;i<numOFpeople;i++){
+    var div=container.appendChild(document.createElement("div"));
+    // var div = document.createElement("div");
     for (j=0;j<numOFitems;j++){
       // Append a node with it's text
-      container.appendChild(document.createTextNode(namesArr[i]+" rate for "+itemsArr[j]));
+      div.appendChild(document.createTextNode(namesArr[i]+" rate for "+itemsArr[j]));
       // Create an <input> element, set its type and name attributes
       var input = document.createElement("input");
       input.type = "number";
       input.id = "rate"+i+j;
-      container.appendChild(input);
+      div.appendChild(input);
       // Append a line break
-      container.appendChild(document.createElement("br"));
+      div.appendChild(document.createElement("br"));
+      div.className  = "divs";
+
     }
   }
-  // var button= document.createElement("input");
-  // button.type = "submit";
-  // button.name = "button";
-  // container.appendChild(button);
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "send";                   // Insert text
   btn.setAttribute("id", "btnId");
@@ -61,25 +61,25 @@ function setMat(){
     }
   }
 
-json=JSON.stringify({"values":mat,"num_of_agents":mat.length,"num_of_items":mat[0].length});
+  json=JSON.stringify({"values":mat,"num_of_agents":mat.length,"num_of_items":mat[0].length});
 
-console.log(json);
-var xhr = new XMLHttpRequest();
-var url = "http://127.0.0.1:5000/calculator";
-xhr.open("POST", url, true);
-xhr.setRequestHeader("Content-Type", "application/json");
-xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4 && xhr.status === 200) {
-       var jsona = JSON.parse(xhr.responseText);
-       console.log(jsona);
-   }
-};
+  // console.log(json);
+  var xhr = new XMLHttpRequest();
+  var url = "http://127.0.0.1:5000/calculator";
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var jsona = JSON.parse(xhr.responseText);
+      // console.log(jsona);
+    }
+  };
   var data = json;
   xhr.send(data);
 
 
 
-showChart(mat);
+  showChart(mat);
 }
 
 function convertTOjson(mat){
@@ -97,9 +97,21 @@ function convertTOjson(mat){
 /////////////////////////////////////////////////////////////////////////////
 
 function showChart(mat){
-  for(var i=0;i<namesArr.length;++i){
-  createChart(mat[i],"pie-chartcanvas-"+i,i);
-}
+  for (i=0;i<mat.length;i++){
+    for (j=0;j<mat[0].length;j++){
+      console.log(mat[i][j]);
+    }
+  }
+  console.log("-----------------------------------------------------------------------------");
+  mat=transpose(mat);
+  for (i=0;i<mat.length;i++){
+    for (j=0;j<mat[0].length;j++){
+      console.log(mat[i][j]);
+    }
+  }
+  for(var i=0;i<itemsArr.length;++i){
+    createChart(mat[i],"pie-chartcanvas-"+i,i);
+  }
 }
 
 function createChart(data, id,i) {
@@ -117,24 +129,57 @@ function addCanvas(id) { // create the new canvas
 function generateChart(data, id,i) { // initialize the new chart
   let piechart = $("#" + id);
   let data1 = {
-     labels: itemsArr,
-     datasets: [
-     {
-      label: "Population (millions)",
-      backgroundColor:
-      ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3cba9f"],
-      data: data
-       }
-       ]
-       };
+    labels: namesArr,
+    datasets: [
+      {
+        label: "Population (millions)",
+        backgroundColor:
+        ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3cba9f"],
+        data: data
+      }
+    ]
+  };
   let chart = new Chart(piechart,{
     type:"pie",
     data : data1,
     options: {
       title: {
         display: true,
-        text: namesArr[i]
+        text: itemsArr[i]
       }
     }
   });
+}
+
+function transpose(a) {
+
+  // Calculate the width and height of the Array
+  var w = a.length || 0;
+  var h = a[0] instanceof Array ? a[0].length : 0;
+
+  // In case it is a zero matrix, no transpose routine needed.
+  if(h === 0 || w === 0) { return []; }
+
+  /**
+  * @var {Number} i Counter
+  * @var {Number} j Counter
+  * @var {Array} t Transposed data is stored in this array.
+  */
+  var i, j, t = [];
+
+  // Loop through every item in the outer array (height)
+  for(i=0; i<h; i++) {
+
+    // Insert a new row (array)
+    t[i] = [];
+
+    // Loop through every item per item in outer array (width)
+    for(j=0; j<w; j++) {
+
+      // Save transposed data.
+      t[i][j] = a[j][i];
+    }
+  }
+
+  return t;
 }
