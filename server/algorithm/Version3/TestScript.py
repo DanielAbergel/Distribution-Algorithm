@@ -8,18 +8,14 @@ from algorithm.Version3.GraphGenerator import GraphGenerator
 
 if __name__ == '__main__':
     num_of_agents = 4
-    num_of_items = 4
+    num_of_items = 10
     max_item_value = 100
-    #v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
-   # v = [[333. ,333. ,334.],
-    #    [333. ,334. ,333.]]
-    v =  [[300. ,300., 400.],
-          [307. ,308., 385.],
-          [312. ,313. ,375.]]
+    v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
 
-    #fpap = FairEnvyFreeAllocationProblem(v)
-    fpap =  FairProportionalAllocationProblem(v)
-    # print(v)
+
+    fpap = FairEnvyFreeAllocationProblem(v)
+    #fpap =  FairProportionalAllocationProblem(v)
+    print(v)
     start = datetime.datetime.now()
     # THE TEST EXECUTION
     print(fpap.find_allocation_with_min_shering())
@@ -28,6 +24,105 @@ if __name__ == '__main__':
     print("Total time for {} agents and {} items  :{}".format(num_of_agents, num_of_items, end - start))
 
     """
+    [[37, 32, 70, 12],
+     [33, 0, 55, 85], 
+     [32, 83, 35, 35], 
+     [13, 16, 39, 90]]
+     
+     
+     [[0.    0.    1.    0.   ]
+     [1.    0.    0.    0.358]
+     [0.    1.    0.    0.   ]
+     [0.    0.    0.    0.641]]
+    Total time for 4 agents and 4 items  :0:00:01.979707
+    
+    
+    
+    [[59, 36, 62, 29, 57]
+    , [95, 81, 66, 54, 66]
+    , [20, 33, 81, 73, 26]
+    , [25, 15, 95, 86, 11]]
+    
+    
+    [[0.319 0.    0.    0.    1.   ]
+    [0.296 1.    0.    0.    0.   ]
+    [0.    0.    0.999 0.    0.   ]
+    [0.383 0.    0.    1.    0.   ]]
+    Total time for 4 agents and 5 items  :0:00:03.255364
+
+
+    [[34, 36, 77, 3, 98, 30],
+    [19, 29, 52, 7, 68, 24],
+    [46, 84, 28, 78, 48, 85],
+    [34, 1, 55, 20, 59, 58]]
+    
+    [[0.    0.    1.    0.    0.109 0.   ]
+    [0.    0.    0.    0.    0.89  0.   ]
+    [0.    1.    0.    1.    0.    0.   ]
+    [1.    0.    0.    0.    0.    1.   ]]
+    Total time for 4 agents and 6 items  :0:00:01.182875
+    
+    
+    
+    [[41, 33, 90, 92, 71, 87, 91],
+    [65, 30, 75, 56, 46, 14, 95],
+    [66, 15, 15, 32, 89, 47, 9],
+    [96, 46, 64, 75, 20, 51, 16]]
+    
+    [[0.    0.    0.743 1.    0.    0.    0.   ]
+     [0.    0.    0.256 0.    0.    0.    1.   ]
+     [0.    0.    0.    0.    0.999 0.999 0.   ]
+     [1.    1.    0.    0.    0.    0.    0.   ]]
+     Total time for 4 agents and 7 items  :0:00:01.977783
+     
+     
+     
+     
+     [[42, 32, 76, 81, 67, 46, 94, 0, 14, 71],
+     [38, 2, 10, 4, 52, 62, 53, 1, 19, 99], 
+     [35, 29, 99, 21, 84, 56, 37, 29, 61, 56],
+     [42, 25, 29, 88, 14, 47, 44, 86, 24, 39]]
+       
+       
+       [[0.    0.    0.    1.    0.    0.    1.    0.    0.    0.   ]
+        [0.    0.    0.    0.    0.    0.999 0.    0.    0.    0.999]
+        [0.    0.    0.999 0.    1.    0.    0.    0.    0.    0.   ]
+        [0.999 1.    0.    0.    0.    0.    0.    0.999 0.999 0.   ]]
+        Total time for 4 agents and 10 items  :0:00:37.752878
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 v = [[1,2,3,4],[4,5,6,5],[6,7,9,8]]
 [[0.    0.    0.    0.999]
@@ -93,4 +188,10 @@ Total time for 4 agents and 15 items  :0:04:42.596165
   0.    1.    1.    1.    0.    0.    0.    0.   ]]
 Total time for 4 agents and 20 items  :0:40:02.282783
 
+
+   # v = [[333. ,333. ,334.],
+    #    [333. ,334. ,333.]]
+    v =  [[300. ,300., 400.],
+          [307. ,308., 385.],
+          [312. ,313. ,375.]]
     """
