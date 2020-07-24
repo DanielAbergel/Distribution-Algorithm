@@ -78,6 +78,7 @@ class ConsumptionGraph():
         False
         """
         if self.__calculate_prop == False:
+            self.__calculate_prop == True
             flag = True
             i = 0
             while(i < len(self.__graph))and(flag):
@@ -85,7 +86,6 @@ class ConsumptionGraph():
                     flag = False
                     self.__is_prop = False
                 i += 1
-        self.__calculate_prop == True
         return self.__is_prop
 
 

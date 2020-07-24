@@ -129,7 +129,11 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
 
         objective = cvxpy.Maximize(1)
         prob = cvxpy.Problem(objective, constraints)
-        prob.solve()  # Returns the optimal value.
+        try:
+            prob.solve(solver="OSQP")
+        except cvxpy.SolverError:
+            prob.solve(solver="SCS")
+        #prob.solve()  # Returns the optimal value.
         if not (prob.status == 'infeasible'):
             alloc = Allocation(mat.value)
             alloc.round()
