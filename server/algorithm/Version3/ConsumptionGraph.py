@@ -133,7 +133,7 @@ class ConsumptionGraph():
         for i in range(0, len(self.__graph[0])):
             sum += matv[x][i]
             part += matv[x][i] * self.__graph[x][i]
-        sum = sum / len(self.__graph)
+        sum = sum / len(matv)
         return part >= sum
 
     def generate_all_code(self):

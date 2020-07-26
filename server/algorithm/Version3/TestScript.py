@@ -29,9 +29,10 @@ if __name__ == '__main__':
     max_item_value = 100
     v = np.random.randint(max_item_value, size=(num_of_agents, num_of_items)).tolist()
 
-    v = [[166., 166., 166., 166., 166., 170.],
-         [166., 166., 166., 166., 166., 170.],
-         [166., 166., 166., 166., 166., 170.]]
+    v =  [[150., 150. ,150. ,150., 150. ,250.],
+         [150., 150. ,150. ,150., 150. ,250.],
+         [150., 150. ,150. ,150., 150. ,250.]]
+
 
     fpap = FairEnvyFreeAllocationProblem(v)
     fpap1 =  FairProportionalAllocationProblem(v)

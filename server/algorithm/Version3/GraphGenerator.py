@@ -149,9 +149,9 @@ class GraphGenerator():
         for code in consumption_graph.generate_all_code():
             g = self.code_to_consumption_graph(consumption_graph, code)
             #anther adding!!!
-            #if(g.is_prop(self.valuation_matrix))and(g.get_num_of_sharing() <= self.num_of_sharing_is_allowed):
+            if(g.is_prop(self.valuation_matrix))and(g.get_num_of_sharing() <= self.num_of_sharing_is_allowed):
             # the fixing!!
-            if (g.get_num_of_sharing() <= self.num_of_sharing_is_allowed):
+            #if (g.get_num_of_sharing() <= self.num_of_sharing_is_allowed):
                     yield g
 
     def code_to_consumption_graph(self, consumption_graph: ConsumptionGraph, code) -> ConsumptionGraph:
