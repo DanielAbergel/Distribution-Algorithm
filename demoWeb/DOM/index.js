@@ -6,6 +6,7 @@ function getDetails() {
   namesArr=people.split(',');
   itemsArr=items.split(',');
   document.getElementById("form").style.display="none";
+  document.getElementById("inputInstructions").style.display="none";
   addFields();
 }
 
@@ -20,20 +21,10 @@ function addFields(){
     container.removeChild(container.lastChild);
   }
   for (i=0;i<numOFpeople;i++){
-    var div=container.appendChild(document.createElement("div"));
-    // var div = document.createElement("div");
-    for (j=0;j<numOFitems;j++){
-      // Append a node with it's text
-      div.appendChild(document.createTextNode(namesArr[i]+" rate for "+itemsArr[j]));
-      // Create an <input> element, set its type and name attributes
-      var input = document.createElement("input");
-      input.type = "number";
-      input.id = "rate"+i+j;
-      div.appendChild(input);
-      // Append a line break
-      div.appendChild(document.createElement("br"));
-      div.className  = "divs";
-
+    for(var j=0;j<itemsArr.length;++j){
+      // slider();
+      slider(namesArr[i],itemsArr[j]);
+      // slider("ayelet");
     }
   }
   var btn = document.createElement("BUTTON");   // Create a <button> element
@@ -182,4 +173,49 @@ function transpose(a) {
   }
 
   return t;
+}
+function slider(name){
+  for(var i=0;i<itemsArr.length;++i){
+    var label=document.createElement("label");
+    label.innerHTML = name+" rate for "+itemsArr[i];
+
+  }
+}
+function slider(name,item){
+  console.log("bbb");
+    var label=document.createElement("label");
+    // label.id="sliderLabel";
+    label.innerHTML = name+" rate for "+item;
+    var form=document.createElement("form");
+    form.name="registrationForm";
+    var input = document.createElement("input");
+    input.type="range";
+    input.name="ageInputName";
+    input.id="input"+name+item;
+    input.value="50";
+    input.min="0";
+
+    var output = document.createElement("output");
+    output.name="ageOutputName";
+    output.id="output"+name+item;
+
+    input.oninput=()=>updateTextInput(input.id,output.id);
+
+    form.appendChild(label);
+    form.appendChild(input);
+    form.appendChild(output);
+    output.value="50";
+    document.getElementById("container").appendChild(form);
+
+}
+// function updateTextInput(id,val) {
+//   console.log("aaa");
+//           document.getElementById(id).value=val;
+//         }
+function updateTextInput(inputId,outputId){
+  // console.log("aaa");
+  var val= document.getElementById(inputId).value;
+  console.log(val);
+  var x =document.getElementById(outputId);
+  x.value=val;
 }
