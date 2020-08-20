@@ -8,6 +8,19 @@
    border: 1px;
   margin:10px;
 }
-/* #container{
 
-} */
+.label {
+  width:150px;
+  /* background:#f7f7f7; */
+  display:inline-block;
+  text-align:center;
+}
+.input {
+  width:200px;
+  display:inline-block;
+}
+.output {
+  width:50px;
+  /* background:#d7d7d7; */
+  display:inline-block;
+}

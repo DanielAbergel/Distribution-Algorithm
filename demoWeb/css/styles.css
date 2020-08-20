@@ -1,5 +1,6 @@
 body {
 background-color: #E4EACB;
+text-align: center;
 }
 
 .logo img{
@@ -24,10 +25,5 @@ background-color: #E4EACB;
 
 .topnav a:hover {
   background-color: #ddd;
-  color: black;
-}
-
-.title {
-  text-align: center;
   color: black;
 }

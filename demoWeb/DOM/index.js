@@ -6,7 +6,7 @@ function getDetails() {
   namesArr=people.split(',');
   itemsArr=items.split(',');
   document.getElementById("form").style.display="none";
-  document.getElementById("inputInstructions").style.display="none";
+  document.getElementById("inputInstructions").innerHTML="<b><h3>step 2:<br /> every participant has to rate every item  </h3></b>";
   addFields();
 }
 
@@ -43,12 +43,12 @@ function setMat(){
   }
   for (i=0;i<namesArr.length;i++){
     for (j=0;j<itemsArr.length;j++){
-      mat[i][j]=parseInt(document.getElementById('rate'+i+j).value);
+      mat[i][j]=parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value);
     }
   }
   for (i=0;i<namesArr.length;i++){
     for (j=0;j<itemsArr.length;j++){
-      // console.log(mat[i][j]);
+      console.log(mat[i][j]);
     }
   }
 
@@ -90,14 +90,14 @@ function convertTOjson(mat){
 function showChart(mat){
   for (i=0;i<mat.length;i++){
     for (j=0;j<mat[0].length;j++){
-      console.log(mat[i][j]);
+      // console.log(mat[i][j]);
     }
   }
   console.log("-----------------------------------------------------------------------------");
   mat=transpose(mat);
   for (i=0;i<mat.length;i++){
     for (j=0;j<mat[0].length;j++){
-      console.log(mat[i][j]);
+      // console.log(mat[i][j]);
     }
   }
   for(var i=0;i<itemsArr.length;++i){
@@ -182,22 +182,26 @@ function slider(name){
   }
 }
 function slider(name,item){
-  console.log("bbb");
     var label=document.createElement("label");
-    // label.id="sliderLabel";
     label.innerHTML = name+" rate for "+item;
+    label.classList.add("label");
+
     var form=document.createElement("form");
     form.name="registrationForm";
+    form.className ="mainForm";
+
     var input = document.createElement("input");
     input.type="range";
     input.name="ageInputName";
     input.id="input"+name+item;
     input.value="50";
     input.min="0";
+    input.classList.add('input');
 
     var output = document.createElement("output");
     output.name="ageOutputName";
     output.id="output"+name+item;
+    output.classList.add('output');
 
     input.oninput=()=>updateTextInput(input.id,output.id);
 
