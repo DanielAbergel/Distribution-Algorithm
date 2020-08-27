@@ -128,21 +128,25 @@ function convertTOjson(mat){
 /////////////////////////////////////////////////////////////////
 
 function showChart(mat){
-  for (i=0;i<mat.length;i++){
-    for (j=0;j<mat[0].length;j++){
-      // console.log(mat[i][j]);
+  // mat=transpose(mat);
+  result(mat);
+}
+
+function result(mat){
+  document.getElementById("table-div").style.display="inline";
+  var table=document.getElementById("my-table");
+  for (var i = 0; i <namesArr.length; i++) {
+    var row = table.insertRow();
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = namesArr[i];
+    var itemsStr="";
+    for (var j = 0; j < mat[i].length; j++) {
+        itemsStr+=mat[i][j]+"% of the "+itemsArr[j]+"<br>";
     }
+    cell2.innerHTML = itemsStr;
   }
-  console.log("-----------------------------------------------------------------------------");
-  mat=transpose(mat);
-  for (i=0;i<mat.length;i++){
-    for (j=0;j<mat[0].length;j++){
-      // console.log(mat[i][j]);
-    }
-  }
-  for(var i=0;i<itemsArr.length;++i){
-    createChart(mat[i],"pie-chartcanvas-"+i,i);
-  }
+
 }
 
 
