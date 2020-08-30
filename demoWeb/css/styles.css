@@ -1,5 +1,5 @@
 body {
-background-color: #E4EACB;
+background-color:  #FFFFFF;
 text-align: center;
 }
 
@@ -12,11 +12,12 @@ text-align: center;
 
 .topnav {
   overflow: hidden;
+  background: #437FC7;
 }
 
 .topnav a {
   float: left;
-  color: #aaa;
+  color: #FFFFFF;
   text-align: center;
   padding: 14px 16px;
   text-decoration: underline;

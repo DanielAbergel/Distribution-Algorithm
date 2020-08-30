@@ -13,12 +13,13 @@ element.style {
 .header {
   padding: 60px;
   text-align: center;
-  background: #1abc9c;
+  background: #6DAFFE;
   color: white;
   font-size: 30px;
 }
 .content {
   padding:20px;
+  background:  #EDF6FF;
 }
 
 #startBtn {
@@ -27,5 +28,5 @@ element.style {
     /* top: 50%;
     left: 50%; */
     -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 10%);
 }
