@@ -199,6 +199,12 @@ input {
   opacity: 0.5;
   transition: 0.2s ease;
 }
+.submit-button{
+  border-bottom: 0px;
+  padding-bottom: 25px;
+  margin-top: 10px;
+
+}
 
 input:focus {
   outline: none;
@@ -301,4 +307,8 @@ body.menu-active .menu {
 
 body.menu-active .menu::before {
   background: rgba(240,240,240,0.9);
+}
+
+.contact-class{
+  font-family: 'Permanent Marker', cursive;
 }

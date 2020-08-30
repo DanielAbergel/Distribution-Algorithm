@@ -33,6 +33,7 @@ body {
 }
 .text-uppercase {
     text-transform: uppercase;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .team-member, .team-member .team-img {
@@ -43,7 +44,7 @@ body {
 }
 .team-member, .team-member .team-img {
     position: relative;
-    
+
 }
 
 .team-hover {
