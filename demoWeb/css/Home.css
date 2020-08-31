@@ -17,6 +17,10 @@ element.style {
   color: white;
   font-size: 30px;
 }
+.h1-header{
+  font-family: 'Permanent Marker', cursive;
+
+}
 .content {
   padding:20px;
   background:  #EDF6FF;
