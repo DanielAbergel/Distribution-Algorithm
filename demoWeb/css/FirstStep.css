@@ -1,11 +1,11 @@
 .inputStyle {
-    margin: 5ex 5ex 5ex 5ex;
-    size: 20px !important;
+  margin: 5ex 5ex 5ex 5ex;
+  size: 20px !important;
 }
 
 .divs{
-   display: inline-block;
-   border: 1px;
+  display: inline-block;
+  border: 1px;
   margin:10px;
 }
 
@@ -24,6 +24,20 @@
   /* background:#d7d7d7; */
   display:inline-block;
 }
-.select-buttons{
+.general-style{
   text-align: left;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.input-style{
+  text-align: left;
+  margin-left: 10px;
+}
+#divP{
+margin-top: 20px;
+}
+
+#divI{
+margin-top: 20px;
 }

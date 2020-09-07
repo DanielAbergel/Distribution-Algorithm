@@ -16,57 +16,85 @@ function addS(){
     itemOPT.add(iOption);
   }
 
-var selectBtn = document.createElement("BUTTON");
-selectBtn.id="selectBtn";
-selectBtn.innerHTML = "CLICK ME";
-selectBtn.onclick=insertNamesItems;
-document.body.appendChild(selectBtn);
+  var selectBtn = document.createElement("BUTTON");
+  selectBtn.id="selectBtn";
+  selectBtn.innerHTML = "MOVE TO STEP 2";
+  selectBtn.onclick=insertNames;
+  document.body.appendChild(selectBtn);
 
 }
 
-function insertNamesItems(){
+function insertNames(){
   document.getElementById("selectStep").style.display="none";
-  // document.getElementById("itemSelect").style.display="none";
   document.getElementById("selectBtn").style.display="none";
 
   var numOFpeople=document.getElementById("peopleSelect").value;
-  var numOFitems=document.getElementById("itemSelect").value;
-
-  var form=document.createElement("form");
+  var divP = document.createElement("div");
+  divP.id="divP";
   for (i=1;i<=numOFpeople;i++){
-        container.appendChild(document.createTextNode("Name number "+i));
-        var nameInput = document.createElement("input");
-        nameInput.id = "name"+i;
-        container.appendChild(nameInput);
-        container.appendChild(document.createElement("br"));
-      }
+    var divPpart = document.createElement("div");
+    divPpart.classList.add("input-style");
+    divPpart.appendChild(document.createTextNode("Name number "+i));
+    var nameInput = document.createElement("input");
+    nameInput.id = "name"+i;
+    divPpart.appendChild(nameInput);
+    divP.appendChild(divPpart);
+    divP.appendChild(document.createElement("br"));
+  }
 
-      for (i=1;i<=numOFitems;i++){
-            container.appendChild(document.createTextNode("Item number "+i));
-            var itemInput = document.createElement("input");
-            itemInput.id = "item"+i;
-            container.appendChild(itemInput);
-            container.appendChild(document.createElement("br"));
-          }
-          var insertNamesItemsBtn = document.createElement("BUTTON");
-          insertNamesItemsBtn.id="insertNamesItemsBtn";
-          insertNamesItemsBtn.innerHTML = "CLICK ME";
-          insertNamesItemsBtn.onclick=getDetails;
-          document.body.appendChild(insertNamesItemsBtn);
+  var insertNamesBtn = document.createElement("BUTTON");
+  insertNamesBtn.id="insertNamesBtn";
+  insertNamesBtn.innerHTML = "MOVE TO STEP 3";
+  insertNamesBtn.onclick=insertItems;
+  container.appendChild(divP);
+  document.body.appendChild(insertNamesBtn);
+
+}
+
+function insertItems(){
+  // document.getElementById("selectStep").style.display="none";
+  // document.getElementById("selectBtn").style.display="none";
+  var numOFpeople=document.getElementById("peopleSelect").value;
+  for (var i = 1; i <= numOFpeople; i++) {
+    namesArr.push(document.getElementById("name"+i).value);
+  }
+  document.getElementById("divP").style.display="none";
+  document.getElementById("insertNamesBtn").style.display="none";
+  var numOFitems=document.getElementById("itemSelect").value;
+  var divI = document.createElement("div");
+  divI.id="divI";
+
+  for (i=1;i<=numOFitems;i++){
+    var divIpart = document.createElement("div");
+    divIpart.classList.add("input-style");
+    divIpart.appendChild(document.createTextNode("Item number "+i));
+    var itemInput = document.createElement("input");
+    itemInput.id = "item"+i;
+    divIpart.appendChild(itemInput);
+    divI.appendChild(divIpart);
+    divI.appendChild(document.createElement("br"));
+  }
+  var insertItemsBtn = document.createElement("BUTTON");
+  insertItemsBtn.id="insertItemsBtn";
+  insertItemsBtn.innerHTML = "MOVE TO STEP 4";
+  insertItemsBtn.onclick=getDetails;
+  container.appendChild(divI);
+  document.body.appendChild(insertItemsBtn);
 
 
 }
 function getDetails() {
-document.getElementById("insertNamesItemsBtn").style.display="none";
-var numOFpeople=document.getElementById("peopleSelect").value;
-var numOFitems=document.getElementById("itemSelect").value;
+  document.getElementById("insertItemsBtn").style.display="none";
+  var numOFpeople=document.getElementById("peopleSelect").value;
+  var numOFitems=document.getElementById("itemSelect").value;
 
-// document.getElementById("myForm").style.display="inline";
+  // document.getElementById("myForm").style.display="inline";
   // var people = document.getElementById("peopleInput").value;
   // var items = document.getElementById("itemsInput").value;
-  for (var i = 1; i <= numOFpeople; i++) {
-    namesArr.push(document.getElementById("name"+i).value);
-  }
+
+  // for (var i = 1; i <= numOFpeople; i++) {
+  //   namesArr.push(document.getElementById("name"+i).value);
+  // }
   for (var j = 1; j <= numOFitems; j++) {
     itemsArr.push(document.getElementById("item"+j).value);
   }
@@ -209,7 +237,7 @@ function result(mat){
     cell1.innerHTML = namesArr[i];
     var itemsStr="";
     for (var j = 0; j < mat[i].length; j++) {
-        itemsStr+=mat[i][j]+"% of the "+itemsArr[j]+"<br>";
+      itemsStr+=mat[i][j]+"% of the "+itemsArr[j]+"<br>";
     }
     cell2.innerHTML = itemsStr;
   }
