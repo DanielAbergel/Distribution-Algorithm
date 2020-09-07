@@ -114,8 +114,10 @@ function addFields(){
   btn.setAttribute("id", "btnId");
   document.body.appendChild(btn);
   document.getElementById("btnId").onclick = setMat;
+}
 
-
+function algoChoser(){
+  
 }
 
 function slider(name,item){
