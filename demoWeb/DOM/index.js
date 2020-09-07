@@ -52,8 +52,6 @@ function insertNames(){
 }
 
 function insertItems(){
-  // document.getElementById("selectStep").style.display="none";
-  // document.getElementById("selectBtn").style.display="none";
   var numOFpeople=document.getElementById("peopleSelect").value;
   for (var i = 1; i <= numOFpeople; i++) {
     namesArr.push(document.getElementById("name"+i).value);
@@ -88,20 +86,9 @@ function getDetails() {
   var numOFpeople=document.getElementById("peopleSelect").value;
   var numOFitems=document.getElementById("itemSelect").value;
 
-  // document.getElementById("myForm").style.display="inline";
-  // var people = document.getElementById("peopleInput").value;
-  // var items = document.getElementById("itemsInput").value;
-
-  // for (var i = 1; i <= numOFpeople; i++) {
-  //   namesArr.push(document.getElementById("name"+i).value);
-  // }
   for (var j = 1; j <= numOFitems; j++) {
     itemsArr.push(document.getElementById("item"+j).value);
   }
-  // namesArr=people.split(',');
-  // itemsArr=items.split(',');
-  // document.getElementById("form").style.display="none";
-  // document.getElementById("inputInstructions").innerHTML="<b><h3>step 2:<br /> every participant has to rate every item  </h3></b>";
   addFields();
 }
 
@@ -123,7 +110,7 @@ function addFields(){
     }
   }
   var btn = document.createElement("BUTTON");   // Create a <button> element
-  btn.innerHTML = "send";                   // Insert text
+  btn.innerHTML = "LAST STEP";                   // Insert text
   btn.setAttribute("id", "btnId");
   document.body.appendChild(btn);
   document.getElementById("btnId").onclick = setMat;
