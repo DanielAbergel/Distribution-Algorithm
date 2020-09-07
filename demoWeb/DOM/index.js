@@ -111,13 +111,19 @@ function addFields(){
   }
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "LAST STEP";                   // Insert text
-  btn.setAttribute("id", "btnId");
-  document.body.appendChild(btn);
-  document.getElementById("btnId").onclick = setMat;
+  btn.id="lastStepBtn";
+  container.appendChild(btn);
+  document.getElementById("lastStepBtn").onclick = algoChoser;
 }
 
 function algoChoser(){
-  
+  document.getElementById("container").style.display="none";
+  document.getElementById("radio-btn").style.display="inline";
+  var btn = document.createElement("BUTTON");   // Create a <button> element
+  btn.innerHTML = "SEND";                   // Insert text
+  btn.id="sendBtn";
+document.getElementById("justFORbtn").appendChild(btn);
+  document.getElementById("sendBtn").onclick = setMat;
 }
 
 function slider(name,item){
@@ -160,7 +166,8 @@ function updateTextInput(inputId,outputId){
 }
 
 function setMat(){
-  document.getElementById("btnId").style.display="none";
+  document.getElementById("radio-btn").style.display="none";
+  document.getElementById("sendBtn").style.display="none";
   var mat=new Array(namesArr.length);
   for(var i=0;i<namesArr.length;++i){
     mat[i]=new Array(itemsArr.length);
@@ -217,6 +224,8 @@ function showChart(mat){
 }
 
 function result(mat){
+  // console.log(document.getElementById("meh").checked);
+  console.log(document.getElementById("alg2").checked);
   document.getElementById("table-div").style.display="inline";
   var table=document.getElementById("my-table");
   for (var i = 0; i <namesArr.length; i++) {
