@@ -1,5 +1,21 @@
 var namesArr;
 var itemsArr;
+
+function addS(){
+  var peopleOPT = document.getElementById("peopleSelect");
+  var itemOPT = document.getElementById("itemSelect");
+  for (var i = 2; i <= 4; i++) {
+    var pOption = document.createElement("option");
+    pOption.text = i;
+    peopleOPT.add(pOption);
+  }
+
+  for (var j = 1; j <= 18; j++) {
+    var iOption = document.createElement("option");
+    iOption.text = j;
+    itemOPT.add(iOption);
+  }
+}
 function getDetails() {
   var people = document.getElementById("peopleInput").value;
   var items = document.getElementById("itemsInput").value;
