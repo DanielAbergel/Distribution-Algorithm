@@ -1,5 +1,5 @@
-var namesArr;
-var itemsArr;
+var namesArr=[];
+var itemsArr=[];
 
 function addS(){
   var peopleOPT = document.getElementById("peopleSelect");
@@ -15,14 +15,65 @@ function addS(){
     iOption.text = j;
     itemOPT.add(iOption);
   }
+
+var selectBtn = document.createElement("BUTTON");
+selectBtn.id="selectBtn";
+selectBtn.innerHTML = "CLICK ME";
+selectBtn.onclick=insertNamesItems;
+document.body.appendChild(selectBtn);
+
+}
+
+function insertNamesItems(){
+  document.getElementById("selectStep").style.display="none";
+  // document.getElementById("itemSelect").style.display="none";
+  document.getElementById("selectBtn").style.display="none";
+
+  var numOFpeople=document.getElementById("peopleSelect").value;
+  var numOFitems=document.getElementById("itemSelect").value;
+
+  var form=document.createElement("form");
+  for (i=1;i<=numOFpeople;i++){
+        container.appendChild(document.createTextNode("Name number "+i));
+        var nameInput = document.createElement("input");
+        nameInput.id = "name"+i;
+        container.appendChild(nameInput);
+        container.appendChild(document.createElement("br"));
+      }
+
+      for (i=1;i<=numOFitems;i++){
+            container.appendChild(document.createTextNode("Item number "+i));
+            var itemInput = document.createElement("input");
+            itemInput.id = "item"+i;
+            container.appendChild(itemInput);
+            container.appendChild(document.createElement("br"));
+          }
+          var insertNamesItemsBtn = document.createElement("BUTTON");
+          insertNamesItemsBtn.id="insertNamesItemsBtn";
+          insertNamesItemsBtn.innerHTML = "CLICK ME";
+          insertNamesItemsBtn.onclick=getDetails;
+          document.body.appendChild(insertNamesItemsBtn);
+
+
 }
 function getDetails() {
-  var people = document.getElementById("peopleInput").value;
-  var items = document.getElementById("itemsInput").value;
-  namesArr=people.split(',');
-  itemsArr=items.split(',');
-  document.getElementById("form").style.display="none";
-  document.getElementById("inputInstructions").innerHTML="<b><h3>step 2:<br /> every participant has to rate every item  </h3></b>";
+document.getElementById("insertNamesItemsBtn").style.display="none";
+var numOFpeople=document.getElementById("peopleSelect").value;
+var numOFitems=document.getElementById("itemSelect").value;
+
+// document.getElementById("myForm").style.display="inline";
+  // var people = document.getElementById("peopleInput").value;
+  // var items = document.getElementById("itemsInput").value;
+  for (var i = 1; i <= numOFpeople; i++) {
+    namesArr.push(document.getElementById("name"+i).value);
+  }
+  for (var j = 1; j <= numOFitems; j++) {
+    itemsArr.push(document.getElementById("item"+j).value);
+  }
+  // namesArr=people.split(',');
+  // itemsArr=items.split(',');
+  // document.getElementById("form").style.display="none";
+  // document.getElementById("inputInstructions").innerHTML="<b><h3>step 2:<br /> every participant has to rate every item  </h3></b>";
   addFields();
 }
 
