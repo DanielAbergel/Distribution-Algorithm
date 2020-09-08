@@ -91,7 +91,7 @@ function getDetails() {
   var numOFitems=document.getElementById("itemSelect").value;
 
   for (var j = 1; j <= numOFitems; j++) {
-    if(document.getElementById("item"+i).value==""){
+    if(document.getElementById("item"+j).value==""){
       alert("You have to fill all of the fields");
       return false;
     }
@@ -151,6 +151,7 @@ function slider(name,item){
   input.id="input"+name+item;
   input.value="50";
   input.min="0";
+  input.style.marginTop = "5px";
   input.classList.add('input');
 
   var output = document.createElement("output");
