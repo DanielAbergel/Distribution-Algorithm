@@ -1,20 +1,33 @@
-element.style {
+body {
+text-align: center;
+font-family: 'Special Elite', cursive;
+background-image: url('https://images.pexels.com/photos/3944307/pexels-photo-3944307.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
 }
-
+p{
+  font-size: 20px;
+  /* background-color: grey;
+  opacity: 0.8; */
+  background: rgba(212, 206, 200, 0.3);
+}
 .header {
   padding: 60px;
   text-align: center;
-  background: #6DAFFE;
+  /* background: #74593D; */
   color: white;
   font-size: 30px;
+  /* background: rgba(212, 206, 200, 0.3); */
 }
 .h1-header{
   font-family: 'Permanent Marker', cursive;
 
 }
 .content {
+  /* background: rgba(212, 206, 200, 0.3); */
   padding:20px;
-  background:  #EDF6FF;
+  /* background:  #DCD9C6; */
 }
 
 #startBtn {
