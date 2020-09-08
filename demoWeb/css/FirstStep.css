@@ -86,15 +86,16 @@ margin-top: 20px;
 	justify-content: center;
 }
 .rating-label {
-	position: relative;
+	position: 0;
 	font-size: 1.6em;
 	text-align: center;
 	flex: 0.34;
 	z-index: 3;
 	font-weight: bold;
 	cursor: pointer;
-	color: #4BC56A;
+	color: black;
 	transition: 500ms;
+
 }
 .rating-label:hover, .rating-label:active {
 	color: #4BC56A;
@@ -217,10 +218,10 @@ Toggle Changes
 */
 
 #alg1:checked~.rating-label-alg1 {
-	color: #555e63;
+	color: #white;
 }
 #alg2:checked~.rating-label-alg1 {
-	color: #4BC56A;
+	color: #red;
 }
 #alg2:checked~.mouth {
 	border: 4px solid #00b9ee;

@@ -30,3 +30,8 @@ font-family: 'Special Elite', cursive;
   background-color: #ddd;
   color: black;
 }
+.myButtons{
+  position:relative;
+  margin-top:100px;
+  margin-bottom:100px;
+}

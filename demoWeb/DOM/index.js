@@ -22,6 +22,7 @@ function addS(){
   selectBtn.onclick=insertNames;
   selectBtn.classList.add("btn-secondary");
   selectBtn.classList.add("btn");
+  selectBtn.classList.add("myButtons");
   document.body.appendChild(selectBtn);
 
 }
@@ -50,6 +51,7 @@ function insertNames(){
   insertNamesBtn.onclick=insertItems;
   insertNamesBtn.classList.add("btn-secondary");
   insertNamesBtn.classList.add("btn");
+  insertNamesBtn.classList.add("myButtons");
   container.appendChild(divP);
   document.body.appendChild(insertNamesBtn);
 
@@ -86,6 +88,7 @@ function insertItems(){
   insertItemsBtn.onclick=getDetails;
   insertItemsBtn.classList.add("btn-secondary");
   insertItemsBtn.classList.add("btn");
+  insertItemsBtn.classList.add("myButtons");
   container.appendChild(divI);
   document.body.appendChild(insertItemsBtn);
 
@@ -129,6 +132,7 @@ function addFields(){
   btn.id="lastStepBtn";
   btn.classList.add("btn-secondary");
   btn.classList.add("btn");
+  btn.classList.add("myButtons");
   container.appendChild(btn);
   document.getElementById("lastStepBtn").onclick = algoChoser;
 }
@@ -142,6 +146,7 @@ function algoChoser(){
   btn.style.marginTop = "50px";
   btn.classList.add("btn-secondary");
   btn.classList.add("btn");
+  btn.classList.add("myButtons");
 document.getElementById("justFORbtn").appendChild(btn);
   document.getElementById("sendBtn").onclick = setMat;
 }
