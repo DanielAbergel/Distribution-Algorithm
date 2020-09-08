@@ -20,6 +20,8 @@ function addS(){
   selectBtn.id="selectBtn";
   selectBtn.innerHTML = "MOVE TO STEP 2";
   selectBtn.onclick=insertNames;
+  selectBtn.classList.add("btn-secondary");
+  selectBtn.classList.add("btn");
   document.body.appendChild(selectBtn);
 
 }
@@ -46,6 +48,8 @@ function insertNames(){
   insertNamesBtn.id="insertNamesBtn";
   insertNamesBtn.innerHTML = "MOVE TO STEP 3";
   insertNamesBtn.onclick=insertItems;
+  insertNamesBtn.classList.add("btn-secondary");
+  insertNamesBtn.classList.add("btn");
   container.appendChild(divP);
   document.body.appendChild(insertNamesBtn);
 
@@ -80,6 +84,8 @@ function insertItems(){
   insertItemsBtn.id="insertItemsBtn";
   insertItemsBtn.innerHTML = "MOVE TO STEP 4";
   insertItemsBtn.onclick=getDetails;
+  insertItemsBtn.classList.add("btn-secondary");
+  insertItemsBtn.classList.add("btn");
   container.appendChild(divI);
   document.body.appendChild(insertItemsBtn);
 
@@ -121,6 +127,8 @@ function addFields(){
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "LAST STEP";                   // Insert text
   btn.id="lastStepBtn";
+  btn.classList.add("btn-secondary");
+  btn.classList.add("btn");
   container.appendChild(btn);
   document.getElementById("lastStepBtn").onclick = algoChoser;
 }
@@ -132,6 +140,8 @@ function algoChoser(){
   btn.innerHTML = "SEND";                   // Insert text
   btn.id="sendBtn";
   btn.style.marginTop = "50px";
+  btn.classList.add("btn-secondary");
+  btn.classList.add("btn");
 document.getElementById("justFORbtn").appendChild(btn);
   document.getElementById("sendBtn").onclick = setMat;
 }
