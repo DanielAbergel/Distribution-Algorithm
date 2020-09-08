@@ -122,6 +122,7 @@ function algoChoser(){
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "SEND";                   // Insert text
   btn.id="sendBtn";
+  btn.style.marginTop = "50px";
 document.getElementById("justFORbtn").appendChild(btn);
   document.getElementById("sendBtn").onclick = setMat;
 }
