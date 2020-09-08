@@ -23,6 +23,7 @@ function addS(){
   selectBtn.classList.add("btn-secondary");
   selectBtn.classList.add("btn");
   selectBtn.classList.add("myButtons");
+
   document.body.appendChild(selectBtn);
 
 }
@@ -34,6 +35,7 @@ function insertNames(){
   var numOFpeople=document.getElementById("peopleSelect").value;
   var divP = document.createElement("div");
   divP.id="divP";
+divP.innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
   for (i=1;i<=numOFpeople;i++){
     var divPpart = document.createElement("div");
     divPpart.classList.add("input-style");
@@ -53,6 +55,8 @@ function insertNames(){
   insertNamesBtn.classList.add("btn");
   insertNamesBtn.classList.add("myButtons");
   container.appendChild(divP);
+  // document.getElementById("divP").innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
+  // var text2=
   document.body.appendChild(insertNamesBtn);
 
 }
@@ -71,7 +75,7 @@ function insertItems(){
   var numOFitems=document.getElementById("itemSelect").value;
   var divI = document.createElement("div");
   divI.id="divI";
-
+divI.innerHTML="<h1>step3:</h1><h2>Insert the items names</h2>";
   for (i=1;i<=numOFitems;i++){
     var divIpart = document.createElement("div");
     divIpart.classList.add("input-style");
@@ -120,6 +124,7 @@ function addFields(){
   while (container.hasChildNodes()) {
     container.removeChild(container.lastChild);
   }
+  container.innerHTML="<h1>step4:</h1><h2>Every participant has to evaluate his interest of every item by percents</h2>";
   for (i=0;i<numOFpeople;i++){
     for(var j=0;j<itemsArr.length;++j){
       // slider();

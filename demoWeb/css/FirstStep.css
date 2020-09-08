@@ -7,6 +7,17 @@ body{
   background-attachment: fixed;
   background-size: cover;
 }
+h1{
+
+  background: rgba(212, 206, 200, 0.3);
+  text-align: center;
+}
+
+h2{
+  text-align: center;
+  margin-bottom: 30px;
+
+}
 .inputStyle {
   margin: 5ex 5ex 5ex 5ex;
   size: 20px !important;
