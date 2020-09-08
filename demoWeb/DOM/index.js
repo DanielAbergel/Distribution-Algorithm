@@ -184,7 +184,7 @@ function slider(name,item){
   form.appendChild(label);
   form.appendChild(input);
   form.appendChild(output);
-  output.value="50";
+  output.value="50%";
   document.getElementById("container").appendChild(form);
 
 }
@@ -193,7 +193,7 @@ function updateTextInput(inputId,outputId){
   var val= document.getElementById(inputId).value;
   console.log(val);
   var x =document.getElementById(outputId);
-  x.value=val;
+  x.value=val+"%";
 }
 
 function setMat(){
