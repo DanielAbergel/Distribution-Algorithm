@@ -54,6 +54,10 @@ function insertNames(){
 function insertItems(){
   var numOFpeople=document.getElementById("peopleSelect").value;
   for (var i = 1; i <= numOFpeople; i++) {
+    if(document.getElementById("name"+i).value==""){
+      alert("You have to fill all of the fields");
+      return false;
+    }
     namesArr.push(document.getElementById("name"+i).value);
   }
   document.getElementById("divP").style.display="none";
@@ -82,13 +86,18 @@ function insertItems(){
 
 }
 function getDetails() {
-  document.getElementById("insertItemsBtn").style.display="none";
+
   var numOFpeople=document.getElementById("peopleSelect").value;
   var numOFitems=document.getElementById("itemSelect").value;
 
   for (var j = 1; j <= numOFitems; j++) {
+    if(document.getElementById("item"+i).value==""){
+      alert("You have to fill all of the fields");
+      return false;
+    }
     itemsArr.push(document.getElementById("item"+j).value);
   }
+  document.getElementById("insertItemsBtn").style.display="none";
   addFields();
 }
 
