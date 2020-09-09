@@ -214,11 +214,11 @@ function setMat(){
     }
   }
 
-  json=JSON.stringify({"values":mat,"num_of_agents":mat.length,"num_of_items":mat[0].length});
+  json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","num_of_agents":mat.length,"num_of_items":mat[0].length});
 
   // console.log(json);
   var xhr = new XMLHttpRequest();
-  var url = "http://127.0.0.1:5000/calculator";
+  var url = "http://161.35.20.108/calculator";
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onreadystatechange = function () {
@@ -256,7 +256,7 @@ function showChart(mat){
 
 function result(mat){
   // console.log(document.getElementById("meh").checked);
-  console.log(document.getElementById("alg2").checked);
+  console.log(document.getElementById("alg2").checked);//alg1=false.  alg2=true
   document.getElementById("table-div").style.display="inline";
   var table=document.getElementById("my-table");
   for (var i = 0; i <namesArr.length; i++) {
