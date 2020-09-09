@@ -6,6 +6,7 @@ sys.path.append('../')
 from flask import Flask, request, render_template, jsonify, send_from_directory
 from flask_restful import Resource, Api, reqparse
 from algorithm.Version3.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
+from algorithm.Version3.FairProportionalAllocationProblem import FairProportionalAllocationProblem
 
 app = Flask(__name__)
 api = Api(app)
@@ -47,13 +48,17 @@ class Algorithm(Resource):
         data = request.get_json()
         matrix = np.array(data['values'])
 
-        x = FairEnvyFreeAllocationProblem(matrix)
-        g = x.find_allocation_with_min_shering()
+        if data['problem'] == 'EnvyFree':
+            ProblemObject = FairEnvyFreeAllocationProblem(matrix)
+            ans = ProblemObject.find_allocation_with_min_shering()
+        elif data['problem'] == 'Proportional':
+            ProblemObject = FairProportionalAllocationProblem(matrix)
+            ans = ProblemObject.find_allocation_with_min_shering()
 
         json_request = {
             'num_of_agents': data['num_of_agents'],
             'num_of_items': data['num_of_items'],
-            'values': g.tolist()
+            'values': ans.tolist()
         }
 
         print(json_request)

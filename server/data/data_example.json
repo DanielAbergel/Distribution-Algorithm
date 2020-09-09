@@ -1,7 +1,6 @@
 {
   "values": [[0.0, 1.0, 0.0, 0.0],[0.0 ,0.0, 0.0,0.0]],
-
+  "problem" : "EnvyFree / Proportional",
   "num_of_agents": 2,
   "num_of_items": 4
 }
-
