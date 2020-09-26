@@ -223,16 +223,19 @@ function setMat(){
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      var jsona = JSON.parse(xhr.responseText);
-      // console.log(jsona);
+      var responseText = JSON.parse(xhr.responseText);
+      var result = responseText.values;
+      for (i=0;i<result.length;i++){
+        for (j=0;j<result[0].length;j++){
+            result[i][j] = result[i][j] * 100 ;
+        }
+      }
+      console.log(result);
+      showChart(result);
     }
   };
   var data = json;
   xhr.send(data);
-
-
-
-  showChart(mat);
 }
 
 function convertTOjson(mat){

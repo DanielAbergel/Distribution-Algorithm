@@ -14,9 +14,7 @@ api = Api(app)
 
 @app.route('/')
 def home():
-    return send_from_directory('../web/','Home.html')
-
-
+    return send_from_directory('../web/', 'Home.html')
 
 
 @app.route('/<string:html>')
