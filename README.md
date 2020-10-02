@@ -77,7 +77,6 @@ An example of a Python code for running the algorithm can be found
 
 # Algorithm Run Times.
 
-time calculating of the Algorithm.
 this table represents the Algorithm times for each case Agents/Items please note that on 4 Agents the time may be a long time.
 in our client-side (website) on in each 4 Agent case, an email will be sent with the Algorithm results.
 
