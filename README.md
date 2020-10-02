@@ -75,6 +75,18 @@ add the [Distribution-Algorithm/server/](Distribution-Algorithm/server/) path to
 An example of a Python code for running the algorithm can be found 
 [here](server/algorithm/Version3/TestScript.py).
 
+# Algorithm Run Times.
+
+time calculating of the Algorithm.
+this table represents the Algorithm times for each case Agents/Items please note that on 4 Agents the time may be a long time.
+in our client-side (website) on in each 4 Agent case, an email will be sent with the Algorithm results.
+
+## Proprotional
+![Screen Shot 2020-10-02 at 10 20 40](https://user-images.githubusercontent.com/44754325/94897836-1bedaa80-0499-11eb-89f5-f0d8fb571966.png)
+
+## Envy-Free
+![Screen Shot 2020-10-02 at 10 21 01](https://user-images.githubusercontent.com/44754325/94897909-40498700-0499-11eb-819b-5effe4985b2b.png)
+
 # Contributors
 
 * [Algorithm Programming](server/algorithm/): Eliyahu Satat and Nachshon Satat.
