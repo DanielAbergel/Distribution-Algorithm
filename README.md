@@ -72,6 +72,7 @@ access the default Server landing page to confirm that the software is running p
 The algorithm can be run without the server, e.g. for experiments.
 To do this, download the repository, and 
 add the [Distribution-Algorithm/server/](Distribution-Algorithm/server/) path to your Python include path.
+
 An example of a Python code for running the algorithm can be found 
 [here](server/algorithm/Version3/Example.py).
 
