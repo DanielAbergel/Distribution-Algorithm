@@ -1,10 +1,10 @@
 body {
 text-align: center;
 font-family: 'Special Elite', cursive;
-background-image: url('https://images.pexels.com/photos/3944307/pexels-photo-3944307.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+background-image: url('../Images/Pizza.png');
 background-repeat: no-repeat;
 background-attachment: fixed;
-background-size: cover;
+background-size: 100% 100%;
 }
 p{
   font-size: 20px;
