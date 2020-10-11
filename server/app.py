@@ -37,9 +37,15 @@ def send_css(css):
     return send_from_directory('../web/css', css)
 
 
-@app.route('/images/<string:image>')
+@app.route('/Images/<string:image>')
 def send_images(image):
     return send_from_directory('../web/images', image)
+
+
+@app.route('/result/<string:data>')
+def build_result(data):
+    print(data)
+    return send_from_directory('../web/', 'Home.html')
 
 
 def long_time_algorithm(data):
