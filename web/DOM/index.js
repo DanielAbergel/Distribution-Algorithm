@@ -35,7 +35,7 @@ function insertNames(){
   var numOFpeople=document.getElementById("peopleSelect").value;
   var divP = document.createElement("div");
   divP.id="divP";
-divP.innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
+  divP.innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
   for (i=1;i<=numOFpeople;i++){
     var divPpart = document.createElement("div");
     divPpart.classList.add("input-style");
@@ -75,7 +75,7 @@ function insertItems(){
   var numOFitems=document.getElementById("itemSelect").value;
   var divI = document.createElement("div");
   divI.id="divI";
-divI.innerHTML="<h1>step3:</h1><h2>Insert the items names</h2>";
+  divI.innerHTML="<h1>step3:</h1><h2>Insert the items names</h2>";
   for (i=1;i<=numOFitems;i++){
     var divIpart = document.createElement("div");
     divIpart.classList.add("input-style");
@@ -133,6 +133,31 @@ function addFields(){
     }
   }
   var btn = document.createElement("BUTTON");   // Create a <button> element
+  btn.innerHTML = "rescale";                   // Insert text
+  btn.id="rescaleBtn";
+  btn.classList.add("btn-secondary");
+  btn.classList.add("btn");
+  btn.classList.add("myButtons");
+  container.appendChild(btn);
+  document.getElementById("rescaleBtn").onclick = rescale;
+}
+
+function rescale(){
+document.getElementById("rescaleBtn").style.display="none";
+  var sumOfNamesRates;
+  for (i=0;i<namesArr.length;i++){
+    sumOfNamesRates=0;
+    for (j=0;j<itemsArr.length;j++){
+      sumOfNamesRates+=parseInt(document.getElementById('output'+namesArr[i]+itemsArr[j]).value);
+
+    }
+    for (j=0;j<itemsArr.length;j++){
+      document.getElementById('output'+namesArr[i]+itemsArr[j]).value=""+ Math.round((parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value)/sumOfNamesRates)*100)+"$";
+      document.getElementById('input'+namesArr[i]+itemsArr[j]).value=""+ Math.round((parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value)/sumOfNamesRates)*100);
+      document.getElementById('input'+namesArr[i]+itemsArr[j]).disabled = true;
+    }
+  }
+  var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "LAST STEP";                   // Insert text
   btn.id="lastStepBtn";
   btn.classList.add("btn-secondary");
@@ -140,6 +165,7 @@ function addFields(){
   btn.classList.add("myButtons");
   container.appendChild(btn);
   document.getElementById("lastStepBtn").onclick = algoChoser;
+
 }
 
 function algoChoser(){
@@ -152,7 +178,7 @@ function algoChoser(){
   btn.classList.add("btn-secondary");
   btn.classList.add("btn");
   btn.classList.add("myButtons");
-document.getElementById("justFORbtn").appendChild(btn);
+  document.getElementById("justFORbtn").appendChild(btn);
   document.getElementById("sendBtn").onclick = setMat;
 }
 
@@ -188,7 +214,7 @@ function slider(name,item){
   form.appendChild(label);
   form.appendChild(input);
   form.appendChild(output);
-  output.value="50%";
+  output.value="50$";
   document.getElementById("container").appendChild(form);
 
 }
@@ -197,7 +223,7 @@ function updateTextInput(inputId,outputId){
   var val= document.getElementById(inputId).value;
   console.log(val);
   var x =document.getElementById(outputId);
-  x.value=val+"%";
+  x.value=val+"$";
 }
 
 function setMat(){
@@ -231,7 +257,7 @@ function setMat(){
       var result = responseText.values;
       for (i=0;i<result.length;i++){
         for (j=0;j<result[0].length;j++){
-            result[i][j] = result[i][j] * 100 ;
+          result[i][j] = result[i][j] * 100 ;
         }
       }
       console.log(result);
