@@ -48,6 +48,9 @@ def build_result(data):
     return send_from_directory('../web/', 'Home.html')
 
 
+def genrate_result_table(data):
+
+
 def long_time_algorithm(data):
     send_email(data['email'], data['values'])
 
