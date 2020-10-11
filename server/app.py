@@ -37,9 +37,9 @@ def send_css(css):
     return send_from_directory('../web/css', css)
 
 
-@app.route('/Images/<string:image>')
+@app.route('/images/<string:image>')
 def send_images(image):
-    return send_from_directory('../web/Images', image)
+    return send_from_directory('../web/images', image)
 
 
 @app.route('/result/<string:data>')
