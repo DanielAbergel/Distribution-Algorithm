@@ -164,6 +164,10 @@ function slider(name,item){
   var form=document.createElement("form");
   form.name="registrationForm";
   form.className ="mainForm";
+  form.style.border = "thin solid #000000";
+  form.style.margin="10px";
+  form.style.marginLeft ="200px";
+  form.style.marginRight ="200px";
 
   var input = document.createElement("input");
   input.type="range";
