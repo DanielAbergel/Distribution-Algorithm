@@ -39,7 +39,7 @@ def send_css(css):
 
 @app.route('/Images/<string:image>')
 def send_images(image):
-    return send_from_directory('../web/images', image)
+    return send_from_directory('../web/Images', image)
 
 
 @app.route('/result/<string:data>')
@@ -133,4 +133,4 @@ class Algorithm(Resource):
 api.add_resource(Algorithm, '/calculator')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)
