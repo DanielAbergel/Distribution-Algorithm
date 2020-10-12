@@ -290,8 +290,8 @@ function setMat(){
   }
 
   json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length});
-
-  // console.log(json);
+ // result(mat,mat);
+  console.log(json);
   var xhr = new XMLHttpRequest();
   var url = "http://161.35.20.108/calculator";
   xhr.open("POST", url, true);
@@ -337,32 +337,71 @@ function result(mat_result,mat){
   console.log(document.getElementById("alg2").checked);//alg1=false.  alg2=true
   document.getElementById("table-div").style.display="inline";
   var ResultTable=document.getElementById("results-table");
-  for (var i = 0; i <namesArr.length; i++) {
-    var row = ResultTable.insertRow();
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = namesArr[i];
-    var itemsStr="";
-    for (var j = 0; j < mat[i].length; j++) {
-      itemsStr+=Math.round(parseInt(mat_result[i][j]))+"% of the "+itemsArr[j]+"<br>";
-    }
-    cell2.innerHTML = itemsStr;
+  var thead = ResultTable.createTHead();
+  let row = thead.insertRow();
+  let th = document.createElement("th");
+  let text = document.createTextNode("Items");
+  th.appendChild(text);
+  row.appendChild(th);
+  // var i;
+  for ( let i = 0; i <namesArr.length; i++) {
+     th = document.createElement("th");
+     text = document.createTextNode(namesArr[i]);
+    th.appendChild(text);
+    row.appendChild(th);
   }
-  var participantActual;// the actual sum of his profit.
-  var participantRational;//how much the participant had to get if we split equally.
-  var ExplenationTable=document.getElementById("explenation-table");
-  for (i = 0; i <namesArr.length; i++) {
-    participantActual=0;
-    participantRational=0;
-    for (var k = 0; k < mat_result[i].length; k++) {
-      participantActual+=((mat_result[i][k]/100)*parseInt(mat[i][k]));
-      participantRational+=mat[i][k];
+
+
+  for ( let i = 0; i < itemsArr.length; i++) {
+    let row = thead.insertRow();
+    let th = document.createElement("th");
+    let text = document.createTextNode(itemsArr[i]);
+   th.appendChild(text);
+   row.appendChild(th);
+    for (let j = 0; j < namesArr.length; j++) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(mat_result[j][i]);
+     th.appendChild(text);
+     row.appendChild(th);
     }
-    var row1 = ExplenationTable.insertRow();
-    var cell = row1.insertCell(0);
-    // var cell2 = row.insertCell(1);
-    cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is "+ participantActual +" points. This is at least 1/"+namesArr.length+" of the total value of your rates which is "+(participantRational/namesArr.length);
   }
+
+
+  // var row = ResultTable.insertRow();
+  // var cell1 = row.insertCell(0);
+  // cell1.innerHTML = "Name";
+  //  for (var i = 0; i <namesArr.length; i++) {
+  //    cell1.innerHTML = namesArr[i];
+  //    ResultTable.appendChild(cell1);
+  //  }
+  //   var row = ResultTable.insertRow();
+  //   var cell1 = row.insertCell(0);
+  //   var cell2 = row.insertCell(1);
+  //   cell1.innerHTML = namesArr[i];
+  //   var itemsStr="";
+  //   for (var j = 0; j < mat[i].length; j++) {
+  //     itemsStr+=Math.round(parseInt(mat_result[i][j]))+"% of the "+itemsArr[j]+"<br>";
+  //   }
+  //   cell2.innerHTML = itemsStr;
+  // }
+
+
+
+  // var participantActual;// the actual sum of his profit.
+  // var participantRational;//how much the participant had to get if we split equally.
+  // var ExplenationTable=document.getElementById("explenation-table");
+  // for (i = 0; i <namesArr.length; i++) {
+  //   participantActual=0;
+  //   participantRational=0;
+  //   for (var k = 0; k < mat_result[i].length; k++) {
+  //     participantActual+=((mat_result[i][k]/100)*parseInt(mat[i][k]));
+  //     participantRational+=mat[i][k];
+  //   }
+  //   var row1 = ExplenationTable.insertRow();
+  //   var cell = row1.insertCell(0);
+  //   // var cell2 = row.insertCell(1);
+  //   cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is "+ participantActual +" points. This is at least 1/"+namesArr.length+" of the total value of your rates which is "+(participantRational/namesArr.length);
+  // }
 }
 
 
