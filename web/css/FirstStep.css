@@ -65,7 +65,7 @@ h2{
     margin-top: 20px;
   }
   #container{
-    margin-top: 125px;
+    margin-top: 0px;
 
   }
   .mainForm{
@@ -426,6 +426,9 @@ h2{
     }
 
   }
+#lastStepBtn{
+  margin-top: 0px;
+}
 
   .frame{
     margin: 5%;

@@ -142,7 +142,7 @@ function addFields(){
   btn.classList.add("btn-secondary");
   btn.classList.add("btn");
   btn.classList.add("myButtons");
-  container.appendChild(btn);
+  document.body.appendChild(btn);
   document.getElementById("rescaleBtn").onclick = rescale;
 }
 
@@ -167,13 +167,15 @@ document.getElementById("rescaleBtn").style.display="none";
   btn.classList.add("btn-secondary");
   btn.classList.add("btn");
   btn.classList.add("myButtons");
-  container.appendChild(btn);
+  // btn.marginTop="0px";
+  document.body.appendChild(btn);
   document.getElementById("lastStepBtn").onclick = algoChoser;
 
 }
 
 function algoChoser(){
   document.getElementById("container").style.display="none";
+  document.getElementById("lastStepBtn").style.display="none";
   document.getElementById("radio-btn").style.display="inline";
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "SEND";                   // Insert text
@@ -182,7 +184,7 @@ function algoChoser(){
   btn.classList.add("btn-secondary");
   btn.classList.add("btn");
   btn.classList.add("myButtons");
-  document.getElementById("justFORbtn").appendChild(btn);
+  document.body.appendChild(btn);
   document.getElementById("sendBtn").onclick = setMat;
 }
 
