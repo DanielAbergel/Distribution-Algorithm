@@ -145,7 +145,7 @@ class Algorithm(Resource):
         data = request.get_json()
         matrix = np.array(data['values'])
 
-        if data['num_of_agents'] > 3:
+        if int(data['num_of_agents']) > 3:
 
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
             thread.start()
