@@ -124,7 +124,7 @@ function addFields(){
   while (container.hasChildNodes()) {
     container.removeChild(container.lastChild);
   }
-  container.innerHTML="<h1>step4:</h1><h2>Every participant has to evaluate his interest of every item by percents</h2>";
+  container.innerHTML="<h1>step4:</h1><h2>Every participant has to evaluate his interest of every item by dollars</h2>";
   for (i=0;i<numOFpeople;i++){
     for(var j=0;j<itemsArr.length;++j){
       // slider();
