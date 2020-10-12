@@ -300,7 +300,7 @@ function result(mat_result,mat){
     cell1.innerHTML = namesArr[i];
     var itemsStr="";
     for (var j = 0; j < mat[i].length; j++) {
-      itemsStr+=Math.round(parseInt(mat[i][j]))+"% of the "+itemsArr[j]+"<br>";
+      itemsStr+=Math.round(parseInt(mat_result[i][j]))+"% of the "+itemsArr[j]+"<br>";
     }
     cell2.innerHTML = itemsStr;
   }
