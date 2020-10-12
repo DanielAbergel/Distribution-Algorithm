@@ -34,7 +34,7 @@ h2{
 }
 
 .label {
-  width:300px;
+  width:400px;
   /* background:#f7f7f7; */
   display:inline-block;
   text-align:center;
@@ -44,7 +44,7 @@ h2{
   display:inline-block;
 }
 .output {
-  width:50px;
+  width:170px;
   /* background:#d7d7d7; */
   display:inline-block;
 }

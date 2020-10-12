@@ -128,7 +128,7 @@ function addFields(){
   while (container.hasChildNodes()) {
     container.removeChild(container.lastChild);
   }
-  container.innerHTML="<h1>step4:</h1><h2>Every participant has to evaluate his interest of every item by dollars</h2>";
+  container.innerHTML="<h1>step4:</h1><h2>You got 1200 points. Split them between the items as you wish.</h2>";
   for (i=0;i<numOFpeople;i++){
     for(var j=0;j<itemsArr.length;++j){
       // slider();
@@ -156,7 +156,7 @@ document.getElementById("rescaleBtn").style.display="none";
 
     }
     for (j=0;j<itemsArr.length;j++){
-      document.getElementById('output'+namesArr[i]+itemsArr[j]).value=""+ Math.round((parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value)/sumOfNamesRates)*100)+"$";
+      document.getElementById('output'+namesArr[i]+itemsArr[j]).value=""+ Math.round((parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value)/sumOfNamesRates)*100)+" points";
       document.getElementById('input'+namesArr[i]+itemsArr[j]).value=""+ Math.round((parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value)/sumOfNamesRates)*100);
       document.getElementById('input'+namesArr[i]+itemsArr[j]).disabled = true;
     }
@@ -198,15 +198,17 @@ function slider(name,item){
   form.className ="mainForm";
   form.style.border = "thin solid #000000";
   form.style.margin="10px";
-  form.style.marginLeft ="200px";
-  form.style.marginRight ="200px";
+  form.style.marginLeft ="150px";
+  form.style.marginRight ="150px";
 
   var input = document.createElement("input");
   input.type="range";
   input.name="ageInputName";
   input.id="input"+name+item;
-  input.value="50";
+  // input.value="600";
   input.min="0";
+  input.max="1200";
+  input.defaultValue="600";
   input.style.marginTop = "5px";
   input.classList.add('input');
 
@@ -220,7 +222,7 @@ function slider(name,item){
   form.appendChild(label);
   form.appendChild(input);
   form.appendChild(output);
-  output.value="50$";
+  output.value="600 points";
   document.getElementById("container").appendChild(form);
 
 }
@@ -229,7 +231,7 @@ function updateTextInput(inputId,outputId){
   var val= document.getElementById(inputId).value;
   console.log(val);
   var x =document.getElementById(outputId);
-  x.value=val+"$";
+  x.value=val+" points";
 }
 
 function setMat(){
@@ -317,7 +319,7 @@ var ExplenationTable=document.getElementById("explenation-table");
     var row1 = ExplenationTable.insertRow();
     var cell = row1.insertCell(0);
     // var cell2 = row.insertCell(1);
-    cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is "+ participantActual +"$. This is at least 1/"+namesArr.length+" of the total value of your rates which is "+(participantRational/namesArr.length);
+    cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is "+ participantActual +" points. This is at least 1/"+namesArr.length+" of the total value of your rates which is "+(participantRational/namesArr.length);
   }
 }
 
