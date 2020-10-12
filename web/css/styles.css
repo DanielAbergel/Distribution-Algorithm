@@ -30,7 +30,5 @@ font-family: 'Special Elite', cursive;
   color: black;
 }
 .myButtons{
-  position:relative;
-  margin-top:100px;
-  margin-bottom:100px;
+margin-left: 5px;
 }

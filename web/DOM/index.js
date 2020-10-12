@@ -130,14 +130,14 @@ function addFields(){
   }
   container.innerHTML="<h1>step4:</h1><h2>You got 1200 points. Split them between the items as you wish.</h2>";
   for (i=0;i<numOFpeople;i++){
-var personDiv= document.createElement("div");
-personDiv.id=namesArr[i]+"div";
-personDiv.style.margin = "10px";
-var label=document.createElement("label");
-label.innerHTML = namesArr[i]+"'s rates";
-personDiv.style.border = "thin solid #000000";
-container.appendChild(personDiv);
-personDiv.appendChild(label);
+    var personDiv= document.createElement("div");
+    personDiv.id=namesArr[i]+"div";
+    personDiv.style.margin = "10px";
+    var label=document.createElement("label");
+    label.innerHTML = namesArr[i]+"'s rates";
+    personDiv.style.border = "thin solid #000000";
+    container.appendChild(personDiv);
+    personDiv.appendChild(label);
 
 
 
@@ -158,7 +158,8 @@ personDiv.appendChild(label);
 }
 
 function rescale(){
-document.getElementById("rescaleBtn").style.display="none";
+  deleteBtn();
+
   var sumOfNamesRates;
   for (i=0;i<namesArr.length;i++){
     sumOfNamesRates=0;
@@ -182,12 +183,43 @@ document.getElementById("rescaleBtn").style.display="none";
   document.body.appendChild(btn);
   document.getElementById("lastStepBtn").onclick = algoChoser;
 
+  var btn_again = document.createElement("BUTTON");   // Create a <button> element
+  btn_again.innerHTML = "rate again";                   // Insert text
+  btn_again.id="rate-again";
+  btn_again.classList.add("btn-secondary");
+  btn_again.classList.add("btn");
+  btn_again.classList.add("myButtons");
+
+  // btn.marginTop="0px";
+  document.body.appendChild(btn_again);
+  document.getElementById("rate-again").onclick = rateAgain;
+
+}
+function rateAgain(){
+
+  deleteBtn();
+  for (i=0;i<namesArr.length;i++){
+    for (j=0;j<itemsArr.length;j++){
+      document.getElementById('input'+namesArr[i]+itemsArr[j]).disabled = false;
+    }
+  }
+
+  var btn = document.createElement("BUTTON");   // Create a <button> element
+  btn.innerHTML = "rescale";                   // Insert text
+  btn.id="rescaleBtn2";
+  btn.classList.add("btn-secondary");
+  btn.classList.add("btn");
+  btn.classList.add("myButtons");
+  document.body.appendChild(btn);
+  document.getElementById("rescaleBtn2").onclick = rescale;
 }
 
 function algoChoser(){
   document.getElementById("container").style.display="none";
   document.getElementById("lastStepBtn").style.display="none";
+  document.getElementById("rate-again").style.display="none";
   document.getElementById("radio-btn").style.display="inline";
+  deleteBtn();
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "SEND";                   // Insert text
   btn.id="sendBtn";
@@ -316,9 +348,9 @@ function result(mat_result,mat){
     }
     cell2.innerHTML = itemsStr;
   }
-var participantActual;// the actual sum of his profit.
-var participantRational;//how much the participant had to get if we split equally.
-var ExplenationTable=document.getElementById("explenation-table");
+  var participantActual;// the actual sum of his profit.
+  var participantRational;//how much the participant had to get if we split equally.
+  var ExplenationTable=document.getElementById("explenation-table");
   for (i = 0; i <namesArr.length; i++) {
     participantActual=0;
     participantRational=0;
@@ -334,35 +366,26 @@ var ExplenationTable=document.getElementById("explenation-table");
 }
 
 
-// function transpose(a) {
-//
-//   // Calculate the width and height of the Array
-//   var w = a.length || 0;
-//   var h = a[0] instanceof Array ? a[0].length : 0;
-//
-//   // In case it is a zero matrix, no transpose routine needed.
-//   if(h === 0 || w === 0) { return []; }
-//
-//   /**
-//   * @var {Number} i Counter
-//   * @var {Number} j Counter
-//   * @var {Array} t Transposed data is stored in this array.
-//   */
-//   var i, j, t = [];
-//
-//   // Loop through every item in the outer array (height)
-//   for(i=0; i<h; i++) {
-//
-//     // Insert a new row (array)
-//     t[i] = [];
-//
-//     // Loop through every item per item in outer array (width)
-//     for(j=0; j<w; j++) {
-//
-//       // Save transposed data.
-//       t[i][j] = a[j][i];
-//     }
-//   }
-//
-//   return t;
-// }
+function deleteBtn(){
+  var element;
+  var check = document.getElementById("rescaleBtn");
+  if(check){
+    element = document.getElementById("rescaleBtn");
+    element.parentNode.removeChild(element);
+  }
+  check = document.getElementById("lastStepBtn");
+  if(check){
+    element = document.getElementById("lastStepBtn");
+    element.parentNode.removeChild(element);
+  }
+  check = document.getElementById("rate-again");
+  if(check){
+    element = document.getElementById("rate-again");
+    element.parentNode.removeChild(element);
+  }
+  check = document.getElementById("rescaleBtn2");
+  if(check){
+    element = document.getElementById("rescaleBtn2");
+    element.parentNode.removeChild(element);
+  }
+}

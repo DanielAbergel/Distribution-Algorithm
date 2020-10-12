@@ -73,19 +73,6 @@ h2{
   }
 
 
-
-
-
-
-
-
-
-
-  #radio-btn{
-
-
-  }
-
   .normal-container {
     position: relative;
     height: auto;
@@ -434,3 +421,7 @@ h2{
     margin: 5%;
   background: rgba(212, 206, 200, 0.6);
   }
+
+  /* .myButtons{
+    display:inline-block;
+  } */
