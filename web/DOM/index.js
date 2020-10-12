@@ -130,11 +130,22 @@ function addFields(){
   }
   container.innerHTML="<h1>step4:</h1><h2>You got 1200 points. Split them between the items as you wish.</h2>";
   for (i=0;i<numOFpeople;i++){
+var personDiv= document.createElement("div");
+personDiv.id=namesArr[i]+"div";
+personDiv.style.margin = "10px";
+var label=document.createElement("label");
+label.innerHTML = namesArr[i]+"'s rates";
+personDiv.style.border = "thin solid #000000";
+container.appendChild(personDiv);
+personDiv.appendChild(label);
+
+
+
     for(var j=0;j<itemsArr.length;++j){
-      // slider();
       slider(namesArr[i],itemsArr[j]);
-      // slider("ayelet");
+      // slider(namesArr[i],itemsArr[j]);
     }
+
   }
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "rescale";                   // Insert text
@@ -190,13 +201,12 @@ function algoChoser(){
 
 function slider(name,item){
   var label=document.createElement("label");
-  label.innerHTML = name+" rate for "+item;
+  label.innerHTML = item+"'s rate";
   label.classList.add("label");
 
   var form=document.createElement("form");
   form.name="registrationForm";
   form.className ="mainForm";
-  form.style.border = "thin solid #000000";
   form.style.margin="10px";
   form.style.marginLeft ="150px";
   form.style.marginRight ="150px";
@@ -223,7 +233,7 @@ function slider(name,item){
   form.appendChild(input);
   form.appendChild(output);
   output.value="600 points";
-  document.getElementById("container").appendChild(form);
+  document.getElementById(name+"div").appendChild(form);
 
 }
 function updateTextInput(inputId,outputId){
