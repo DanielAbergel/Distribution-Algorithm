@@ -314,7 +314,7 @@ var ExplenationTable=document.getElementById("explenation-table");
       participantActual+=(mat_result[i][k]*mat[i][k]);
       participantRational+=mat[i][k];
     }
-    var row1 = table.insertRow();
+    var row1 = ExplenationTable.insertRow();
     var cell = row1.insertCell(0);
     // var cell2 = row.insertCell(1);
     cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is"+ participantActual +"$. This is at least 1/"+namesArr.length+" of the total value of your rates which is"+(participantRational/namesArr.length);
