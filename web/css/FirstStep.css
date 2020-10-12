@@ -66,7 +66,7 @@ h2{
   }
   #container{
     margin-top: 125px;
-    
+
   }
   .mainForm{
     background: rgba(212, 206, 200, 0.3);
@@ -425,4 +425,9 @@ h2{
       background-color: #00b9ee;
     }
 
+  }
+
+  .frame{
+    margin: 5%;
+  background: rgba(212, 206, 200, 0.6);
   }

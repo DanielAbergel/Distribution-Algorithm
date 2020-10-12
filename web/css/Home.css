@@ -10,13 +10,13 @@ p{
   font-size: 20px;
   /* background-color: grey;
   opacity: 0.8; */
-  background: rgba(212, 206, 200, 0.3);
+  /* background: rgba(212, 206, 200, 0.3); */
 }
 .header {
   padding: 60px;
   text-align: center;
   /* background: #74593D; */
-  color: white;
+  color: black;
   font-size: 30px;
   /* background: rgba(212, 206, 200, 0.3); */
 }
@@ -37,4 +37,8 @@ p{
     left: 50%; */
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, 10%);
+}
+.frame{
+  margin: 5%;
+background: rgba(212, 206, 200, 0.6);
 }
