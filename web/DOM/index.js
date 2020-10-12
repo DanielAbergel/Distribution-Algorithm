@@ -262,7 +262,7 @@ function setMat(){
         }
       }
       console.log(result);
-      result(result);
+      result(result,mat);
     }
   };
   var data = json;
@@ -288,7 +288,7 @@ function convertTOjson(mat){
 //   result(mat);
 // }
 
-function result(result){
+function result(result,mat){
   // console.log(document.getElementById("meh").checked);
   console.log(document.getElementById("alg2").checked);//alg1=false.  alg2=true
   document.getElementById("table-div").style.display="inline";
