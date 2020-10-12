@@ -245,7 +245,7 @@ function setMat(){
     }
   }
 
-  json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr});
+  json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length});
 
   // console.log(json);
   var xhr = new XMLHttpRequest();
