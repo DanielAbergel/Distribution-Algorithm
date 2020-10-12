@@ -311,7 +311,7 @@ var ExplenationTable=document.getElementById("explenation-table");
     participantActual=0;
     participantRational=0;
     for (var k = 0; k < mat_result[i].length; k++) {
-      participantActual+=(parseInt((mat_result[i][k])/100)*parseInt(mat[i][k]));
+      participantActual+=((mat_result[i][k]/100)*parseInt(mat[i][k]));
       participantRational+=mat[i][k];
     }
     var row1 = ExplenationTable.insertRow();
