@@ -255,14 +255,14 @@ function setMat(){
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var responseText = JSON.parse(xhr.responseText);
-      var result = responseText.values;
-      for (i=0;i<result.length;i++){
-        for (j=0;j<result[0].length;j++){
-          result[i][j] = result[i][j] * 100 ;
+      var mat_result = responseText.values;
+      for (i=0;i<mat_result.length;i++){
+        for (j=0;j<mat_result[0].length;j++){
+          mat_result[i][j] = mat_result[i][j] * 100 ;
         }
       }
-      console.log(result);
-      result(result,mat);
+      console.log(mat_result);
+      result(mat_result,mat);
     }
   };
   var data = json;
@@ -288,7 +288,7 @@ function convertTOjson(mat){
 //   result(mat);
 // }
 
-function result(result,mat){
+function result(mat_result,mat){
   // console.log(document.getElementById("meh").checked);
   console.log(document.getElementById("alg2").checked);//alg1=false.  alg2=true
   document.getElementById("table-div").style.display="inline";
@@ -310,8 +310,8 @@ var ExplenationTable=document.getElementById("explenation-table");
   for (i = 0; i <namesArr.length; i++) {
     participantActual=0;
     participantRational=0;
-    for (var k = 0; k < result[i].length; k++) {
-      participantActual+=(result[i][k]*mat[i][k]);
+    for (var k = 0; k < mat_result[i].length; k++) {
+      participantActual+=(mat_result[i][k]*mat[i][k]);
       participantRational+=mat[i][k];
     }
     var row1 = table.insertRow();
