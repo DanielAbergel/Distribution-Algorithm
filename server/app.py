@@ -85,7 +85,7 @@ def generate_table(agents, items, data, file_name):
         for item in items:
             item_tr = tr()
             item_tr += th(item)
-            for score in data[item_index]:
+            for score in [z[item_index] for z in data[0:]]:
                 item_tr += td('{} %'.format(score))
             item_index += 1
             thread_body += item_tr
@@ -93,14 +93,15 @@ def generate_table(agents, items, data, file_name):
         result_table += header_thread
         result_table += thread_body
 
-    with open('../web/generated_html/{}.html'.format(file_name), 'w') as f:
+    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
         f.write(doc.render())
     return '{}/generated_html/{}.html'.format(URL, file_name)
 
 
 def long_time_algorithm(data):
+    result = run_algorithm(data)
     url = generate_table(agents=data['agents'], items=data['items'],
-                         data=data['values'], file_name=sha256(str(data['values']).encode('utf-8')).hexdigest())
+                         data=result, file_name=sha256(str(data['values']).encode('utf-8')).hexdigest())
     send_email(data['email'], url)
 
 
@@ -116,7 +117,7 @@ def send_email(email_receiver, url):
 
     # Create the plain-text and HTML version of your message
 
-    with open('../web/html_email_template.html', 'r+') as f:
+    with open('/var/www/html/fairness-algorithm-rest/web/html_email_template.html', 'r+') as f:
         template = Template(f.read())
         html = (template.substitute(URL=url))
 
@@ -136,14 +137,27 @@ def send_email(email_receiver, url):
         )
 
 
+def run_algorithm(data):
+    matrix = np.array(data['values'])
+    if data['problem'] == 'EnvyFree':
+        ProblemObject = FairEnvyFreeAllocationProblem(matrix)
+        ans = ProblemObject.find_allocation_with_min_shering()
+        print('Using EnvyFree Algorithm')
+    elif data['problem'] == 'Proportional':
+        ProblemObject = FairProportionalAllocationProblem(matrix)
+        ans = ProblemObject.find_allocation_with_min_shering()
+        print('Using Proportional Algorithm')
+    return ans.tolist()
+
+
 class Algorithm(Resource):
 
     def get(self):
         return {'algorithm': 'available'}
 
     def post(self):
+
         data = request.get_json()
-        matrix = np.array(data['values'])
 
         if int(data['num_of_agents']) > 3:
 
@@ -161,20 +175,14 @@ class Algorithm(Resource):
             return req
 
         else:
-            if data['problem'] == 'EnvyFree':
-                ProblemObject = FairEnvyFreeAllocationProblem(matrix)
-                ans = ProblemObject.find_allocation_with_min_shering()
-                print('Using EnvyFree Algorithm')
-            elif data['problem'] == 'Proportional':
-                ProblemObject = FairProportionalAllocationProblem(matrix)
-                ans = ProblemObject.find_allocation_with_min_shering()
-                print('Using Proportional Algorithm')
+
+            result = run_algorithm(data)
 
             json_request = {
                 'problem': data['problem'],
                 'agents': data['agents'],
                 'items': data['items'],
-                'values': ans.tolist()
+                'values': result
             }
 
             print(json_request)
