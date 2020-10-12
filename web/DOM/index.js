@@ -311,13 +311,13 @@ var ExplenationTable=document.getElementById("explenation-table");
     participantActual=0;
     participantRational=0;
     for (var k = 0; k < mat_result[i].length; k++) {
-      participantActual+=((mat_result[i][k]/100)*mat[i][k]);
+      participantActual+=(parseInt((mat_result[i][k])/100)*parseInt(mat[i][k]));
       participantRational+=mat[i][k];
     }
     var row1 = ExplenationTable.insertRow();
     var cell = row1.insertCell(0);
     // var cell2 = row.insertCell(1);
-    cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is"+ participantActual +"$. This is at least 1/"+namesArr.length+" of the total value of your rates which is"+(participantRational/namesArr.length);
+    cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is "+ participantActual +"$. This is at least 1/"+namesArr.length+" of the total value of your rates which is "+(participantRational/namesArr.length);
   }
 }
 
