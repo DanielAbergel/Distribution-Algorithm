@@ -244,11 +244,6 @@ function setMat(){
       mat[i][j]=parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value);
     }
   }
-  for (i=0;i<namesArr.length;i++){
-    for (j=0;j<itemsArr.length;j++){
-      console.log(mat[i][j]);
-    }
-  }
 
   json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr});
 
@@ -267,7 +262,7 @@ function setMat(){
         }
       }
       console.log(result);
-      showChart(result);
+      result(result);
     }
   };
   var data = json;
@@ -288,18 +283,18 @@ function convertTOjson(mat){
 }
 /////////////////////////////////////////////////////////////////
 
-function showChart(mat){
-  // mat=transpose(mat);
-  result(mat);
-}
+// function showChart(mat){
+//   // mat=transpose(mat);
+//   result(mat);
+// }
 
-function result(mat){
+function result(result){
   // console.log(document.getElementById("meh").checked);
   console.log(document.getElementById("alg2").checked);//alg1=false.  alg2=true
   document.getElementById("table-div").style.display="inline";
-  var table=document.getElementById("my-table");
+  var ResultTable=document.getElementById("results-table");
   for (var i = 0; i <namesArr.length; i++) {
-    var row = table.insertRow();
+    var row = ResultTable.insertRow();
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     cell1.innerHTML = namesArr[i];
@@ -309,39 +304,53 @@ function result(mat){
     }
     cell2.innerHTML = itemsStr;
   }
-
-}
-
-
-function transpose(a) {
-
-  // Calculate the width and height of the Array
-  var w = a.length || 0;
-  var h = a[0] instanceof Array ? a[0].length : 0;
-
-  // In case it is a zero matrix, no transpose routine needed.
-  if(h === 0 || w === 0) { return []; }
-
-  /**
-  * @var {Number} i Counter
-  * @var {Number} j Counter
-  * @var {Array} t Transposed data is stored in this array.
-  */
-  var i, j, t = [];
-
-  // Loop through every item in the outer array (height)
-  for(i=0; i<h; i++) {
-
-    // Insert a new row (array)
-    t[i] = [];
-
-    // Loop through every item per item in outer array (width)
-    for(j=0; j<w; j++) {
-
-      // Save transposed data.
-      t[i][j] = a[j][i];
+var participantActual;// the actual sum of his profit.
+var participantRational;//how much the participant had to get if we split equally.
+var ExplenationTable=document.getElementById("explenation-table");
+  for (i = 0; i <namesArr.length; i++) {
+    participantActual=0;
+    participantRational=0;
+    for (var k = 0; k < result[i].length; k++) {
+      participantActual+=(result[i][k]*mat[i][k]);
+      participantRational+=mat[i][k];
     }
+    var row1 = table.insertRow();
+    var cell = row1.insertCell(0);
+    // var cell2 = row.insertCell(1);
+    cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is"+ participantActual +"$. This is at least 1/"+namesArr.length+" of the total value of your rates which is"+(participantRational/namesArr.length);
   }
-
-  return t;
 }
+
+
+// function transpose(a) {
+//
+//   // Calculate the width and height of the Array
+//   var w = a.length || 0;
+//   var h = a[0] instanceof Array ? a[0].length : 0;
+//
+//   // In case it is a zero matrix, no transpose routine needed.
+//   if(h === 0 || w === 0) { return []; }
+//
+//   /**
+//   * @var {Number} i Counter
+//   * @var {Number} j Counter
+//   * @var {Array} t Transposed data is stored in this array.
+//   */
+//   var i, j, t = [];
+//
+//   // Loop through every item in the outer array (height)
+//   for(i=0; i<h; i++) {
+//
+//     // Insert a new row (array)
+//     t[i] = [];
+//
+//     // Loop through every item per item in outer array (width)
+//     for(j=0; j<w; j++) {
+//
+//       // Save transposed data.
+//       t[i][j] = a[j][i];
+//     }
+//   }
+//
+//   return t;
+// }
