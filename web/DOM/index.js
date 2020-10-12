@@ -29,6 +29,7 @@ function addS(){
 }
 
 function insertNames(){
+  var defaultNames=["Alice","Bob","Carol","Dave"];
   document.getElementById("selectStep").style.display="none";
   document.getElementById("selectBtn").style.display="none";
 
@@ -42,6 +43,7 @@ function insertNames(){
     divPpart.appendChild(document.createTextNode("Name number "+i));
     var nameInput = document.createElement("input");
     nameInput.id = "name"+i;
+    nameInput.value=defaultNames[i-1];
     divPpart.appendChild(nameInput);
     divP.appendChild(divPpart);
     divP.appendChild(document.createElement("br"));
@@ -70,6 +72,7 @@ function insertItems(){
     }
     namesArr.push(document.getElementById("name"+i).value);
   }
+  defaultItems=["Armchair","Bed","Chair","Desk","Easy chair","Futon","Game table","Hammock","Iron","Jeep","Kitchen island","Lamp","Mattress","Nightstand","Office chair","Pillow","Quill","Rug"];
   document.getElementById("divP").style.display="none";
   document.getElementById("insertNamesBtn").style.display="none";
   var numOFitems=document.getElementById("itemSelect").value;
@@ -82,6 +85,7 @@ function insertItems(){
     divIpart.appendChild(document.createTextNode("Item number "+i));
     var itemInput = document.createElement("input");
     itemInput.id = "item"+i;
+    itemInput.value=defaultItems[i-1];
     divIpart.appendChild(itemInput);
     divI.appendChild(divIpart);
     divI.appendChild(document.createElement("br"));
