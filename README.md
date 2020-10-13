@@ -67,7 +67,7 @@ access the default Server landing page to confirm that the software is running p
   http://your_ip
 ```
 # Server data format
-our server recives the Algorithm input via ``161.35.20.108/calculator`` URL. (need to send a POST request with JSON as described here)
+our server recives the Algorithm input via ``<server URL>/calculator`` URL. (need to send a POST request with JSON as described here)
 ```json
     "num_of_agents" : 4,
     "num_of_items" : 4 ,
