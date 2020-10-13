@@ -66,7 +66,25 @@ access the default Server landing page to confirm that the software is running p
 ```
   http://your_ip
 ```
-
+# Server data format
+our server recives the Algorithm input via ``161.35.20.108/calculator`` URL. (need to send a POST request with JSON as described here)
+```json
+    "num_of_agents" : 4,
+    "num_of_items" : 4 ,
+    "problem" : "Proportional",
+    "agents" : ["Netanel", "Daniel", "Holo","Matanel"],
+    "items" : ["Miami Beach House", "Old Piano", "AirPods Pro"],
+    "values" : [[12,63,25], [49,13,38], [39,15,47],[44,9,47]],
+    "email" : "fairnessalgorithm.io@gmail.com"
+```
+### Explanation
+  * num_of_agents - participants  number.
+  * num_of_items - the items that that will be divided.
+  * problem - the algorithm [Proportional\EnvyFree] .
+  * agents - participants  names.
+  * items - items names
+  * values - return value / input values.
+  * email : a valid email that the server will send the result to 
 # For developers
 
 The algorithm can be run without the server, e.g. for experiments.
