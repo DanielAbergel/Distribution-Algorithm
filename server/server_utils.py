@@ -81,7 +81,7 @@ def generate_table(agents, items, data, file_name, data_json):
     with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
         f.write(doc.render())
 
-    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
+    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'r') as f:
         file_data = f.read()
 
     # Replace the target string
