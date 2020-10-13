@@ -66,6 +66,14 @@ access the default Server landing page to confirm that the software is running p
 ```
   http://your_ip
 ```
+Our server is a generic production server that can be used by many algorithms. 
+The server usage is simple, to deliver any content to the clients, place the content as described here:
+* HTML content - web/<any HTML format>.
+* CSS content - web/<any CSS format>.
+* DOM content (JavaScript files) - web/<any DOM format>. 
+  
+restart the Nginx service,  the server will send the content as expected.  
+  
 ### Production Server Architecture
 ![1*B6Oec7uy05pqTUlVf9FwBA](https://user-images.githubusercontent.com/44754325/95879579-2fddba00-0d7f-11eb-9af7-c10f206b14b7.jpeg)
 # Server data format
