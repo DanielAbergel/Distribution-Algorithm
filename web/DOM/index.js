@@ -1,79 +1,99 @@
 var namesArr=[];
 var itemsArr=[];
 var emailCheck=false;
+
+// this function will create 2 Selectpicker with for loop and a button that called "MOVE TO STEP 2"
 function addS(){
+  // peopleOPT & itemOPT - Selectpicker variables
   var peopleOPT = document.getElementById("peopleSelect");
   var itemOPT = document.getElementById("itemSelect");
+  // for loop that open the number of people Selectpicker (between 2 to 4)
   for (var i = 2; i <= 4; i++) {
     var pOption = document.createElement("option");
     pOption.text = i;
     peopleOPT.add(pOption);
   }
-
+// for loop that open the number of items Selectpicker (between 1 to 18)
   for (var j = 1; j <= 18; j++) {
     var iOption = document.createElement("option");
     iOption.text = j;
     itemOPT.add(iOption);
   }
-
+// create the button "move to step 2" when its clicked the insertNames function will call
   var selectBtn = document.createElement("BUTTON");
   selectBtn.id="selectBtn";
   selectBtn.innerHTML = "MOVE TO STEP 2";
   selectBtn.onclick=insertNames;
+  // css styling to "MOVE TO STEP 2" button
   selectBtn.classList.add("btn-secondary");
   selectBtn.classList.add("btn");
   selectBtn.classList.add("myButtons");
-
+// add to document.body a child (selectBtn button)
   document.body.appendChild(selectBtn);
 
 }
-
+// insert the clients name to the filed nameInput
 function insertNames(){
+  // filed the var defaultNames with default names
   var defaultNames=["Alice","Bob","Carol","Dave"];
+  // This command delete the selectStep class
   document.getElementById("selectStep").style.display="none";
+  // This command delete the selectStep createElement
   document.getElementById("selectBtn").style.display="none";
-  // var check = document.getElementById("rescaleBtn");
-  // if(check){
-  //
-  // }
 
+  // Entering the value that chosen into the variable numOFpeople
   var numOFpeople=document.getElementById("peopleSelect").value;
+// create a div called divP
   var divP = document.createElement("div");
   divP.id="divP";
+// insert text to divP
   divP.innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
+// this for loop create divs elements (Name number +i)
   for (i=1;i<=numOFpeople;i++){
     var divPpart = document.createElement("div");
+// css styling to the div "divPpart"
     divPpart.classList.add("input-style");
+// add to divPpart a child (text - Name number +i)
     divPpart.appendChild(document.createTextNode("Name number "+i));
+// create an input text element
     var nameInput = document.createElement("input");
     nameInput.id = "name"+i;
+    // take the names from defaultNames array to nameInput
     nameInput.value=defaultNames[i-1];
+    // add to divPpart a child (text - that found in nameInput "name+i")
     divPpart.appendChild(nameInput);
+    // add to divP a child (div - contains divPpart that create in this for loop)
     divP.appendChild(divPpart);
+    // add to divP a child (br - downline)
     divP.appendChild(document.createElement("br"));
   }
 
 
-
+// create a button element, the name is insertNamesBtn and when it's clicked it's called insertItems function
   var insertNamesBtn = document.createElement("BUTTON");
   insertNamesBtn.id="insertNamesBtn";
+  // the text on the button
   insertNamesBtn.innerHTML = "MOVE TO STEP 3";
+  //the function that calld when insertNamesBtn clicked
   insertNamesBtn.onclick=insertItems;
+  // css styling to the button "insertNamesBtn"
   insertNamesBtn.classList.add("btn-secondary");
   insertNamesBtn.classList.add("btn");
   insertNamesBtn.classList.add("myButtons");
+  // add to container a child (divP - <h1>step2:</h1><h2>Insert the participants names</h2)
   container.appendChild(divP);
-  // document.getElementById("divP").innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
-  // var text2=
+  // add to document.body a child (insertNamesBtn - button that call the function insertItems)
   document.body.appendChild(insertNamesBtn);
 
   var numberOFpeople=document.getElementById("peopleSelect").value;
+  //checks if number of people is 4. if it is so we activate the insertEmail function.
   if(numberOFpeople=="4"){
     insertEmail();
     return;
   }
 
 }
+//if number of people is 4. if it is so we activate the insertEmail function and let the user insert email address.
 function insertEmail(){
   emailCheck=true;
   document.getElementById("divP").style.display="none";
@@ -87,12 +107,12 @@ function insertEmail(){
   insertNamesBtn.classList.add("btn-secondary");
   insertNamesBtn.classList.add("btn");
   insertNamesBtn.classList.add("myButtons");
-  // container.appendChild(divP);
-  // document.getElementById("divP").innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
-  // var text2=
   document.getElementById("emailId").appendChild(insertNamesBtn);
 }
+
+// insert the items name to the filed itemInput
 function insertItems(){
+  //checks if the email div is exist. if yes it check that the input is not null.
   var check = document.getElementById("emailId");
   if(check){
   if(document.getElementById("emailInput").value==""&&emailCheck){
@@ -102,56 +122,81 @@ function insertItems(){
   document.getElementById("emailId").style.display="none";
 }
   var numOFpeople=document.getElementById("peopleSelect").value;
+// validation to check if the num of people filds is whit some text
   for (var i = 1; i <= numOFpeople; i++) {
     if(document.getElementById("name"+i).value==""){
       alert("You have to fill all of the fields");
       return false;
     }
+    // push the names that we filed into namesArr
     namesArr.push(document.getElementById("name"+i).value);
   }
+  // filed the var defaultItems with default items
   defaultItems=["Armchair","Bed","Chair","Desk","Easy chair","Futon","Game table","Hammock","Iron","Jeep","Kitchen island","Lamp","Mattress","Nightstand","Office chair","Pillow","Quill","Rug"];
+// This command delete the divP class
   document.getElementById("divP").style.display="none";
+// This command delete the insertNamesBtn class
   document.getElementById("insertNamesBtn").style.display="none";
+// Entering the value that chosen into the variable numOFitems
   var numOFitems=document.getElementById("itemSelect").value;
+// create a div called divI
   var divI = document.createElement("div");
   divI.id="divI";
+  // insert text to divI
   divI.innerHTML="<h1>step3:</h1><h2>Insert the items names</h2>";
+// this for loop create divs elements (Item number +i)
   for (i=1;i<=numOFitems;i++){
     var divIpart = document.createElement("div");
+    // css styling to the div "divIpart"
     divIpart.classList.add("input-style");
+    // add to divIpart a child (text - Item number +i)
     divIpart.appendChild(document.createTextNode("Item number "+i));
+// create an input text element
     var itemInput = document.createElement("input");
     itemInput.id = "item"+i;
+    // take the items from defaultItems array to itemInput
     itemInput.value=defaultItems[i-1];
+    // add to divIpart a child (text - that found in itemInput "name+i")
     divIpart.appendChild(itemInput);
+    // add to divI a child (div - contains divIpart that create in this for loop)
     divI.appendChild(divIpart);
+    // add to divI a child (br - downline)
     divI.appendChild(document.createElement("br"));
   }
+  // create a button element, the name is insertItemsBtn and when it's clicked it's called getDetails function
   var insertItemsBtn = document.createElement("BUTTON");
   insertItemsBtn.id="insertItemsBtn";
+  // the text on the button
   insertItemsBtn.innerHTML = "MOVE TO STEP 4";
+  //the function that calld when insertItemsBtn clicked
   insertItemsBtn.onclick=getDetails;
+  // css styling to the button "insertNamesBtn"
   insertItemsBtn.classList.add("btn-secondary");
   insertItemsBtn.classList.add("btn");
   insertItemsBtn.classList.add("myButtons");
+  // add to container a child (divP - <h1>step3:</h1><h2>Insert the items names</h2)
   container.appendChild(divI);
+  // add to document.body a child (insertItemsBtn - button that call the function getDetails)
   document.body.appendChild(insertItemsBtn);
 
 
 }
 function getDetails() {
-
+// Entering the values that chosen into the variables numOFpeople & numOFitems
   var numOFpeople=document.getElementById("peopleSelect").value;
   var numOFitems=document.getElementById("itemSelect").value;
-
+// validation to check if the num of items filds is whit some text
   for (var j = 1; j <= numOFitems; j++) {
     if(document.getElementById("item"+j).value==""){
       alert("You have to fill all of the fields");
       return false;
     }
+    // push the items that we filed into itemsArr
     itemsArr.push(document.getElementById("item"+j).value);
   }
+  // This command delete the insertItemsBtn button
   document.getElementById("insertItemsBtn").style.display="none";
+// call the function add fields
   addFields();
 }
 
@@ -165,6 +210,7 @@ function addFields(){
   while (container.hasChildNodes()) {
     container.removeChild(container.lastChild);
   }
+  // insert text to container
   container.innerHTML="<h1>step4:</h1><h2>You got 1200 points. Split them between the items as you wish.</h2>";
   for (i=0;i<numOFpeople;i++){
     var personDiv= document.createElement("div");
@@ -176,14 +222,12 @@ function addFields(){
     container.appendChild(personDiv);
     personDiv.appendChild(label);
 
-
-
     for(var j=0;j<itemsArr.length;++j){
+      //create slider component for each participant to item
       slider(namesArr[i],itemsArr[j]);
-      // slider(namesArr[i],itemsArr[j]);
     }
-
   }
+  // Create a rescale <button> element
   var btn = document.createElement("BUTTON");   // Create a <button> element
   btn.innerHTML = "rescale";                   // Insert text
   btn.id="rescaleBtn";
@@ -343,112 +387,17 @@ document.body.appendChild(loader);
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var responseText = JSON.parse(xhr.responseText);
-      var mat_result = responseText.values;
-      for (i=0;i<mat_result.length;i++){
-        for (j=0;j<mat_result[0].length;j++){
-          mat_result[i][j] = mat_result[i][j] * 100 ;
-        }
+      if(namesArr.length>3){
+        window.location.replace("http://161.35.20.108/email.html");
+      }else{
+        var html=responseText.url;
+        window.location.replace(html);
       }
-      console.log(mat_result);
-      result(mat_result,mat);
     }
   };
   var data = json;
   xhr.send(data);
 }
-
-function convertTOjson(mat){
-  var json="{";
-  for(i=0;i<mat.length;++i){
-    json+=i+": [";
-    for(j=0;j<mat[0].length;++j){
-      json+=mat[i][j]+",";
-    }
-    json+="],";
-  }
-  json+="num_of_agents: "+mat.length+",num_of_items: "+mat[0].length+"}";
-  return json;
-}
-/////////////////////////////////////////////////////////////////
-
-// function showChart(mat){
-//   // mat=transpose(mat);
-//   result(mat);
-// }
-
-function result(mat_result,mat){
-  // console.log(document.getElementById("meh").checked);
-  document.getElementById("loaderId").style.display="none";
-  console.log(document.getElementById("alg2").checked);//alg1=false.  alg2=true
-  document.getElementById("table-div").style.display="inline";
-  var ResultTable=document.getElementById("results-table");
-  var thead = ResultTable.createTHead();
-  let row = thead.insertRow();
-  let th = document.createElement("th");
-  let text = document.createTextNode("Items");
-  th.appendChild(text);
-  row.appendChild(th);
-  // var i;
-  for ( let i = 0; i <namesArr.length; i++) {
-     th = document.createElement("th");
-     text = document.createTextNode(namesArr[i]);
-    th.appendChild(text);
-    row.appendChild(th);
-  }
-
-
-  for ( let i = 0; i < itemsArr.length; i++) {
-    let row = thead.insertRow();
-    let th = document.createElement("th");
-    let text = document.createTextNode(itemsArr[i]);
-   th.appendChild(text);
-   row.appendChild(th);
-    for (let j = 0; j < namesArr.length; j++) {
-      let th = document.createElement("th");
-      let text = document.createTextNode(mat_result[j][i]);
-     th.appendChild(text);
-     row.appendChild(th);
-    }
-  }
-
-
-  // var row = ResultTable.insertRow();
-  // var cell1 = row.insertCell(0);
-  // cell1.innerHTML = "Name";
-  //  for (var i = 0; i <namesArr.length; i++) {
-  //    cell1.innerHTML = namesArr[i];
-  //    ResultTable.appendChild(cell1);
-  //  }
-  //   var row = ResultTable.insertRow();
-  //   var cell1 = row.insertCell(0);
-  //   var cell2 = row.insertCell(1);
-  //   cell1.innerHTML = namesArr[i];
-  //   var itemsStr="";
-  //   for (var j = 0; j < mat[i].length; j++) {
-  //     itemsStr+=Math.round(parseInt(mat_result[i][j]))+"% of the "+itemsArr[j]+"<br>";
-  //   }
-  //   cell2.innerHTML = itemsStr;
-  // }
-
-
-
-  // var participantActual;// the actual sum of his profit.
-  // var participantRational;//how much the participant had to get if we split equally.
-  // var ExplenationTable=document.getElementById("explenation-table");
-  // for (i = 0; i <namesArr.length; i++) {
-  //   participantActual=0;
-  //   participantRational=0;
-  //   for (var k = 0; k < mat_result[i].length; k++) {
-  //     participantActual+=((mat_result[i][k]/100)*parseInt(mat[i][k]));
-  //     participantRational+=mat[i][k];
-  //   }
-  //   var row1 = ExplenationTable.insertRow();
-  //   var cell = row1.insertCell(0);
-  //   // var cell2 = row.insertCell(1);
-  //   cell.innerHTML = namesArr[i]+": The total value of the items you received, according to your evaluation, is "+ participantActual +" points. This is at least 1/"+namesArr.length+" of the total value of your rates which is "+(participantRational/namesArr.length);
-  // }
-}
-
 
 function deleteBtn(){
   var element;
