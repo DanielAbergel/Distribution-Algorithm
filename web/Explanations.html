@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
+  
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -25,7 +25,8 @@
 <div class="frame">
   <div class="header">
     <h1 class="h1-header">Explanation of the website</h1>
-    <h5>Our website offers two division algorithms - "Proportional division" and "Jealousy free division".
+
+    <h5 align="left">Our website offers two division algorithms - "Proportional division" and "Jealousy free division".
       <p> Before we will explain how these algorithms work,
        we will explain in general what these concepts means and in what form the input and output are formatted.<br />
       The algorithms work based on the participants' estimates of each of the items,i.e,
@@ -46,10 +47,11 @@
       Tami will get a part that according to her own assessment will be larger than Rami's and Ami's parts. <br>
       In other words, everyone gets a share that in their opinion is the biggest- and so there is no jealousy in this division.<br>
        See a more detailed example below.</h5>
-  </div>
+     
+  
   <div class="content">
     <h1 class="h1-header">Some additional points</h1>
-    <p>- Every division without jealousy is also a proportional division, but it does not work the other way around:
+    <h5 align="left">- Every division without jealousy is also a proportional division, but it does not work the other way around:
       not every proportional division is without jealousy.<br>
       - So why use a proportional division at all? <br>
       Because it is much faster to calculate and sometimes this condition is enough for us.<br>
@@ -59,6 +61,10 @@
       It would make little sense that two brothers will get the same house<br>
        (assumable one would own 70% and the other 30%).<br>
        So our algorithms find the divisions with the fewest houses divided into more than one person.<br>
+      
+    </div>
+  </div>
+
        <div class="content">
         <h1 class="h1-header">Formulating this example’s numbers:</h1>
         <h3>Suppose we have this estimate:</h3>
@@ -91,8 +97,8 @@
 
         </thead>
       </table>
-      <p>Ami estimates the ground floor apartment at 400,000,
-        the penthouse at half a million and the regular apartment at 100,000 and so on.<br>
+      <h5 align="left">Ami estimates the ground floor apartment at 400,000,
+        the penthouse at half a million and the regular apartment at 100,000 and so on.</h5>
         <h3> Proportional Division: </h3>
         <table border="1" align="center">
           <thead >
@@ -122,13 +128,13 @@
             </tr>
           </thead>
         </table>
-        <p>Let us note that this is indeed a proportional division
+        <h5 align="left">Let us note that this is indeed a proportional division
           Ami gets the whole penthouse and in his own assessment it's worth 500 which is more than 333.<br>
           Tami's share in her own assessment is 454.2 which is more than 333.<br>
           Remi's share in his view is 407.95 which is more than 333.<br>
           It is worth noting that this is not a division without jealousy because Rami is jealous of Tami:<br>
            Before Rami's estimate his share is 407.95 but according to his estimate Tami's share is 492 so he is jealous of her.<br>
-
+        </h5>
            <h3> Division Without Jealousy: </h3>
           <table border="1" align="center">
              <thead >
@@ -193,10 +199,10 @@
 
 
 
-            <p> Therefore, it is a division without jealousy. <br>
+            <h3 align="left"> Therefore, it is a division without jealousy. <br>
             Let us note that in both divisions only the ground floor apartment is divided between Rami and Tami and our algorithm ensures that this is the minimal option - meaning that it is not possible to divide these items according to these estimates without jealousy with fewer common items.
             Thank you very much and enjoy the website!<br>
-
+</h3>
           </div>
     <form action="FirstStep.html">
       <input id="startBtn" type="submit" class="btn btn-secondary" value="Let's get started" />
