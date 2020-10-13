@@ -1,9 +1,16 @@
 body {
 text-align: center;
 font-family: 'Special Elite', cursive;
-
+font-size: 25px;
+background-image: url('../images/Pizza.png');
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100% 100%;
 }
-
+.frame{
+  margin: 5%;
+background: rgba(212, 206, 200, 0.6);
+}
 .logo img{
   float:left;
   width:48px;
