@@ -1,6 +1,7 @@
 var namesArr=[];
 var itemsArr=[];
 var emailCheck=false;
+var count=0;
 
 // this function will create 2 Selectpicker with for loop and a button that called "MOVE TO STEP 2"
 function addS(){
@@ -34,6 +35,16 @@ function addS(){
 }
 // insert the clients name to the filed nameInput
 function insertNames(){
+  //checks if the email div is exist. if yes it check that the input is not null.
+  var check = document.getElementById("emailId");
+  if(check){
+  if(document.getElementById("emailInput").value==""&&emailCheck){
+    alert("You have to fill all of the fields");
+    return false;
+  }
+  document.getElementById("emailId").style.display="none";
+}
+if(count==0){
   // filed the var defaultNames with default names
   var defaultNames=["Alice","Bob","Carol","Dave"];
   // This command delete the selectStep class
@@ -83,18 +94,23 @@ function insertNames(){
   // add to container a child (divP - <h1>step2:</h1><h2>Insert the participants names</h2)
   container.appendChild(divP);
   // add to document.body a child (insertNamesBtn - button that call the function insertItems)
-  document.body.appendChild(insertNamesBtn);
+  container.appendChild(insertNamesBtn);
 
   var numberOFpeople=document.getElementById("peopleSelect").value;
   //checks if number of people is 4. if it is so we activate the insertEmail function.
-  if(numberOFpeople=="4"){
+  if(numberOFpeople=="4"&&count==0){
     insertEmail();
     return;
   }
+}else{
+  document.getElementById("divP").style.display="inline";
+  document.getElementById("insertNamesBtn").style.display="inline";
+}
 
 }
 //if number of people is 4. if it is so we activate the insertEmail function and let the user insert email address.
 function insertEmail(){
+  count++;
   emailCheck=true;
   document.getElementById("divP").style.display="none";
   document.getElementById("insertNamesBtn").style.display="none";
@@ -103,7 +119,7 @@ function insertEmail(){
   var insertNamesBtn = document.createElement("BUTTON");
   insertNamesBtn.id="mailBtn";
   insertNamesBtn.innerHTML = "MOVE TO STEP 2";
-  insertNamesBtn.onclick=insertItems;
+  insertNamesBtn.onclick=insertNames;
   insertNamesBtn.classList.add("btn-secondary");
   insertNamesBtn.classList.add("btn");
   insertNamesBtn.classList.add("myButtons");
@@ -112,15 +128,7 @@ function insertEmail(){
 
 // insert the items name to the filed itemInput
 function insertItems(){
-  //checks if the email div is exist. if yes it check that the input is not null.
-  var check = document.getElementById("emailId");
-  if(check){
-  if(document.getElementById("emailInput").value==""&&emailCheck){
-    alert("You have to fill all of the fields");
-    return false;
-  }
-  document.getElementById("emailId").style.display="none";
-}
+document.getElementById("divP").style.display="none";
   var numOFpeople=document.getElementById("peopleSelect").value;
 // validation to check if the num of people filds is whit some text
   for (var i = 1; i <= numOFpeople; i++) {
@@ -134,7 +142,7 @@ function insertItems(){
   // filed the var defaultItems with default items
   defaultItems=["Armchair","Bed","Chair","Desk","Easy chair","Futon","Game table","Hammock","Iron","Jeep","Kitchen island","Lamp","Mattress","Nightstand","Office chair","Pillow","Quill","Rug"];
 // This command delete the divP class
-  document.getElementById("divP").style.display="none";
+  // document.getElementById("divP").style.display="none";
 // This command delete the insertNamesBtn class
   document.getElementById("insertNamesBtn").style.display="none";
 // Entering the value that chosen into the variable numOFitems
