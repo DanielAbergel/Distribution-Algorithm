@@ -108,7 +108,6 @@ class FairEnvyFreeAllocationProblem(FairAllocationProblem):
         except cvxpy.SolverError:
             prob.solve(solver="SCS")
         if prob.status == 'optimal':
-            print("find some alloc!!!!")
             alloc = Allocation(mat.value)
             alloc.round()
             self.min_sharing_number = alloc.num_of_shering()
