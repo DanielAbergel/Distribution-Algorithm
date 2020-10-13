@@ -290,6 +290,12 @@ function setMat(){
   }
 
   json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length});
+
+  var loader =document.createElement("div");
+  loader.id="loaderId";
+  loader.classList.add("loader");
+document.body.appendChild(loader);
+
  // result(mat,mat);
   console.log(json);
   var xhr = new XMLHttpRequest();
@@ -334,6 +340,7 @@ function convertTOjson(mat){
 
 function result(mat_result,mat){
   // console.log(document.getElementById("meh").checked);
+  document.getElementById("loaderId").style.display="none";
   console.log(document.getElementById("alg2").checked);//alg1=false.  alg2=true
   document.getElementById("table-div").style.display="inline";
   var ResultTable=document.getElementById("results-table");
