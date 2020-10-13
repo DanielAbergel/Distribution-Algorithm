@@ -66,6 +66,8 @@ access the default Server landing page to confirm that the software is running p
 ```
   http://your_ip
 ```
+### Production Server Architecture
+![1*B6Oec7uy05pqTUlVf9FwBA](https://user-images.githubusercontent.com/44754325/95879579-2fddba00-0d7f-11eb-9af7-c10f206b14b7.jpeg)
 # Server data format
 our server recives the Algorithm input via ``<server URL>/calculator`` URL. (need to send a POST request with JSON as described here)
 ```json
