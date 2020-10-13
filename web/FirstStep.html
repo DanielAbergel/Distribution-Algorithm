@@ -29,17 +29,25 @@
 <body onload="addS()">
   <div class="frame">
     <div id="selectStep" class="general-style">
-      <h1>step 1:</h1>
-      <h2>Let us know about how many people and items you want to discuss</h2>
-      <label for="numberOFpeople">Choose number of people:</label>
-      <select id="peopleSelect" name="numberOFpeople" class="selectpicker show-tick">
-      </select>
-      <br>
-      <label for="numberOFitems">Choose number of items:</label>
-      <select id="itemSelect" name="numberOFitems" class="selectpicker show-tick">
-      </select>
-    </div>
+      <h1>step 1:</h1><p>
+        <h2>Let us know about how many people and items you want to discuss</h2>
 
+        <label for="numberOFpeople"> <h3> Choose number of people:</h3></label>
+        <select id="peopleSelect" name="numberOFpeople" class="selectpicker show-tick">
+        </select>
+        <br>
+
+        <label for="numberOFitems"> <h3> Choose number of items:</h3></label>
+        <select id="itemSelect" name="numberOFitems" class="selectpicker show-tick">
+        </select>
+      </p>
+
+    </div>
+    <div id="emailId" style="display:none;">
+      <h4> If you want to share with 4 people</h4>
+      <h5> please enter an email </h5>
+      <table></table><input id="emailInput" type="email" name="email" Name placeholder="example@gmail.com"/>
+    </div>
     <div id="container">
       <script src="DOM/index.js" charset="utf-8">
       </script>
@@ -48,40 +56,48 @@
     <div id="radio-btn" style="display:none;">
       <h1>Almost done!</h1>
       <h2>Let us know which kind of splitting you want.</h2>
-      <h3>algo1: lorems</h3>
-      <h3>algo2: some explenation</h3>
-      <div class="normal-container">
-        <div class="smile-rating-container">
-          <div class="smile-rating-toggle-container">
-            <form class="submit-rating">
-              <input id="alg1"  name="satisfaction" type="radio" />
-              <input id="alg2" name="satisfaction" type="radio" />
-              <label for="alg1" class="rating-label rating-label-alg1">algo1</label>
-              <div class="smile-rating-toggle"></div>
+      <h1>algo1 - PD</h1>
+      <h3>Proportional Division</h3>
+      <h3>A proportional division is a kind of fair division in which
+        a resource is divided among n partners with subjective valuations,
+        giving each partner at least 1/n of the resource by his/her own subjective valuation.</h3>
+        <h1>algo2 - EFD</h1>
+        <h3>Envy-Free Division</h3>
+        <h3>In an envy-free division, every agent feels that
+          their share is at least as good as the share of any other agent,
+          and thus no agent feels envy</h3>
+          <div class="normal-container">
+            <div class="smile-rating-container">
+              <div class="smile-rating-toggle-container">
+                <form class="submit-rating">
+                  <input id="alg1"  name="satisfaction" type="radio" />
+                  <input id="alg2" name="satisfaction" type="radio" />
+                  <label for="alg1" class="rating-label rating-label-alg1">PD</label>
+                  <div class="smile-rating-toggle"></div>
 
-              <div class="rating-eye rating-eye-left"></div>
-              <div class="rating-eye rating-eye-right"></div>
+                  <div class="rating-eye rating-eye-left"></div>
+                  <div class="rating-eye rating-eye-right"></div>
 
-              <div class="mouth rating-eye-bad-mouth"></div>
+                  <div class="mouth rating-eye-bad-mouth"></div>
 
-              <div class="toggle-rating-pill"></div>
-              <label for="alg2" class="rating-label rating-label-alg2">algo2</label>
-            </form>
+                  <div class="toggle-rating-pill"></div>
+                  <label for="alg2" class="rating-label rating-label-alg2">EFD</label>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- <div id="loaderId" class="loader" ></div> -->
+        <!-- <div id="loaderId" class="loader" ></div> -->
 
-    <div id="table-div" style="display:none;">
-      <table id="results-table" class="table">
-        <!-- <thead>
-          <tr>
+        <!-- <div id="table-div" style="display:none;">
+          <table id="results-table" class="table">
+            <thead>
+            <tr>
             <td>Name</td>
             <td>Items</td>
           </tr>
-        </thead> -->
+        </thead>
       </table>
       <table id="explenation-table" class="table" style="display:none;">
         <thead>
@@ -90,7 +106,7 @@
           </tr>
         </thead>
       </table>
-    </div>
+    </div> -->
   </div>
 
 </body>

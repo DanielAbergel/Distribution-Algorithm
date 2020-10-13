@@ -1,6 +1,6 @@
 var namesArr=[];
 var itemsArr=[];
-
+var emailCheck=false;
 function addS(){
   var peopleOPT = document.getElementById("peopleSelect");
   var itemOPT = document.getElementById("itemSelect");
@@ -32,6 +32,10 @@ function insertNames(){
   var defaultNames=["Alice","Bob","Carol","Dave"];
   document.getElementById("selectStep").style.display="none";
   document.getElementById("selectBtn").style.display="none";
+  // var check = document.getElementById("rescaleBtn");
+  // if(check){
+  //
+  // }
 
   var numOFpeople=document.getElementById("peopleSelect").value;
   var divP = document.createElement("div");
@@ -49,6 +53,8 @@ function insertNames(){
     divP.appendChild(document.createElement("br"));
   }
 
+
+
   var insertNamesBtn = document.createElement("BUTTON");
   insertNamesBtn.id="insertNamesBtn";
   insertNamesBtn.innerHTML = "MOVE TO STEP 3";
@@ -61,9 +67,40 @@ function insertNames(){
   // var text2=
   document.body.appendChild(insertNamesBtn);
 
-}
+  var numberOFpeople=document.getElementById("peopleSelect").value;
+  if(numberOFpeople=="4"){
+    insertEmail();
+    return;
+  }
 
+}
+function insertEmail(){
+  emailCheck=true;
+  document.getElementById("divP").style.display="none";
+  document.getElementById("insertNamesBtn").style.display="none";
+  document.getElementById("emailId").style.display="inline";
+
+  var insertNamesBtn = document.createElement("BUTTON");
+  insertNamesBtn.id="mailBtn";
+  insertNamesBtn.innerHTML = "MOVE TO STEP 2";
+  insertNamesBtn.onclick=insertItems;
+  insertNamesBtn.classList.add("btn-secondary");
+  insertNamesBtn.classList.add("btn");
+  insertNamesBtn.classList.add("myButtons");
+  // container.appendChild(divP);
+  // document.getElementById("divP").innerHTML="<h1>step2:</h1><h2>Insert the participants names</h2>";
+  // var text2=
+  document.getElementById("emailId").appendChild(insertNamesBtn);
+}
 function insertItems(){
+  var check = document.getElementById("emailId");
+  if(check){
+  if(document.getElementById("emailInput").value==""&&emailCheck){
+    alert("You have to fill all of the fields");
+    return false;
+  }
+  document.getElementById("emailId").style.display="none";
+}
   var numOFpeople=document.getElementById("peopleSelect").value;
   for (var i = 1; i <= numOFpeople; i++) {
     if(document.getElementById("name"+i).value==""){
@@ -288,8 +325,8 @@ function setMat(){
       mat[i][j]=parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value);
     }
   }
-
-  json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length});
+  email=document.getElementById(emailInput).value;
+  json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length , "email": email });
 
   var loader =document.createElement("div");
   loader.id="loaderId";
