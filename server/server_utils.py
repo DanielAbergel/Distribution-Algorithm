@@ -21,7 +21,7 @@ and save the HTML with unique identifier in the generated_html folder.
 
 
 def generate_table(agents, items, data, file_name, data_json):
-    with document() as doc:
+    with document(title='Algorithm Results') as doc:
         head_page = head()
         head_page += link(rel='shortcut icon', href="../images/web-logo.png")
         head_page += link(rel="stylesheet", type="text/css", href="../css/Home.css")
@@ -135,6 +135,13 @@ def send_email(email_receiver, url):
         )
 
 
+"""
+build proportional explanation with the algorithm results for each user.
+:param results represent the proportional algorithm results
+:param data represent the JSON data as described in README file
+"""
+
+
 def build_proportional_output(results, data):
     points_per_item = np.array(results) * np.array(data['values'])
     agents_results = [sum(e) for e in points_per_item]
@@ -145,6 +152,13 @@ def build_proportional_output(results, data):
             'This is at least 1/{} of the total value of your rates which is {}.'.format(
                 data['agents'][index], agent_result, '<br>', len(agents_results), 100))
     return explanation
+
+
+"""
+build envy-free explanation with the algorithm results for each user.
+:param results represent the proportional algorithm results
+:param data represent the JSON data as described in README file
+"""
 
 
 def build_envy_free_output(results, data):
