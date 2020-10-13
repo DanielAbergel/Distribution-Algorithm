@@ -17,33 +17,33 @@
 
 <div class="topnav" >
   <a class="active" href="Home.html">Home</a>
-  <a class="active" href="Explanations.html">Explanations</a>
   <a class="active" href="About_Us.html">About Us</a>
   <a class="active" href="Contact_Us.html">Contact Us</a>
+  <a class="active" href="Explanations.html">Explanations</a>
 </div>
 
 <div class="frame">
   <div class="header">
-    <h1 class="h1-header">Algorithm theory</h1>
-    <h5>SplitUp website offers two division algorithms - "Proportional division" and "Jealousy free division".
+    <h1 class="h1-header">Explanation of the website</h1>
+    <h5>Our website offers two division algorithms - "Proportional division" and "Jealousy free division".
       <p> Before we will explain how these algorithms work,
        we will explain in general what these concepts means and in what form the input and output are formatted.<br />
-      The algorithms work based on the participants estimates of each of the items,i.e,
+      The algorithms work based on the participants' estimates of each of the items,i.e,
       each of the participants gives a numerical value to each of the participating items (see example below). <br>
       Once a participant has evaluated all the items – there are two options to choose from.<br>
       1) Proportional division, in which each participant receives at least 1/n of the sum of the items.<br>
-      let's take an example<br />
-      there are three participant's , Alice, Bob and Carol,<br>
-      and the sum of all the items according to Alice's estimate is 1000 so
-      Alice will surely get items whose sum of value according to Alice will be at least 333<br>
+      What does this mean:
+      If, for example, there are three participants, Ami, Tami and Rami,<br>
+       and the sum of all the items according to Ami's estimate is 1000 so
+      Ami will surely get items whose sum of value according to Ami will be at least 333<br>
       - because he should get at least a third of the items. <br>
       - See a more detailed example below.<br>
       2) Division without jealousy, in which each participant receives the largest share according to his assessment.
-      That is, if, for example, there are three participants: Alice, Bob and Carol. <br>
-      Alice should get a part that,
-      according to his own assessment will be larger than Bob's and Carol's parts.<br>
-      Carol will get a part that according to his own assessment will be larger than Bob's and Alice's parts.<br>
-      Bob will get a part that according to her own assessment will be larger than Carol's and Alice's parts. <br>
+      That is, if, for example, there are three participants: Ami, Tami and Rami. <br>
+      Ami should get a part that,
+      according to his own assessment will be larger than Tami's and Rami's parts.<br>
+      Rami will get a part that according to his own assessment will be larger than Tami's and Ami's parts.<br>
+      Tami will get a part that according to her own assessment will be larger than Rami's and Ami's parts. <br>
       In other words, everyone gets a share that in their opinion is the biggest- and so there is no jealousy in this division.<br>
        See a more detailed example below.</h5>
   </div>
@@ -62,7 +62,7 @@
        <div class="content">
         <h1 class="h1-header">Formulating this example’s numbers:</h1>
         <h3>Suppose we have this estimate:</h3>
-       <table border="1" >
+       <table border="1" align="center">
         <thead >
           <tr>
             <td> Name </td>
@@ -70,19 +70,19 @@
             <td>Penthouse    </td>
             <td>Ground Floor Apartment   </td>
           </tr>
-          <td>Alice </td>
+          <td>Ami </td>
             <td>100</td>
             <td>500</td>
             <td>400</td>
 
           </tr>
-          <td>Bob</td>
+          <td>Tami</td>
             <td>100</td>
             <td>300</td>
             <td>600</td>
 
           </tr>
-          <td>Carol</td>
+          <td>Rami</td>
             <td>250</td>
             <td>100</td>
             <td>650</td>
@@ -91,10 +91,10 @@
 
         </thead>
       </table>
-      <p>Alice estimates the ground floor apartment at 400,000,
+      <p>Ami estimates the ground floor apartment at 400,000,
         the penthouse at half a million and the regular apartment at 100,000 and so on.<br>
         <h3> Proportional Division: </h3>
-        <table border="1" >
+        <table border="1" align="center">
           <thead >
             <tr>
               <td> Name </td>
@@ -102,19 +102,19 @@
               <td>Penthouse    </td>
               <td>Ground Floor Apartment   </td>
             </tr>
-            <td>Alice </td>
+            <td>Ami </td>
               <td>0%</td>
               <td>100%</td>
               <td>0%</td>
 
             </tr>
-            <td>Bob</td>
+            <td>Tami</td>
               <td>75.7%</td>
               <td>0%</td>
               <td>0%</td>
 
             </tr>
-            <td>Carol</td>
+            <td>Rami</td>
               <td>24.3%</td>
               <td>0%</td>
               <td>100%</td>
@@ -123,14 +123,14 @@
           </thead>
         </table>
         <p>Let us note that this is indeed a proportional division
-          Alice gets the whole penthouse and in his own assessment it's worth 500 which is more than 333.<br>
-          Bob's share in her own assessment is 454.2 which is more than 333.<br>
+          Ami gets the whole penthouse and in his own assessment it's worth 500 which is more than 333.<br>
+          Tami's share in her own assessment is 454.2 which is more than 333.<br>
           Remi's share in his view is 407.95 which is more than 333.<br>
-          It is worth noting that this is not a division without jealousy because Carol is jealous of Bob:<br>
-           Before Carol's estimate his share is 407.95 but according to his estimate Bob's share is 492 so he is jealous of her.<br>
+          It is worth noting that this is not a division without jealousy because Rami is jealous of Tami:<br>
+           Before Rami's estimate his share is 407.95 but according to his estimate Tami's share is 492 so he is jealous of her.<br>
 
            <h3> Division Without Jealousy: </h3>
-           <table border="1" >
+          <table border="1" align="center">
              <thead >
                <tr>
                  <td> Name </td>
@@ -138,19 +138,19 @@
                  <td>Penthouse    </td>
                  <td>Ground Floor Apartment   </td>
                </tr>
-               <td>Alice </td>
+               <td>Ami </td>
                  <td>0%</td>
                  <td>100%</td>
                  <td>0%</td>
 
                </tr>
-               <td>Bob</td>
+               <td>Tami</td>
                  <td>65%</td>
                  <td>0%</td>
                  <td>0%</td>
 
                </tr>
-               <td>Carol</td>
+               <td>Rami</td>
                  <td>35%</td>
                  <td>0%</td>
                  <td>100%</td>
@@ -158,29 +158,30 @@
                </tr>
              </thead>
            </table>
-           <p>According to Alice's assessment:<br>
-            <table >
+
+           <p>According to Ami's assessment:<br>
+            <table align="center">
               <thead >
                 <tr>
-                  <td> <h3>Alice</h3> </td>
-                  <td> <h3>Bob</h3>   </td>
-                  <td>  <h3>Carol</h3>   </td>
+                  <td> <h3>Ami</h3> </td>
+                  <td> <h3>Tami</h3>   </td>
+                  <td>  <h3>Rami</h3>   </td>
 
                 </tr>
-                <td> Alice's share: 1 * 500 = 500<br>
-                  Bob's share: 0.65 * 400 = 260<br>
-                  Carol's share = 0.35 * 400 + 1 * 100 = 240<br>
-                  As you can see Alice is not jealous.<br>  </td>
-                  <td>According to Bob:<br>
-                    Alice's share: 1 * 300 = 300<br>
-                    Bob's share: 0.65 * 600 = 390<br>
-                    Carol's share = 0.35 * 600 + 1 * 100 = 310<br>
-                    As you can see Bob is not jealous.<br> </td>
-                  <td>ccording to Carol:<br>
-                    Alice's share: 1 * 100 = 100<br>
-                    Bob's share: 0.65 * 650 = 422.5<br>
-                    Carol's share = 0.35 * 650 + 1 * 250 = 477.5<br>
-                    As you can see Carol is not jealous.</p></td>
+                <td> Ami's share: 1 * 500 = 500<br>
+                  Tami's share: 0.65 * 400 = 260<br>
+                  Rami's share = 0.35 * 400 + 1 * 100 = 240<br>
+                  As you can see Ami is not jealous.<br>  </td>
+                  <td>According to Tami:<br>
+                    Ami's share: 1 * 300 = 300<br>
+                    Tami's share: 0.65 * 600 = 390<br>
+                    Rami's share = 0.35 * 600 + 1 * 100 = 310<br>
+                    As you can see Tami is not jealous.<br> </td>
+                  <td>ccording to Rami:<br>
+                    Ami's share: 1 * 100 = 100<br>
+                    Tami's share: 0.65 * 650 = 422.5<br>
+                    Rami's share = 0.35 * 650 + 1 * 250 = 477.5<br>
+                    As you can see Rami is not jealous.</p></td>
 
 
                 </tr>
@@ -193,7 +194,7 @@
 
 
             <p> Therefore, it is a division without jealousy. <br>
-            Let us note that in both divisions only the ground floor apartment is divided between Carol and Bob and our algorithm ensures that this is the minimal option - meaning that it is not possible to divide these items according to these estimates without jealousy with fewer common items.
+            Let us note that in both divisions only the ground floor apartment is divided between Rami and Tami and our algorithm ensures that this is the minimal option - meaning that it is not possible to divide these items according to these estimates without jealousy with fewer common items.
             Thank you very much and enjoy the website!<br>
 
           </div>

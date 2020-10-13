@@ -325,7 +325,8 @@ function setMat(){
       mat[i][j]=parseInt(document.getElementById('input'+namesArr[i]+itemsArr[j]).value);
     }
   }
-  email=document.getElementById(emailInput).value;
+  email=document.getElementById("emailInput").value;
+  console.log(email);
   json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length , "email": email });
 
   var loader =document.createElement("div");
