@@ -91,12 +91,17 @@ class Algorithm(Resource):
         else:
 
             result = run_algorithm(data)
+            url = generate_table(agents=data['agents'], items=data['items'],
+                                 data=result, file_name=sha256(str(data['values']).encode('utf-8')).hexdigest(),
+                                 data_json=data)
 
             json_request = {
                 'problem': data['problem'],
                 'agents': data['agents'],
                 'items': data['items'],
-                'values': result
+                'values': result,
+                'RESULT': 0,
+                'url': url
             }
 
             print(json_request)

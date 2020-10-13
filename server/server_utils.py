@@ -91,6 +91,7 @@ def generate_table(agents, items, data, file_name, data_json):
     with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
         f.write(file_data)
 
+    print('generated url is {}'.format(file_name))
     return '{}/generated_html/{}.html'.format(URL, file_name)
 
 
@@ -102,6 +103,7 @@ sending email with the algorithm results.
 
 
 def send_email(email_receiver, url):
+    print('send email to: {}'.format(email_receiver))
     sender_email = "fairnessalgorithm.io@gmail.com"
     receiver_email = email_receiver
     password = ''
@@ -142,7 +144,6 @@ def build_proportional_output(results, data):
             'Hey {}, The total value of the items you received, according to your evaluation, is {} points.{}' \
             'This is at least 1/{} of the total value of your rates which is {}.'.format(
                 data['agents'][index], agent_result, '<br>', len(agents_results), 100))
-    print(explanation)
     return explanation
 
 
@@ -164,5 +165,4 @@ def build_envy_free_output(results, data):
         explanation_per_agent += '{} but according to your evaluation you got {} points, which is the best result ' \
                                  'according to your evaluation '.format('<br>', agents_results[agent_index])
         explanation.append(explanation_per_agent)
-    print(explanation)
     return explanation
