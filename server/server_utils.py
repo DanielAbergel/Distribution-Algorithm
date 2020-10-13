@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from dominate import document
 from dominate.tags import *
 from string import Template
+import numpy as np
 
 # server URL, in case of Debugging use '127.0.0.1:5000'
 URL = '161.35.20.108'
@@ -19,7 +20,7 @@ and save the HTML with unique identifier in the generated_html folder.
 """
 
 
-def generate_table(agents, items, data, file_name):
+def generate_table(agents, items, data, file_name, data_json):
     with document() as doc:
         head_page = head()
         head_page += link(rel='shortcut icon', href="../images/web-logo.png")
@@ -61,8 +62,35 @@ def generate_table(agents, items, data, file_name):
         result_table += header_thread
         result_table += thread_body
 
+        if data_json['problem'] == 'EnvyFree':
+            explanations = build_envy_free_output(data, data_json)
+        elif data_json['problem'] == 'Proportional':
+            explanations = build_proportional_output(data, data_json)
+
+        h1('Results Explanation', cls='header')
+
+        result_explanation_table = table(cls='content-table')
+        thread_body = tbody()
+        for index, explanation in enumerate(explanations):
+            item_tr = tr()
+            item_tr += th(agents[index])
+            item_tr += td(explanation)
+            thread_body += item_tr
+        result_explanation_table += thread_body
+
     with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
         f.write(doc.render())
+
+    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
+        file_data = f.read()
+
+    # Replace the target string
+    file_data = file_data.replace('&lt;br&gt;', '<br>')
+
+    # Write the file out again
+    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
+        f.write(file_data)
+
     return '{}/generated_html/{}.html'.format(URL, file_name)
 
 
@@ -103,3 +131,38 @@ def send_email(email_receiver, url):
         server.sendmail(
             sender_email, receiver_email, message.as_string()
         )
+
+
+def build_proportional_output(results, data):
+    points_per_item = np.array(results) * np.array(data['values'])
+    agents_results = [sum(e) for e in points_per_item]
+    explanation = []
+    for index, agent_result in enumerate(agents_results):
+        explanation.append(
+            'Hey {}, The total value of the items you received, according to your evaluation, is {} points.{}' \
+            'This is at least 1/{} of the total value of your rates which is {}.'.format(
+                data['agents'][index], agent_result, '<br>', len(agents_results), 100))
+    print(explanation)
+    return explanation
+
+
+def build_envy_free_output(results, data):
+    explanation = []
+    for agent_index, agent in enumerate(data['agents']):
+
+        results_per_agent_index = np.array(results) * np.array(data['values'][agent_index])
+        agents_results = [sum(e) for e in results_per_agent_index]
+        explanation_per_agent = 'Hey {}, The total value of the items you received, according to your evaluation  ' \
+                                'is {} points. {} according to your evaluation: '.format(agent,
+                                                                                         agents_results[agent_index],
+                                                                                         '<br>')
+
+        for other_agent_index, other_agent in enumerate(data['agents']):
+            if agent_index != other_agent_index:
+                explanation_per_agent += '{} got {} points .'.format(other_agent,
+                                                                     agents_results[other_agent_index])
+        explanation_per_agent += '{} but according to your evaluation you got {} points, which is the best result ' \
+                                 'according to your evaluation '.format('<br>', agents_results[agent_index])
+        explanation.append(explanation_per_agent)
+    print(explanation)
+    return explanation

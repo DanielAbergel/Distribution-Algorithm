@@ -1,7 +1,6 @@
 import numpy as np
 import sys
-from server.server_utils import send_email
-from server.server_utils import generate_table
+
 from threading import Thread
 from _sha256 import sha256
 
@@ -10,6 +9,8 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_restful import Resource, Api
 from algorithm.Version3.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
 from algorithm.Version3.FairProportionalAllocationProblem import FairProportionalAllocationProblem
+from server_utils import send_email
+from server_utils import generate_table
 
 app = Flask(__name__)
 api = Api(app)
@@ -137,7 +138,7 @@ calculating the algorithm with specific input , and sending email to the end-use
 def long_time_algorithm(data):
     result = run_algorithm(data)
     url = generate_table(agents=data['agents'], items=data['items'],
-                         data=result, file_name=sha256(str(data['values']).encode('utf-8')).hexdigest())
+                         data=result, file_name=sha256(str(data['values']).encode('utf-8')).hexdigest(), data_json=data)
     send_email(data['email'], url)
 
 
