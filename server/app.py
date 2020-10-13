@@ -5,10 +5,9 @@ from server.server_utils import generate_table
 from threading import Thread
 from _sha256 import sha256
 
-
 sys.path.append('../')
-from flask import Flask, request, render_template, jsonify, send_from_directory
-from flask_restful import Resource, Api, reqparse
+from flask import Flask, request, jsonify, send_from_directory
+from flask_restful import Resource, Api
 from algorithm.Version3.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
 from algorithm.Version3.FairProportionalAllocationProblem import FairProportionalAllocationProblem
 
@@ -16,8 +15,11 @@ app = Flask(__name__)
 api = Api(app)
 
 """
-
+Each function below receives a URL and returns the content for this URL
+HTML , js, CSS , images , etc..
 """
+
+
 @app.route('/')
 def home():
     return send_from_directory('../web/', 'Home.html')
@@ -43,9 +45,22 @@ def send_images(image):
     return send_from_directory('../web/images', image)
 
 
+"""
+:return the generated URL with the Algorithm results and explanation
+"""
+
+
 @app.route('/generated_html/<string:data>')
 def build_result(data):
     return send_from_directory('../web/generated_html/', data)
+
+
+"""
+This class is a Restful API responsible for the communication with the client.
+receive the input from the client(website),
+calculating the algorithm, send email in case the algorithm takes more than 5 sec, 
+and returns the Algorithm results.
+"""
 
 
 class Algorithm(Resource):
@@ -92,6 +107,12 @@ class Algorithm(Resource):
 
 api.add_resource(Algorithm, '/calculator')
 
+"""
+calculating the algorithm with specific input
+:param data represent the JSON that the server receives from the client-side
+:return the algorithm result as matrix (numpy.np)
+"""
+
 
 def run_algorithm(data):
     matrix = np.array(data['values'])
@@ -106,6 +127,13 @@ def run_algorithm(data):
     return ans.tolist()
 
 
+"""
+runnable function that runs in case of long algorithm (4 agents or more)
+calculating the algorithm with specific input , and sending email to the end-user with the algorithm results.
+:param data represent the JSON that the server receives from the client-side
+"""
+
+
 def long_time_algorithm(data):
     result = run_algorithm(data)
     url = generate_table(agents=data['agents'], items=data['items'],
@@ -113,5 +141,6 @@ def long_time_algorithm(data):
     send_email(data['email'], url)
 
 
+# Used for Debugging only
 if __name__ == '__main__':
     app.run(debug=False, port=5000)

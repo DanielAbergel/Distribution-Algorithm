@@ -6,8 +6,17 @@ from dominate import document
 from dominate.tags import *
 from string import Template
 
-
+# server URL, in case of Debugging use '127.0.0.1:5000'
 URL = '161.35.20.108'
+
+"""
+generate HTML file that represent the algorithm results.
+and save the HTML with unique identifier in the generated_html folder.
+:param agents represent the agents names list (str list)
+:param items represent the items names list (str list)
+:param data represent the Algorithm results as numpy.np
+:param file_name represent the output file name (unique identifier)
+"""
 
 
 def generate_table(agents, items, data, file_name):
@@ -57,6 +66,13 @@ def generate_table(agents, items, data, file_name):
     return '{}/generated_html/{}.html'.format(URL, file_name)
 
 
+"""
+sending email with the algorithm results.
+:param email_receiver is a valid email of the receiver of the results
+:param url represent the site url that contain the algorithm results
+"""
+
+
 def send_email(email_receiver, url):
     sender_email = "fairnessalgorithm.io@gmail.com"
     receiver_email = email_receiver
@@ -87,6 +103,3 @@ def send_email(email_receiver, url):
         server.sendmail(
             sender_email, receiver_email, message.as_string()
         )
-
-
-
