@@ -23,27 +23,27 @@ HTML , js, CSS , images , etc..
 
 @app.route('/')
 def home():
-    return send_from_directory('../web/', 'Home.html')
+    return send_from_directory('/web/', 'Home.html')
 
 
 @app.route('/<string:html>')
 def send_html(html):
-    return send_from_directory('../web/', html)
+    return send_from_directory('/web/', html)
 
 
 @app.route('/DOM/<string:dom>')
 def send_dom(dom):
-    return send_from_directory('../web/DOM', dom)
+    return send_from_directory('/web/DOM', dom)
 
 
 @app.route('/css/<string:css>')
 def send_css(css):
-    return send_from_directory('../web/css', css)
+    return send_from_directory('/web/css', css)
 
 
 @app.route('/images/<string:image>')
 def send_images(image):
-    return send_from_directory('../web/images', image)
+    return send_from_directory('/web/images', image)
 
 
 """
@@ -53,7 +53,7 @@ def send_images(image):
 
 @app.route('/generated_html/<string:data>')
 def build_result(data):
-    return send_from_directory('../web/generated_html/', data)
+    return send_from_directory('/web/generated_html/', data)
 
 
 """
