@@ -23,6 +23,7 @@ HTML , js, CSS , images , etc..
 
 @app.route('/')
 def home():
+    print("<<<< HOME >>>>")
     return send_from_directory('/web/', 'Home.html')
 
 
