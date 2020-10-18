@@ -389,14 +389,14 @@ document.body.appendChild(loader);
  // result(mat,mat);
   console.log(json);
   var xhr = new XMLHttpRequest();
-  var url = "http://161.35.20.108/calculator";
+  var url = "https://fairness-algorithm.herokuapp.com/calculator";
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var responseText = JSON.parse(xhr.responseText);
       if(namesArr.length>3){
-        window.location.replace("http://161.35.20.108/email.html");
+        window.location.replace("https://fairness-algorithm.herokuapp.com/email.html");
       }else{
         var html=responseText.url;
         window.location.replace(html);
