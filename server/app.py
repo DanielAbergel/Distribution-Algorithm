@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-
+import os
 from threading import Thread
 from _sha256 import sha256
 
@@ -72,7 +72,7 @@ class Algorithm(Resource):
     def post(self):
 
         data = request.get_json()
-
+        print(os.getcwd())
         if int(data['num_of_agents']) > 3:
 
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
@@ -101,7 +101,7 @@ class Algorithm(Resource):
                 'items': data['items'],
                 'values': result,
                 'RESULT': 0,
-                'url': 'http://' + url
+                'url': 'https://' + url
             }
 
             print(json_request)

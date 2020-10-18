@@ -8,7 +8,7 @@ from string import Template
 import numpy as np
 
 # server URL, in case of Debugging use '127.0.0.1:5000'
-URL = '161.35.20.108'
+URL = 'fairness-algorithm.herokuapp.com'
 
 """
 generate HTML file that represent the algorithm results.
@@ -78,17 +78,17 @@ def generate_table(agents, items, data, file_name, data_json):
             thread_body += item_tr
         result_explanation_table += thread_body
 
-    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
+    with open('../web/generated_html/{}.html'.format(file_name), 'w') as f:
         f.write(doc.render())
 
-    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'r') as f:
+    with open('../web/generated_html/{}.html'.format(file_name), 'r') as f:
         file_data = f.read()
 
     # Replace the target string
     file_data = file_data.replace('&lt;br&gt;', '<br>')
 
     # Write the file out again
-    with open('/var/www/html/fairness-algorithm-rest/web/generated_html/{}.html'.format(file_name), 'w') as f:
+    with open('../web/generated_html/{}.html'.format(file_name), 'w') as f:
         f.write(file_data)
 
     print('generated url is {}'.format(file_name))
@@ -115,7 +115,7 @@ def send_email(email_receiver, url):
 
     # Create the plain-text and HTML version of your message
 
-    with open('/var/www/html/fairness-algorithm-rest/web/html_email_template.html', 'r+') as f:
+    with open('../web/html_email_template.html', 'r+') as f:
         template = Template(f.read())
         html = (template.substitute(URL=url))
 
