@@ -50,22 +50,37 @@ Now that the server deployed using Flask and Flask-RESTful, access the default S
 ```
 ## Production Server 
 
-It is highly recommended to run the Debug server, and check whether everything works before installing the Production Server . 
+Creating a Heroku account
 
-Go into the **server/** folder.                                             
-Run the following command and replace the `` <password> `` parameter with your user password and the  ``` <user> ```  parameter with your ubuntu username .  
-(TIP: to find your ubuntu user name run the command  ``whoami``  )
+First thing we need to do is to sign up for a Heroku account. If you haven't done so, here is the [link](https://signup.heroku.com).
 
-```
-./deployServer <password> <user>
-```
-Now that the server deployed using Nginx and uWSGI,  
-access the default Server landing page to confirm that the software is running properly through your IP address:
-(TIP: to find your IP run the command  ``ifconfig``  )
+The page will also ask for your primary programming language, choose python (not necessary).
 
-```
-  http://your_ip
-```
+After creating and logging into your account, you will be ask to select a Dyno , which is essential a server in Heroku . Other platforms will have different names for their servers. Remember to select the free tier Dyno unless you choose to pay.
+
+The free tier Dyno is powerful enough to our website (there is also the unix Deployment via master branch , for more information please see master branch README.md), and the limitation is that it will go to sleep if no requests come in 30 minutes. 
+It will wake up in a few seconds after receiving a request when it's sleeping. The performance of free Dyno is also limited. Still, it's a good way for our project.
+
+After selecting the Dyno , you will be navigated to the Dashboard, where you can create a new app. Click the New button on the upper-right of your Dashboard, and select create new app from the dropdown menu.
+Then enter the app name and select a region for your app. Selecting a region which is closest to your users can make your service much faster.
+
+After creating a new app, you will be navigated to the app page.
+Select the ```Settings``` tab and go to the ```buildpack``` option. Use the ```Add buildpack``` button and add the following lines , ```by that order``` :
+
+```https://github.com/timanovsky/subdir-heroku-buildpack.git```
+
+```heroku/python```
+
+Next, select the Deploy tab in the app page.
+
+Then click the GitHub option in Deployment method section and enter your credentials to connect Heroku with your GitHub. Next, select the repository and branch where your project is ```Distribution-Algorithm``` and branch is ```heroku-depoloyment```. Once it is done, you can directly deploy your app from GitHub onto Heroku by clicking the button Deploy Branch . Heroku will take care of the rest for you from now on. After a few seconds, Heroku will finish deploying for you.
+
+by Clicking on ```View``` you can go to your website URL , have fun . 
+
+It is highly recommended to choose ```Enable Automatic Deploys``` for the ```heroku-deployment``` branch , this will automatic build the website on each commit on the branch.
+
+NOTE : Most of the documentation is taken from another repository
+
 Our server is a generic production server that can be used by many algorithms. 
 The server usage is simple, to deliver any content to the clients, place the content as described here:
 * HTML content - web/```<any HTML format>```.
@@ -74,8 +89,6 @@ The server usage is simple, to deliver any content to the clients, place the con
   
 restart the Nginx service,  the server will send the content as expected.  
   
-### Production Server Architecture
-![1*B6Oec7uy05pqTUlVf9FwBA](https://user-images.githubusercontent.com/44754325/95879579-2fddba00-0d7f-11eb-9af7-c10f206b14b7.jpeg)
 # Server data format
 our server recives the Algorithm input via ``<server URL>/calculator`` URL. (need to send a POST request with JSON as described here)
 ```json
