@@ -86,6 +86,8 @@ class Algorithm(Resource):
             for x in range(4):
                 Thread(target=run, args=(x, random.random())).start()
 
+            long_time_algorithm(data)
+
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
             thread.start()
 
