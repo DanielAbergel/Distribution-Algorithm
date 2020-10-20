@@ -129,6 +129,8 @@ def send_email(email_receiver, url):
 
     # Create secure connection with server and send email
     context = ssl.create_default_context()
+    print(sender_email)
+    print(password)
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
         server.login(sender_email, password)
         server.sendmail(
