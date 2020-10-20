@@ -1,3 +1,5 @@
+import time
+from threading import current_thread
 import numpy as np
 import sys
 import os
@@ -67,7 +69,7 @@ and returns the Algorithm results.
 
 def run(x, s):
     time.sleep(s)
-    print ("%s %s %s" % (threading.current_thread(), x, s))
+    print("%s %s %s" % (current_thread(), x, s))
 
 
 class Algorithm(Resource):
