@@ -65,7 +65,7 @@ and returns the Algorithm results.
 """
 
 
-def run(x,s):
+def run(x, s):
     time.sleep(s)
     print ("%s %s %s" % (threading.current_thread(), x, s))
 
@@ -82,7 +82,7 @@ class Algorithm(Resource):
         if int(data['num_of_agents']) > 3:
 
             for x in range(4):
-                Thread(target=foo, args=(x, random.random())).start()
+                Thread(target=run, args=(x, random.random())).start()
 
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
             thread.start()
