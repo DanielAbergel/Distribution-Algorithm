@@ -82,7 +82,7 @@ class Algorithm(Resource):
         if int(data['num_of_agents']) > 3:
 
             for x in range(4):
-                threading.Thread(target=foo, args=(x, random.random())).start()
+                Thread(target=foo, args=(x, random.random())).start()
 
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
             thread.start()
