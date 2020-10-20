@@ -101,7 +101,7 @@ class Algorithm(Resource):
                 'items': data['items'],
                 'values': result,
                 'RESULT': 0,
-                'url': 'https://' + url
+                'url': url
             }
 
             print(json_request)

@@ -7,8 +7,6 @@ from dominate.tags import *
 from string import Template
 import numpy as np
 
-# server URL, in case of Debugging use '127.0.0.1:5000'
-URL = 'fairness-algorithm.herokuapp.com'
 
 """
 generate HTML file that represent the algorithm results.
@@ -92,7 +90,7 @@ def generate_table(agents, items, data, file_name, data_json):
         f.write(file_data)
 
     print('generated url is {}'.format(file_name))
-    return '{}/generated_html/{}.html'.format(URL, file_name)
+    return '/generated_html/{}.html'.format(file_name)
 
 
 """
@@ -104,9 +102,12 @@ sending email with the algorithm results.
 
 def send_email(email_receiver, url):
     print('send email to: {}'.format(email_receiver))
-    sender_email = "fairnessalgorithm.io@gmail.com"
+    sender_email = os.environ.get('EMAIL', None)
     receiver_email = email_receiver
-    password = ''
+    password = os.environ.get('EMAIL_PASSWORD', None)
+
+    if (password or sender_email) is None:
+        print('EMAIL or EMAIL_PASSWORD is None , Please check HeroKu ENV')
 
     message = MIMEMultipart("alternative")
     message["Subject"] = "Fairness.io Results"
