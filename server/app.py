@@ -1,11 +1,8 @@
-import time
-from threading import current_thread
 import numpy as np
 import sys
 import os
 from threading import Thread
 from _sha256 import sha256
-import random
 
 sys.path.append('../')
 from flask import Flask, request, jsonify, send_from_directory
@@ -67,11 +64,6 @@ and returns the Algorithm results.
 """
 
 
-def run(x, s):
-    time.sleep(s)
-    print("%s %s %s" % (current_thread(), x, s))
-
-
 class Algorithm(Resource):
 
     def get(self):
@@ -82,11 +74,6 @@ class Algorithm(Resource):
         data = request.get_json()
         print(os.getcwd())
         if int(data['num_of_agents']) > 3:
-
-            for x in range(4):
-                Thread(target=run, args=(x, random.random())).start()
-
-            long_time_algorithm(data)
 
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
             thread.start()
