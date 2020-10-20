@@ -75,10 +75,8 @@ class Algorithm(Resource):
         print(os.getcwd())
         if int(data['num_of_agents']) > 3:
 
-            thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
+            thread = Thread(target=long_time_algorithm, args=(data,))
             thread.start()
-
-            long_time_algorithm(data)
 
             json_request = {
                 'message': 'to many agents , the algorithm results will send by email.',
