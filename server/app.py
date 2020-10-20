@@ -70,6 +70,18 @@ class Algorithm(Resource):
         return {'algorithm': 'available'}
 
     def post(self):
+        """
+        runnable function that runs in case of long algorithm (4 agents or more)
+        calculating the algorithm with specific input , and sending email to the end-user with the algorithm results.
+        :param data represent the JSON that the server receives from the client-side
+        """
+
+        def long_time_algorithm(data):
+            result = run_algorithm(data)
+            url = generate_table(agents=data['agents'], items=data['items'],
+                                 data=result, file_name=sha256(str(data['values']).encode('utf-8')).hexdigest(),
+                                 data_json=data)
+            send_email(data['email'], url)
 
         data = request.get_json()
         print(os.getcwd())
@@ -131,20 +143,6 @@ def run_algorithm(data):
         ans = ProblemObject.find_allocation_with_min_shering()
         print('Using Proportional Algorithm')
     return ans.tolist()
-
-
-"""
-runnable function that runs in case of long algorithm (4 agents or more)
-calculating the algorithm with specific input , and sending email to the end-user with the algorithm results.
-:param data represent the JSON that the server receives from the client-side
-"""
-
-
-def long_time_algorithm(data):
-    result = run_algorithm(data)
-    url = generate_table(agents=data['agents'], items=data['items'],
-                         data=result, file_name=sha256(str(data['values']).encode('utf-8')).hexdigest(), data_json=data)
-    send_email(data['email'], url)
 
 
 # Used for Debugging only
