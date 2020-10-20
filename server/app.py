@@ -78,6 +78,8 @@ class Algorithm(Resource):
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
             thread.start()
 
+            long_time_algorithm(data)
+
             json_request = {
                 'message': 'to many agents , the algorithm results will send by email.',
                 'RESULT': 1
