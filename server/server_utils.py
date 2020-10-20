@@ -6,7 +6,7 @@ from dominate import document
 from dominate.tags import *
 from string import Template
 import numpy as np
-
+import os
 
 """
 generate HTML file that represent the algorithm results.
