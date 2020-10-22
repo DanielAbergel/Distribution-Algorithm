@@ -395,9 +395,7 @@ document.body.appendChild(loader);
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var responseText = JSON.parse(xhr.responseText);
-      if(namesArr.length>3){
-        window.location.replace("/email.html");
-      }else{
+      if(namesArr.length <= 3){
         var html=responseText.url;
         window.location.replace(html);
       }
@@ -405,6 +403,9 @@ document.body.appendChild(loader);
   };
   var data = json;
   xhr.send(data);
+  if(namesArr.length > 3){
+     window.location.replace("/email.html");
+  }
 }
 
 function deleteBtn(){
