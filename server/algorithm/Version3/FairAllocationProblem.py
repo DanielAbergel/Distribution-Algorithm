@@ -31,7 +31,8 @@ class FairAllocationProblem():
 
 
     def find_allocation_for_graph(self,consumption_graph : ConsumptionGraph):
-        pass
+        raise Exception("the class FairAllocationProblem is abstract class - you can't creat an instance from this class")
+
 
 
 
