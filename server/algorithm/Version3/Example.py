@@ -1,5 +1,6 @@
 import numpy as np
 import datetime
+
 from algorithm.Version3.FairEnvyFreeAllocationProblem import FairEnvyFreeAllocationProblem
 from algorithm.Version3.FairProportionalAllocationProblem import FairProportionalAllocationProblem
 
