@@ -78,7 +78,7 @@ class Algorithm(Resource):
         print(os.getcwd())
         if int(data['num_of_agents']) > 3:
 
-            q.enqueue(long_time_algorithm, data)
+            q.enqueue(long_time_algorithm, args=(data, ), timeout=900)
 
             json_request = {
                 'message': 'to many agents , the algorithm results will send by email.',
