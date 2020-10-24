@@ -3,6 +3,7 @@ import sys
 import os
 from threading import Thread
 from _sha256 import sha256
+import time
 
 sys.path.append('../')
 from flask import Flask, request, jsonify, send_from_directory
@@ -64,6 +65,13 @@ and returns the Algorithm results.
 """
 
 
+def testing(seconds):
+    print(seconds)
+    for i in range(int(seconds)):
+        print('number : {}'.format(i))
+        time.sleep(1)
+
+
 class Algorithm(Resource):
 
     def get(self):
@@ -76,6 +84,9 @@ class Algorithm(Resource):
         if int(data['num_of_agents']) > 3:
 
             thread = Thread(target=long_time_algorithm, args=(data,), daemon=True)
+            thread.start()
+
+            thread = Thread(target=testing, args=(50,), daemon=True)
             thread.start()
 
             json_request = {
