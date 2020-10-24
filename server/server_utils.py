@@ -100,7 +100,7 @@ sending email with the algorithm results.
 """
 
 
-def send_email(email_receiver, url):
+def send_email(email_receiver, url, base_url):
     print('send email to: {}'.format(email_receiver))
     sender_email = os.environ.get('EMAIL', None)
     receiver_email = email_receiver
@@ -118,7 +118,7 @@ def send_email(email_receiver, url):
 
     with open('web/html_email_template.html', 'r+') as f:
         template = Template(f.read())
-        html = (template.substitute(URL=url))
+        html = (template.substitute(URL='{}{}'.format(base_url, url)))
 
     # Turn these into plain/html MIMEText objects
     part2 = MIMEText(html, "html")

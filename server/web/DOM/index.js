@@ -379,7 +379,7 @@ function setMat(){
   }
   email=document.getElementById("emailInput").value;
   console.log(email);
-  json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length , "email": email });
+  json=JSON.stringify({"values":mat,"problem": document.getElementById("alg2").checked ? "EnvyFree" : "Proportional","agents":namesArr,"items":itemsArr,"num_of_agents":mat.length,"num_of_items":mat[0].length , "email": email , "url" : window.location.origin});
 
   var loader =document.createElement("div");
   loader.id="loaderId";

@@ -1,7 +1,6 @@
 import numpy as np
 import sys
 import os
-from threading import Thread
 from _sha256 import sha256
 from rq import Queue
 from worker import conn
@@ -146,7 +145,7 @@ def long_time_algorithm(data):
     url = generate_table(agents=data['agents'], items=data['items'],
                          data=result, file_name=sha256(str(data['values']).encode('utf-8')).hexdigest(),
                          data_json=data)
-    send_email(data['email'], url)
+    send_email(data['email'], url, data['url'])
 
 
 # Used for Debugging only
