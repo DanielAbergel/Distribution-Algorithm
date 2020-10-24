@@ -16,7 +16,7 @@ from server_utils import generate_table
 
 app = Flask(__name__)
 api = Api(app)
-q = Queue(connection=conn)
+q = Queue(connection=conn, default_timeout=3600)
 
 """
 Each function below receives a URL and returns the content for this URL
@@ -78,7 +78,7 @@ class Algorithm(Resource):
         print(os.getcwd())
         if int(data['num_of_agents']) > 3:
 
-            q.enqueue(long_time_algorithm, args=(data, ), timeout=900)
+            q.enqueue(long_time_algorithm, data)
 
             json_request = {
                 'message': 'to many agents , the algorithm results will send by email.',
