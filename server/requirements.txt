@@ -4,3 +4,4 @@ uwsgi
 cvxpy
 numpy
 dominate
+rq
