@@ -87,7 +87,9 @@ def generate_table(agents, items, data, file_name, data_json):
 
     # Write the file out again
     with open('web/generated_html/{}.html'.format(file_name), 'w') as f:
+        print('writing file..')
         f.write(file_data)
+        print('done')
 
     print('generated url is {}'.format(file_name))
     return '/generated_html/{}.html'.format(file_name)
