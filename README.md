@@ -72,12 +72,13 @@ Select the ```Settings``` tab and go to the ```buildpack``` option. Use the ```A
 ```heroku/python```
 
 Then add the Following key-value to the ```Config Vars``` :
-```buildoutcfg
- KEY              VALUE
- EMAIL          : <Email>
- EMAIL_PASSWORD : <Email password>
- PROJECT_PATH   : server
-```
+
+KEY | VALUE | 
+--- | --- | 
+EMAIL | ```<Email>``` |
+EMAIL_PASSWORD | ```<Email password>``` |
+PROJECT_PATH | server |
+ 
 ```PROJECT_PATH``` is mandatory parameter!
 
 ```EMAIL``` + ```EMAIL_PASSWORD``` used for sending emails with the algorithm results.
@@ -141,3 +142,4 @@ in our client-side (website) on in each 4 Agent case, an email will be sent with
 * [Algorithm Programming](server/algorithm/): Eliyahu Satat and Nachshon Satat.
 * [Server Programming](server/): Daniel Abergel and Elyashiv Deri.
 * [Front-End Programming](demoWeb/): Netanel Ben Issahar.
+
