@@ -73,7 +73,6 @@ Select the ```Settings``` tab and go to the ```buildpack``` option. Use the ```A
 
 Then add the Following key-value to the ```Config Vars``` :
 ```buildoutcfg
-
  KEY              VALUE
  EMAIL          : <Email>
  EMAIL_PASSWORD : <Email password>
