@@ -71,6 +71,18 @@ Select the ```Settings``` tab and go to the ```buildpack``` option. Use the ```A
 
 ```heroku/python```
 
+Then add the Following key-value to the ```Config Vars``` :
+```buildoutcfg
+
+ KEY              VALUE
+ EMAIL          : <Email>
+ EMAIL_PASSWORD : <Email password>
+ PROJECT_PATH   : server
+```
+```PROJECT_PATH``` is mandatory parameter!
+
+```EMAIL``` + ```EMAIL_PASSWORD``` used for sending emails with the algorithm results.
+
 Next, select the Deploy tab in the app page.
 
 Then click the GitHub option in Deployment method section and enter your credentials to connect Heroku with your GitHub. Next, select the repository and branch where your project is ```Distribution-Algorithm``` and branch is ```heroku-depoloyment```. Once it is done, you can directly deploy your app from GitHub onto Heroku by clicking the button Deploy Branch . Heroku will take care of the rest for you from now on. After a few seconds, Heroku will finish deploying for you.
@@ -86,9 +98,7 @@ The server usage is simple, to deliver any content to the clients, place the con
 * HTML content - web/```<any HTML format>```.
 * CSS content - web/css/```<any CSS format>```.
 * DOM content (JavaScript files) - web/DOM/```<any DOM format>```. 
-  
-restart the Nginx service,  the server will send the content as expected.  
-  
+    
 # Server data format
 our server recives the Algorithm input via ``<server URL>/calculator`` URL. (need to send a POST request with JSON as described here)
 ```json
