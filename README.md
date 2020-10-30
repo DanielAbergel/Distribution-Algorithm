@@ -83,6 +83,8 @@ PROJECT_PATH | server |
 
 ```EMAIL``` + ```EMAIL_PASSWORD``` used for sending emails with the algorithm results.
 
+also, need to add ```Redis to Go``` library to support long-time algorithm, to add ```Redis to go```, go to the ```Resources``` tab then search ```Redis to go``` and add this plugin to your app.
+
 Next, select the Deploy tab in the app page.
 
 Then click the GitHub option in Deployment method section and enter your credentials to connect Heroku with your GitHub. Next, select the repository and branch where your project is ```Distribution-Algorithm``` and branch is ```heroku-depoloyment```. Once it is done, you can directly deploy your app from GitHub onto Heroku by clicking the button Deploy Branch . Heroku will take care of the rest for you from now on. After a few seconds, Heroku will finish deploying for you.
