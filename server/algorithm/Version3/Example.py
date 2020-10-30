@@ -28,6 +28,11 @@ if __name__ == '__main__':
     v =  [[150., 150. ,150. ,150., 150. ,250.],
          [150., 150. ,150. ,150., 150. ,250.],
          [150., 150. ,150. ,150., 150. ,250.]]
+    """
+    v =  [[1., 15. ,7. ,9., 2. ,5.],
+         [9., 20. ,3. ,5., 1. ,30.],
+         [12., 8. ,7. ,6., 3. ,23.]]
+    """
     # create an object of Envy-Free algorithm with the input matrix
     fefap = FairEnvyFreeAllocationProblem(v)
 
